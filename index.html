@@ -4,463 +4,289 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fadi &amp; Nomi — Date Night Atlas, London Ontario</title>
-  <meta name="description" content="A working atlas of date nights in and around London, Ontario. Built for one couple, hopelessly over-engineered." />
+  <meta name="description" content="A field guide to date nights in London, Ontario. 150+ spots, 15 itineraries, weather-aware, hand-arranged." />
+  <link rel="stylesheet" href="./assets/style.css" />
   <style>
-    :root {
-      --bg: #14090c;
-      --surface: #1d1216;
-      --surface2: #281a1f;
-      --border: rgba(255,228,210,0.08);
-      --border2: rgba(255,228,210,0.16);
-      --text: #f7e7d8;
-      --muted: rgba(247,231,216,0.55);
-      --accent: #d4a373;
-      --accent2: #f5c187;
-      --rose: #e07a8a;
-      --rose2: #f4a8b4;
-      --burgundy: #7a2438;
-      --green: #92b87a;
-      --amber: #f5c187;
-      --red: #e8755a;
-      --plum: #c69adc;
-      --radius: 16px;
+    /* page-specific tweaks */
+    .hero-headline-row {
+      display: grid; grid-template-columns: 1fr auto; align-items: end;
+      gap: 24px; padding-bottom: 30px; border-bottom: 1px solid var(--rule);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      background: radial-gradient(ellipse at top, #2a1219 0%, var(--bg) 60%) fixed;
-      color: var(--text); line-height: 1.6; min-height: 100vh;
+    .hero-issue {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--rust); text-align: right; line-height: 1.6;
+    }
+    .hero-issue strong { color: var(--ink); display: block; font-size: 12px; }
+    .marquee {
+      display: flex; gap: 22px; align-items: center;
+      padding: 14px 0; margin-top: 22px; border-bottom: 1px solid var(--rule);
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--ink-2);
+      overflow: hidden; white-space: nowrap;
+    }
+    .marquee span { display: inline-flex; align-items: center; gap: 12px; }
+    .marquee span::before { content: '◆'; color: var(--gold); }
+    .marquee span:first-child::before { content: ''; }
+
+    .feature-spread {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px;
+      padding: 80px 0; align-items: center;
+    }
+    @media (max-width: 900px) {
+      .feature-spread { grid-template-columns: 1fr; gap: 32px; padding: 56px 0; }
+    }
+    .feature-spread .photo {
+      aspect-ratio: 4/5; background-size: cover; background-position: center;
+      border: 1px solid var(--rule); position: relative;
+      filter: sepia(0.06) saturate(0.95);
+    }
+    .feature-spread .photo::after {
+      content: 'No. 01 — Tonight'; position: absolute;
+      bottom: 14px; left: 14px; padding: 6px 12px;
+      background: var(--paper); border: 1px solid var(--rule);
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--rust);
+    }
+    .feature-spread h2 { margin-bottom: 18px; }
+
+    .threecol {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      padding: 50px 0;
+    }
+    @media (max-width: 900px) { .threecol { grid-template-columns: 1fr; gap: 24px; } }
+
+    .threecol article { padding-right: 16px; border-right: 1px solid var(--rule); }
+    .threecol article:last-child { border-right: none; }
+    @media (max-width: 900px) { .threecol article { border-right: none; padding-right: 0; padding-bottom: 24px; border-bottom: 1px solid var(--rule); } }
+    .threecol h3 { margin-bottom: 8px; }
+    .threecol .num { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 18px; display: block; margin-bottom: 6px; }
+
+    .itinerary-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
     }
 
-    /* ── Hero ── */
-    .hero {
-      position: relative; min-height: 78vh; display: flex; align-items: center;
-      justify-content: center; text-align: center; overflow: hidden;
+    /* index of itineraries — printed-paper menu style */
+    .menu-list { padding: 30px 0; columns: 2; column-gap: 60px; }
+    @media (max-width: 720px) { .menu-list { columns: 1; } }
+    .menu-list .leader {
+      break-inside: avoid;
+      padding: 12px 0;
+      border-bottom: 1px dotted var(--rule);
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(180deg, rgba(20,9,12,0.35) 0%, rgba(20,9,12,0.85) 100%),
-        url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/London%2C_Ontario%2C_at_dusk.jpg/1600px-London%2C_Ontario%2C_at_dusk.jpg');
-      background-size: cover; background-position: center 55%;
-      filter: saturate(1.1);
-    }
-    .hero-content { position: relative; z-index: 1; padding: 60px 24px; max-width: 760px; }
-    .hero .eyebrow {
-      display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent2); margin-bottom: 20px;
-      padding: 6px 14px; border: 1px solid rgba(245,193,135,0.3); border-radius: 100px;
-      background: rgba(245,193,135,0.05);
-    }
-    .hero h1 {
-      font-size: clamp(44px, 8vw, 88px); font-weight: 900;
-      letter-spacing: -0.04em; line-height: 1.0; color: #fff;
-      background: linear-gradient(135deg, #fff 30%, var(--rose2) 60%, var(--accent2) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .hero .amp { font-style: italic; font-weight: 400; opacity: 0.85; }
-    .hero .subtitle {
-      margin-top: 20px; font-size: 19px; color: rgba(255,255,255,0.78); max-width: 600px; margin-inline: auto;
-    }
-    .hero .stamp {
-      display: inline-flex; align-items: center; gap: 10px; margin-top: 24px;
-      padding: 10px 22px; background: rgba(255,255,255,0.07);
-      backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 100px; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.08em;
-    }
-    .stamp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 10px var(--rose); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .menu-list .leader a { text-decoration: none; }
+    .menu-list .num { font-family: var(--mono); color: var(--rust); margin-right: 8px; font-size: 11px; }
+    .menu-list .name { font-family: var(--serif); font-size: 19px; color: var(--ink); }
+    .menu-list .name em { color: var(--rust); font-style: italic; }
+    .menu-list .meta { font-family: var(--mono); font-size: 11px; color: var(--muted); }
 
-    .hero-actions {
-      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;
-      flex-direction: column; align-items: center;
+    .alert-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+      padding: 30px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+      margin: 40px 0;
     }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 15px;
-      text-decoration: none; transition: all 0.2s; cursor: pointer; border: none;
+    @media (max-width: 720px) { .alert-strip { grid-template-columns: 1fr; gap: 16px; } }
+    .alert-strip .a { padding: 0 22px 0 0; border-right: 1px solid var(--rule); }
+    .alert-strip .a:last-child { border-right: none; }
+    .alert-strip .a .label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--rust); margin-bottom: 8px;
     }
-    .btn-rose { background: linear-gradient(135deg, var(--rose), var(--burgundy)); color: #fff; box-shadow: 0 6px 24px rgba(224,122,138,0.35); }
-    .btn-rose:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(224,122,138,0.5); }
-    .btn-gold { background: var(--accent2); color: #2a1219; box-shadow: 0 4px 16px rgba(245,193,135,0.3); }
-    .btn-gold:hover { background: #ffd5a0; transform: translateY(-1px); }
-    .btn-ghost { background: rgba(255,255,255,0.08); color: #fff; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.18); }
-    .btn-ghost:hover { background: rgba(255,255,255,0.14); }
-
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 22px; }
-
-    /* ── Today banner ── */
-    .today-banner {
-      margin-top: 48px; margin-bottom: 24px;
-      background: linear-gradient(135deg, rgba(224,122,138,0.18), rgba(245,193,135,0.12));
-      border: 1px solid var(--border2);
-      border-left: 4px solid var(--rose);
-      border-radius: var(--radius);
-      padding: 22px 26px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
-    }
-    .today-banner .tb-icon { font-size: 36px; }
-    .today-banner .tb-text { flex: 1; min-width: 240px; }
-    .today-banner h3 { font-size: 20px; font-weight: 800; color: var(--rose2); margin-bottom: 4px; }
-    .today-banner p { color: var(--muted); font-size: 14px; }
-    .today-banner .tb-cta {
-      padding: 12px 22px; background: var(--rose); color: #fff; border-radius: 10px;
-      text-decoration: none; font-weight: 700; font-size: 14px; transition: 0.2s;
-    }
-    .today-banner .tb-cta:hover { background: var(--burgundy); transform: translateY(-1px); }
-
-    /* ── Alerts ── */
-    .alerts { display: grid; gap: 12px; margin-bottom: 42px; }
-    .alert {
-      display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px;
-      border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border);
-    }
-    .alert-icon { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
-    .alert-rose { border-left: 3px solid var(--rose); }
-    .alert-amber { border-left: 3px solid var(--amber); }
-    .alert-green { border-left: 3px solid var(--green); }
-    .alert strong { color: var(--text); }
-    .alert p { color: var(--muted); font-size: 14px; margin-top: 3px; }
-    .alert a { color: var(--accent2); }
-
-    /* ── Section ── */
-    section { margin-bottom: 64px; }
-    .section-title {
-      font-size: 12px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.18em; color: var(--accent2); margin-bottom: 18px;
-    }
-    .section-lede {
-      font-size: 17px; color: var(--muted); max-width: 720px; margin-bottom: 22px;
-      line-height: 1.55;
-    }
-
-    /* ── Stats strip ── */
-    .stats {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px; margin-bottom: 50px;
-    }
-    .stat {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 18px; text-align: center;
-    }
-    .stat-value {
-      font-size: 32px; font-weight: 800;
-      background: linear-gradient(135deg, var(--rose2), var(--accent2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; letter-spacing: 0.05em; }
-
-    /* ── Itinerary cards ── */
-    .itin-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); }
-    .itin-card {
-      position: relative; border-radius: var(--radius); overflow: hidden;
-      border: 1px solid var(--border); background: var(--surface);
-      transition: all 0.25s; text-decoration: none; color: var(--text); display: block;
-    }
-    .itin-card:hover { border-color: var(--rose); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
-    .itin-card .ic-img {
-      width: 100%; height: 180px; background-size: cover; background-position: center;
-      filter: brightness(0.55) saturate(1.1);
-      position: relative;
-    }
-    .itin-card .ic-img::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 30%, rgba(20,9,12,0.85));
-    }
-    .itin-card .ic-num {
-      position: absolute; top: 14px; left: 14px; z-index: 2;
-      width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(20,9,12,0.7); backdrop-filter: blur(6px);
-      border: 1px solid rgba(245,193,135,0.4);
-      color: var(--accent2);
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 15px;
-    }
-    .itin-card .ic-tag {
-      position: absolute; top: 14px; right: 14px; z-index: 2;
-      padding: 5px 11px; border-radius: 100px; font-size: 10px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      background: rgba(20,9,12,0.7); backdrop-filter: blur(6px);
-      border: 1px solid var(--border2);
-    }
-    .itin-card .ic-body { padding: 18px 20px 22px; }
-    .itin-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; line-height: 1.25; }
-    .itin-card .ic-sub { font-size: 13px; color: var(--accent2); font-weight: 600; margin-bottom: 10px; letter-spacing: 0.04em; }
-    .itin-card .ic-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
-    .itin-card .ic-meta {
-      display: flex; gap: 14px; margin-top: 14px; padding-top: 14px;
-      border-top: 1px dashed var(--border); font-size: 12px; color: var(--muted);
-      flex-wrap: wrap;
-    }
-    .itin-card .ic-meta span::before { margin-right: 5px; }
-
-    /* ── Card grid (deep dives) ── */
-    .card-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-    .card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 22px;
-      transition: border-color 0.2s, transform 0.2s;
-      text-decoration: none; color: var(--text); display: block;
-    }
-    a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-    .card p { font-size: 14px; color: var(--muted); line-height: 1.55; }
-    .badge {
-      display: inline-block; padding: 4px 11px; border-radius: 100px;
-      font-size: 11px; font-weight: 700; margin-top: 12px; letter-spacing: 0.04em;
-    }
-    .badge-rose { background: rgba(224,122,138,0.15); color: var(--rose2); }
-    .badge-gold { background: rgba(245,193,135,0.15); color: var(--accent2); }
-    .badge-green { background: rgba(146,184,122,0.15); color: var(--green); }
-    .badge-plum { background: rgba(198,154,220,0.15); color: var(--plum); }
-
-    /* ── Quote ── */
-    .quote {
-      margin: 60px 0; padding: 32px 28px;
-      background: linear-gradient(135deg, rgba(224,122,138,0.06), rgba(245,193,135,0.05));
-      border: 1px solid var(--border); border-left: 3px solid var(--rose);
-      border-radius: var(--radius);
-      font-style: italic; font-size: 17px; line-height: 1.6;
-      color: rgba(247,231,216,0.85);
-    }
-    .quote::before { content: '"'; font-size: 56px; color: var(--rose); line-height: 0.4; display: inline-block; vertical-align: top; margin-right: 8px; opacity: 0.6; }
-    .quote .qcite { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); font-style: normal; }
-
-    footer {
-      text-align: center; padding: 50px 20px 60px; color: var(--muted);
-      font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px;
-    }
-    footer a { color: var(--accent2); }
-    footer .heart { color: var(--rose); }
-
-    @media (max-width: 640px) {
-      .hero { min-height: 65vh; }
-      .hero h1 { font-size: 44px; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-    }
+    .alert-strip .a h4 { font-family: var(--serif); font-size: 19px; font-weight: 500; margin-bottom: 4px; }
+    .alert-strip .a p { font-size: 13px; color: var(--ink-2); }
   </style>
 </head>
 <body>
 
-  <!-- Hero -->
-  <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <div class="eyebrow">London, Ontario · 2026</div>
-      <h1>Fadi <span class="amp">&amp;</span> Nomi</h1>
-      <p class="subtitle">A hopelessly over-engineered atlas of date nights — built from 526 Grosvenor, scored by drive time, weather-adapted, dog-tolerant.</p>
-      <div class="stamp"><span class="stamp-dot"></span>SAT · APR 25 · 10°C · 40% SHOWERS</div>
-      <div class="hero-actions">
-        <a class="btn btn-rose" href="./today.html" style="padding:18px 36px;font-size:17px;">
-          Tonight's Plan &rarr;
-        </a>
-        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:-4px;">Hour-by-hour for today, weather-adapted with Plan A &amp; Plan B</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
-          <a class="btn btn-ghost" href="./itineraries.html" style="padding:11px 20px;font-size:13px;">15 Itineraries</a>
-          <a class="btn btn-ghost" href="./map.html" style="padding:11px 20px;font-size:13px;">Map</a>
-          <a class="btn btn-ghost" href="./guide.html" style="padding:11px 20px;font-size:13px;">Field Guide</a>
-        </div>
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a class="topnav-mark" href="./index.html">F &amp; N <em class="italic">Atlas</em></a>
+      <div class="topnav-links">
+        <a href="./today.html">Tonight</a>
+        <a href="./itineraries.html">Itineraries</a>
+        <a href="./explore.html" class="active">Explore</a>
+        <a href="./map.html">Map</a>
+        <a href="./guide.html">Guide</a>
       </div>
     </div>
-  </div>
+  </nav>
 
-  <div class="container">
+  <main class="container">
 
-    <!-- Today banner -->
-    <div class="today-banner">
-      <div class="tb-icon">🌧️</div>
-      <div class="tb-text">
-        <h3>Today: cool spring Saturday, breaks in the rain</h3>
-        <p>10°C high, 40% showers tapering off this morning, dropping to 1°C overnight. Wind NE 20 km/h easing this afternoon. Plan B (indoor pivot) is wired into every option below.</p>
-      </div>
-      <a class="tb-cta" href="./today.html">Build today &rarr;</a>
-    </div>
-
-    <!-- Alerts -->
-    <section class="alerts">
-      <div class="alert alert-amber">
-        <span class="alert-icon">⚠️</span>
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-headline-row">
         <div>
-          <strong>Reservations: book NOW for tonight</strong>
-          <p>Most date-tier London restaurants take Saturday reservations on OpenTable. <a href="https://www.opentable.ca/london-restaurants" target="_blank" rel="noopener">opentable.ca/london-restaurants</a>. Garlic's, David's, Idlewyld, Marienbad — call directly if today is the same day.</p>
+          <div class="eyebrow">Vol. I · Issue No. 01 · Spring '26</div>
+          <h1 class="hero-headline" style="margin-top: 16px;">Fadi <span class="amp">&amp;</span><br/>Nomi <em>—</em></h1>
+        </div>
+        <div class="hero-issue">
+          <strong>The Atlas</strong>
+          London, Ontario<br/>
+          For Saturday and<br/>every other day<br/>after.
         </div>
       </div>
-      <div class="alert alert-green">
-        <span class="alert-icon">🐶</span>
-        <div>
-          <strong>Puppy mode: flexible</strong>
-          <p>Each itinerary is flagged dog-allowed / dog-flex / no-puppy. Tonight's plan defaults to a puppy-at-home dinner with a daytime dog-included walk window — easy to flip.</p>
-        </div>
+
+      <div class="marquee">
+        <span>150+ Spots</span>
+        <span>15 Itineraries</span>
+        <span>9 Neighbourhoods</span>
+        <span>2 Hr Radius</span>
+        <span>1 Boobaloo</span>
+        <span>∞ Saturdays</span>
       </div>
-      <div class="alert alert-rose">
-        <span class="alert-icon">📍</span>
-        <div>
-          <strong>Home base: 526 Grosvenor St, London ON N6A 1Y4</strong>
-          <p>Old North, two blocks from Richmond Row. Drive times below assume light Saturday traffic from this address.</p>
-        </div>
+    </header>
+
+    <!-- FEATURED — TONIGHT -->
+    <section class="feature-spread">
+      <div class="photo" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/London%2C_Ontario%2C_at_dusk.jpg/1200px-London%2C_Ontario%2C_at_dusk.jpg');"></div>
+      <div>
+        <div class="eyebrow">Featured · The Plan for Tonight</div>
+        <h2 style="margin-top: 12px;"><em class="italic">A cool spring</em><br/>Saturday, broken<br/>by rain.</h2>
+        <p class="lede" style="margin: 22px 0;">Ten degrees, forty-percent showers tapering off this morning. Wind northeast twenty, easing. Sunset at eight-eighteen. The day calls for soft activity, warm rooms, and one really good meal. Three plans, sequenced to weather and energy.</p>
+        <a class="btn" href="./today.html">Read Tonight's Plan →</a>
       </div>
     </section>
 
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat"><div class="stat-value">15</div><div class="stat-label">Itineraries</div></div>
-      <div class="stat"><div class="stat-value">100+</div><div class="stat-label">Stops Mapped</div></div>
-      <div class="stat"><div class="stat-value">28</div><div class="stat-label">Restaurants</div></div>
-      <div class="stat"><div class="stat-value">7</div><div class="stat-label">Day Trips</div></div>
-      <div class="stat"><div class="stat-value">12</div><div class="stat-label">Late-Night Spots</div></div>
-      <div class="stat"><div class="stat-value">∞</div><div class="stat-label">Love</div></div>
+    <!-- THREE PILLARS -->
+    <section class="threecol">
+      <article>
+        <span class="num"><em class="italic">No. 01</em></span>
+        <h3>The Itineraries</h3>
+        <p>Fifteen complete arcs — from the Old Money Anniversary at Idlewyld and Reverie, to the Lazy Saturday brunch loop, to the Bayfield sunset pilgrimage. Each one mapped, timed, and marked for puppy.</p>
+        <a href="./itineraries.html" style="display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;">All Fifteen →</a>
+      </article>
+      <article>
+        <span class="num"><em class="italic">No. 02</em></span>
+        <h3>The Atlas</h3>
+        <p>One-hundred-and-fifty-plus spots across Old North, Richmond Row, Wortley, Old East and the day-trip ring. Filterable by neighbourhood, price, weather, dog-tolerance, drive time, time-of-day. Every pin is a place.</p>
+        <a href="./explore.html" style="display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;">Open Atlas →</a>
+      </article>
+      <article>
+        <span class="num"><em class="italic">No. 03</em></span>
+        <h3>The Map</h3>
+        <p>Geographic clustering with photographs in popups, route lines from your front door, neighbourhood colour zones. Tap any spot to see the rating, hours, the dish to order, and the itineraries it belongs to.</p>
+        <a href="./map.html" style="display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;">View Map →</a>
+      </article>
+    </section>
+
+    <!-- PULL QUOTE -->
+    <div class="container--narrow">
+      <blockquote class="pull">
+        Easy doesn't mean unmemorable. The best dates aren't performances — they're the ones where neither of you had to be on, and the room was a little nicer than usual.
+        <cite>— The thesis of the whole atlas</cite>
+      </blockquote>
     </div>
 
-    <!-- Itineraries grid -->
+    <!-- THE FIFTEEN — printed menu style -->
     <section>
-      <div class="section-title">The Fifteen Itineraries</div>
-      <p class="section-lede">Each one is a complete arc — pickup at home, drive times, exact addresses, costs, weather Plan B, dog flag, and an ending. Pick one, blend two, or use them as raw material. The whole point is options, ukwim?</p>
-      <div class="itin-grid" id="itinGrid"></div>
+      <div class="divider">The Fifteen Itineraries</div>
+      <p class="lede" style="margin-bottom: 14px;">Pick one whole. Or steal pieces and rebuild. Each plan is a complete arc — addresses, drive times from 526 Grosvenor, the dish to order, the reservation route, the rainy-day pivot.</p>
+
+      <div class="menu-list" id="menuList"></div>
+
+      <div style="text-align: center; margin-top: 30px;">
+        <a class="btn btn--ghost" href="./itineraries.html">Read All Fifteen →</a>
+      </div>
     </section>
 
-    <!-- Quote -->
-    <div class="quote">
-      Easy doesn't mean unmemorable. The best dates are the ones where neither of you had to perform — you just got to keep being yourselves, somewhere a little nicer than usual.
-      <span class="qcite">— the over-engineering principle behind this site</span>
+    <!-- WEATHER + LOGISTICS STRIP -->
+    <div class="alert-strip">
+      <div class="a">
+        <div class="label">Today's Weather</div>
+        <h4>10°C · 40% showers tapering</h4>
+        <p>Cool spring Saturday. Indoor pivots wired into every plan below. Sunset 8:18 PM.</p>
+      </div>
+      <div class="a">
+        <div class="label">Reservations</div>
+        <h4>Book by noon if dining at the headliners</h4>
+        <p>Reverie books 1–2 weeks out. Marienbad, David's, Garlic's, Idlewyld take same-day on a good day. <a href="https://www.opentable.ca/london-restaurants" target="_blank" rel="noopener">OpenTable</a>.</p>
+      </div>
+      <div class="a">
+        <div class="label">The Puppy</div>
+        <h4>Flexible, never required</h4>
+        <p>Each itinerary marked dog-allowed, dog-flex, or no-puppy. The lazy Sunday loop is fully tail-friendly.</p>
+      </div>
     </div>
 
-    <!-- Deep dives -->
-    <section>
-      <div class="section-title">Deep-Dive Reference</div>
-      <p class="section-lede">When you want to mix-and-match instead of pick a pre-built night.</p>
-      <div class="card-grid">
-        <a class="card" href="./guide.html#restaurants">
-          <h3>Restaurants Atlas</h3>
-          <p>Every date-worthy table in London ON: vibe, price tier, what to order, reservation route, drive time from Grosvenor.</p>
-          <span class="badge badge-rose">28 spots</span>
+    <!-- DEEP DIVE LINKS -->
+    <section style="padding-top: 30px;">
+      <div class="divider">Deep-Dive Reference</div>
+      <div class="grid grid-12">
+        <a class="card col-4" href="./explore.html?cat=restaurant">
+          <div class="card-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Restaurant_table.jpg/1200px-Restaurant_table.jpg');"></div>
+          <div class="card-body">
+            <div class="card-eyebrow">No. 01 · The Tables</div>
+            <div class="card-title">Restaurants</div>
+            <div class="card-desc">From a 5-course tasting in a Piccadilly back room to wood-grilled lamb on Old East. Sorted by neighbourhood, tier, walking distance.</div>
+            <div class="card-meta"><span>50+ spots</span><span>·</span><span>filterable</span></div>
+          </div>
         </a>
-        <a class="card" href="./guide.html#activities">
-          <h3>Activities &amp; Experiences</h3>
-          <p>Indoor and out — pottery, axe throwing, paint nights, escape rooms, float tanks, Boler treetop, Aeolian Hall.</p>
-          <span class="badge badge-gold">35+ ideas</span>
+        <a class="card col-4" href="./explore.html?cat=bar">
+          <div class="card-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cocktail_glass_with_strawberry.jpg/1200px-Cocktail_glass_with_strawberry.jpg');"></div>
+          <div class="card-body">
+            <div class="card-eyebrow">No. 02 · The Late Hour</div>
+            <div class="card-title">Bars &amp; Speakeasies</div>
+            <div class="card-desc">Hidden cocktail rooms, hotel lobby bars, taprooms, the natural-wine shop on Dundas. Open until and verified.</div>
+            <div class="card-meta"><span>20+ spots</span><span>·</span><span>by closing time</span></div>
+          </div>
         </a>
-        <a class="card" href="./guide.html#late">
-          <h3>After Dinner</h3>
-          <p>Cocktail bars, dessert spots, hotel lobby drinks, late-night cafes, jazz, sunset drives.</p>
-          <span class="badge badge-plum">12 spots</span>
-        </a>
-        <a class="card" href="./guide.html#daytrips">
-          <h3>Day Trips Within 90 Min</h3>
-          <p>Stratford, Bayfield, Port Stanley, St. Jacobs, Elora, Niagara — what's actually open in late April.</p>
-          <span class="badge badge-green">7 destinations</span>
-        </a>
-        <a class="card" href="./guide.html#hidden">
-          <h3>Hidden Gems</h3>
-          <p>Things you wouldn't have thought of: Hume Cronyn observatory, Banting Square, Speed City vinyl, Eldon House gardens.</p>
-          <span class="badge badge-rose">12 ideas</span>
-        </a>
-        <a class="card" href="./guide.html#flex">
-          <h3>Flex &amp; Backup</h3>
-          <p>Lazy options, post-tired-day options, unexpected-rain options, "just want to watch a movie" options.</p>
-          <span class="badge badge-gold">all-purpose</span>
+        <a class="card col-4" href="./explore.html?cat=daytrip">
+          <div class="card-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Stratford_Avon_river_swans.jpg/1200px-Stratford_Avon_river_swans.jpg');"></div>
+          <div class="card-body">
+            <div class="card-eyebrow">No. 03 · Within 2 Hours</div>
+            <div class="card-title">Day Trips</div>
+            <div class="card-desc">Stratford festival weekend. Bayfield sunset. Niagara-on-the-Lake. St. Jacobs market. Verified for late April.</div>
+            <div class="card-meta"><span>15+ destinations</span><span>·</span><span>seasonal flagged</span></div>
+          </div>
         </a>
       </div>
     </section>
 
-    <!-- Map -->
-    <section>
-      <div class="section-title">Map</div>
-      <a class="card" href="./map.html" style="background: linear-gradient(135deg, rgba(224,122,138,0.08), rgba(245,193,135,0.05));">
-        <h3>Interactive Map — All Stops</h3>
-        <p>Every restaurant, activity, late-night spot, and day-trip location with category filters and Google Maps links. Drive times calculated from Grosvenor.</p>
-        <span class="badge badge-rose">90+ pins</span>
-      </a>
-    </section>
-
-  </div>
+  </main>
 
   <footer>
-    Built by Claude with love for Fadi &amp; Nomi <span class="heart">♥</span><br/>
-    Data assembled from Tourism London, Reddit /r/londonontario, OpenTable, blogTO, Tripadvisor, Yelp, and a small pile of local blogs.<br/>
-    <small>Verify hours and reservations day-of. Things close. Owners change. Eat early. Have fun. Bring back the puppy on time.</small>
+    <div class="container">
+      <div>
+        <h4 style="font-style: italic;">F &amp; N Atlas</h4>
+        <p style="margin-top: 8px;">A field guide to date nights in London, Ontario, hand-arranged from one home in Old North. Verified hours, real coordinates, no AI slop. Built with love for the boobaloo.</p>
+      </div>
+      <div class="footer-meta">
+        Last verified Apr 25 · <a href="https://github.com/FadiBahodi/fadi-nomi-date-night">github</a>
+      </div>
+    </div>
   </footer>
 
   <script>
-    // Itinerary data — populated inline; map.html reads same shape.
-    const ITINERARIES = [
-      { n:1, title:"The Old Money Anniversary",   sub:"Idlewyld + Marienbad + Grand Theatre",
-        desc:"Boutique hotel cocktails, white-tablecloth Hungarian classics, and live theatre — every cliché executed perfectly.",
-        tag:"SPLURGE",  tagColor:"#e07a8a", img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80",
-        meta:["⏱ 5–6 hrs","💰 $$$$","🐶 home","🌧 indoor"] },
-      { n:2, title:"Richmond Row Stroll Night",   sub:"Walk-and-graze, no driving",
-        desc:"Two blocks from your front door. Aperitif → small plate → main → dessert → nightcap, all on foot.",
-        tag:"WALKABLE", tagColor:"#92b87a", img:"https://images.unsplash.com/photo-1485962398705-ef6a13c41e8f?w=1200&q=80",
-        meta:["⏱ 4 hrs","💰 $$$","🐶 yes","🌧 covered"] },
-      { n:3, title:"Springbank Sunset + Wortley",  sub:"Park walk → Wortley Roadhouse → gelato",
-        desc:"A long looping walk along the Thames, then a fireplace dinner in the village, capped by Black Walnut espresso.",
-        tag:"CLASSIC",  tagColor:"#f5c187", img:"https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1200&q=80",
-        meta:["⏱ 5 hrs","💰 $$","🐶 yes (walk)","🌧 light rain ok"] },
-      { n:4, title:"Bayfield Sunset Pilgrimage",   sub:"1-hr drive to Lake Huron's best sunset",
-        desc:"Antique shops, harbour walk, Black Dog Pub fireplace, and the Lake Huron sunset that Ontarians lie about not being jealous of.",
-        tag:"DAY TRIP", tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=1200&q=80",
-        meta:["⏱ all day","💰 $$$","🐶 yes","☀ sunset day"] },
-      { n:5, title:"Stratford Theatre + Riverside",sub:"45-min drive, season just opening",
-        desc:"Catch a Stratford Festival preview, swans on the Avon, dinner at Mercer Hall or Bradshaws antiques after.",
-        tag:"DAY TRIP", tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1503095396549-807759245b35?w=1200&q=80",
-        meta:["⏱ all day","💰 $$$$","🐶 home","🌧 indoor"] },
-      { n:6, title:"The Crafty Couple",            sub:"Pottery class + wine + Italian",
-        desc:"Two-handed clay disasters at Crock A Doodle, a glass of orange wine at Marathi, and pasta you didn't have to make.",
-        tag:"HANDS-ON", tagColor:"#f5c187", img:"https://images.unsplash.com/photo-1565193298434-86d2bbe49e4f?w=1200&q=80",
-        meta:["⏱ 5 hrs","💰 $$","🐶 home","🌧 indoor"] },
-      { n:7, title:"Mountain Coaster + Boler",      sub:"Treetop adventure + scenic dinner",
-        desc:"Boler Mountain summer ops: zip-lining, treetop courses, mountain coaster, sunset deck dinner overlooking the valley.",
-        tag:"PLAYFUL",  tagColor:"#92b87a", img:"https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200&q=80",
-        meta:["⏱ 6 hrs","💰 $$$","🐶 partial","☀ dry day"] },
-      { n:8, title:"Port Stanley Beach Day",        sub:"Lake Erie pier + fish & chips + ice cream",
-        desc:"40 min south. Beach walk, Mackie's orangeade, Bobbie's Pub patio, pier sunset, antique shops on Bridge St.",
-        tag:"DAY TRIP", tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
-        meta:["⏱ all day","💰 $$","🐶 yes","☀ dry day"] },
-      { n:9, title:"Rainy-Day Cozy Mode",           sub:"Hyland Cinema + Black Walnut + couch",
-        desc:"Indie film at the only single-screen art house left in town, dessert and amaro after, then home for the puppy and Netflix.",
-        tag:"FLEX",     tagColor:"#d4a373", img:"https://images.unsplash.com/photo-1489599735906-e2bc35ed8c5d?w=1200&q=80",
-        meta:["⏱ 4 hrs","💰 $$","🐶 home","🌧 perfect"] },
-      { n:10, title:"Float &amp; Feast",             sub:"Sensory deprivation + Korean BBQ",
-        desc:"90 minutes floating away the week at a sensory-deprivation tank, then meat-on-fire at Sariwon or Joya.",
-        tag:"NOVELTY",  tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=80",
-        meta:["⏱ 5 hrs","💰 $$$","🐶 home","🌧 indoor"] },
-      { n:11, title:"Lazy Saturday Energy",          sub:"Brunch → market → couch → patio",
-        desc:"You did hike yesterday. And the day before. Today is for Plant Matter brunch, Western Fair Market loops, and an hour of doing nothing.",
-        tag:"LOW-EFFORT",tagColor:"#d4a373",img:"https://images.unsplash.com/photo-1496318447583-f524534e9ce1?w=1200&q=80",
-        meta:["⏱ flexible","💰 $$","🐶 yes","🌧 ok"] },
-      { n:12, title:"Bookstore Crawl + Bistro",       sub:"Attic Books spiral · Speed City vinyl · Black Trumpet",
-        desc:"Three storeys of used books, vinyl shopping with a $25 cap, fireplace bistro dinner, late dessert at the spot that's open till 1:40am.",
-        tag:"QUIET",    tagColor:"#d4a373", img:"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&q=80",
-        meta:["⏱ 5 hrs","💰 $$","🐶 flex","🌧 indoor"] },
-      { n:13, title:"The Art &amp; Wine Walk",          sub:"Forest City Gallery → Museum London → Grace dinner",
-        desc:"Three galleries, a charcuterie board with orange wine in a tiny bottle shop, and a chef-driven dinner — all six blocks square.",
-        tag:"CULTURED", tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=1200&q=80",
-        meta:["⏱ 5 hrs","💰 $$$","🐶 home","🌧 indoor"] },
-      { n:14, title:"Old East Adventure",              sub:"Anatolia → Aeolian Hall → 1913 nightcap",
-        desc:"London's quietly excellent strip — wood-grilled lamb, the best small-room acoustics in SW Ontario, and a cereal-infused cocktail to close.",
-        tag:"NEIGHBOURHOOD",tagColor:"#92b87a",img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=80",
-        meta:["⏱ 5-6 hrs","💰 $$$","🐶 home","🌧 indoor"] },
-      { n:15, title:"Sunday Recovery Mode",            sub:"River Room brunch · Springbank loop · Pastry Culture",
-        desc:"River-view brunch, long Thames walk, twenty minutes inside a tropical conservatory pretending it's somewhere else, Paris-Brest takeaway.",
-        tag:"SUNDAY",   tagColor:"#f5c187", img:"https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=1200&q=80",
-        meta:["⏱ 5-6 hrs","💰 $$","🐶 most","🌧 ok"] },
+    const ITINS = [
+      {n:'01', t:'The Old Money Anniversary',     m:'Idlewyld · Reverie · Grand Theatre',         tag:'splurge'},
+      {n:'02', t:'Richmond Row Stroll Night',     m:'Walk-and-graze · zero driving',              tag:'walkable'},
+      {n:'03', t:'Springbank Sunset + Wortley',   m:'Park loop · fireplace dinner',               tag:'classic'},
+      {n:'04', t:'Bayfield Sunset Pilgrimage',    m:'Lake Huron · Little Inn dinner',             tag:'daytrip'},
+      {n:'05', t:'Stratford Theatre + Riverside', m:'Festival opening · Revival House',           tag:'daytrip'},
+      {n:'06', t:'The Crafty Couple',             m:'Pottery class · pasta · keepsake',           tag:'rain-proof'},
+      {n:'07', t:'Boler Treetop + Sunset Dinner', m:'Ziplines · scenic dinner',                   tag:'playful'},
+      {n:'08', t:'Port Stanley Beach Day',        m:'Lake Erie pier · Mackie\'s · antique row',   tag:'daytrip'},
+      {n:'09', t:'Rainy-Day Cozy Mode',           m:'Hyland Cinema · dessert · home',             tag:'rain-proof'},
+      {n:'10', t:'Float &amp; Feast',              m:'Sensory tank · K-BBQ · 1913 Speakeasy',      tag:'novelty'},
+      {n:'11', t:'Lazy Saturday Energy',          m:'Brunch · market · couch · patio',            tag:'low-effort'},
+      {n:'12', t:'Bookstore Crawl + Bistro',      m:'Attic Books · vinyl · Black Trumpet',        tag:'quiet'},
+      {n:'13', t:'The Art &amp; Wine Walk',        m:'Galleries · Grace Bodega · dinner',          tag:'cultured'},
+      {n:'14', t:'Old East Adventure',            m:'Anatolia · Aeolian Hall · 1913',             tag:'neighbourhood'},
+      {n:'15', t:'Sunday Recovery Mode',          m:'River Room brunch · Springbank · Pastry',    tag:'sunday'},
     ];
-
-    const grid = document.getElementById('itinGrid');
-    ITINERARIES.forEach(it => {
-      const a = document.createElement('a');
-      a.href = `./itineraries.html#i${it.n}`;
-      a.className = 'itin-card';
-      a.innerHTML = `
-        <div class="ic-num">${it.n}</div>
-        <div class="ic-tag" style="color:${it.tagColor};border-color:${it.tagColor}55;">${it.tag}</div>
-        <div class="ic-img" style="background-image:url('${it.img}');"></div>
-        <div class="ic-body">
-          <div class="ic-sub">${it.sub}</div>
-          <h3>${it.title}</h3>
-          <p class="ic-desc">${it.desc}</p>
-          <div class="ic-meta">${it.meta.map(m=>`<span>${m}</span>`).join('')}</div>
-        </div>`;
-      grid.appendChild(a);
+    const list = document.getElementById('menuList');
+    ITINS.forEach(i => {
+      const el = document.createElement('div');
+      el.className = 'leader';
+      el.innerHTML = `
+        <a href="./itineraries.html#i${parseInt(i.n)}" style="display:flex; flex:1; align-items:baseline; gap:8px;">
+          <span class="num">${i.n}</span>
+          <span class="name">${i.t}</span>
+          <span class="l"></span>
+          <span class="meta">${i.m}</span>
+        </a>`;
+      list.appendChild(el);
     });
   </script>
 </body>

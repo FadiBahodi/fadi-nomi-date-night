@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atlas — Fadi &amp; Nomi</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+  <style>
+    .explore-shell {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      align-items: flex-start;
+      padding-top: 30px;
+    }
+    @media (max-width: 980px) { .explore-shell { grid-template-columns: 1fr; } }
+
+    .filter-rail {
+      position: sticky; top: 70px;
+      align-self: flex-start;
+      padding: 0 0 20px;
+      max-height: calc(100vh - 90px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    @media (max-width: 980px) {
+      .filter-rail { position: static; max-height: none; padding-bottom: 30px; border-bottom: 1px solid var(--rule); margin-bottom: 30px; }
+    }
+
+    .filter-group { margin-bottom: 26px; }
+    .filter-group h4 {
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--rust); margin-bottom: 10px; font-weight: 600;
+      padding-bottom: 6px; border-bottom: 1px solid var(--rule);
+    }
+    .filter-search {
+      width: 100%; padding: 12px 14px;
+      background: var(--paper-2);
+      border: 1px solid var(--rule);
+      font-family: var(--sans); font-size: 14px;
+      color: var(--ink);
+      border-radius: 100px;
+      outline: none;
+      transition: 0.15s;
+    }
+    .filter-search:focus { border-color: var(--rust); background: var(--paper); }
+    .filter-search::placeholder { color: var(--muted); }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      padding: 5px 11px;
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1px solid var(--rule);
+      border-radius: 100px;
+      color: var(--ink-2);
+      background: transparent;
+      cursor: pointer; transition: 0.12s;
+      font-weight: 500;
+    }
+    .chip:hover { border-color: var(--rust); color: var(--rust); }
+    .chip.on {
+      background: var(--ink); color: var(--paper); border-color: var(--ink);
+    }
+
+    .toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0;
+      font-size: 13px; color: var(--ink);
+      cursor: pointer; user-select: none;
+    }
+    .toggle:hover { color: var(--rust); }
+    .toggle .swatch {
+      width: 32px; height: 18px; border-radius: 100px;
+      background: var(--paper-3); border: 1px solid var(--rule);
+      position: relative; transition: 0.15s;
+    }
+    .toggle .swatch::after {
+      content: ''; position: absolute; top: 1px; left: 1px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--paper); border: 1px solid var(--rule);
+      transition: 0.15s;
+    }
+    .toggle.on .swatch { background: var(--rust); border-color: var(--rust); }
+    .toggle.on .swatch::after { left: 15px; background: var(--paper); border-color: var(--paper); }
+
+    .sort-row {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .sort-row .chip { font-size: 10px; }
+
+    .clear-btn {
+      width: 100%; padding: 10px;
+      font-family: var(--mono); font-size: 10px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      border: 1px solid var(--rule); background: transparent;
+      color: var(--muted); cursor: pointer;
+      border-radius: 100px;
+      transition: 0.15s;
+    }
+    .clear-btn:hover { color: var(--rust); border-color: var(--rust); }
+
+    .results-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding-bottom: 18px; margin-bottom: 28px;
+      border-bottom: 1px solid var(--rule);
+      flex-wrap: wrap; gap: 12px;
+    }
+    .results-head .count {
+      font-family: var(--serif); font-size: 32px; font-weight: 400;
+    }
+    .results-head .count em { font-style: italic; color: var(--rust); }
+    .results-head .meta {
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* Neighbourhood spreads */
+    .hood-spread { margin-bottom: 60px; }
+    .hood-head {
+      display: flex; align-items: baseline; gap: 14px;
+      padding-bottom: 12px; margin-bottom: 22px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hood-head .num {
+      font-family: var(--serif); font-style: italic; font-size: 18px;
+      color: var(--gold); font-weight: 400;
+    }
+    .hood-head h2 {
+      font-family: var(--serif); font-size: 32px; font-weight: 400;
+      letter-spacing: -0.015em;
+    }
+    .hood-head .hood-meta {
+      margin-left: auto;
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+    }
+
+    .spot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .spot-card {
+      display: flex; flex-direction: column;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: var(--r);
+      overflow: hidden;
+      text-decoration: none; color: inherit;
+      transition: 0.18s;
+      position: relative;
+    }
+    .spot-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--ink);
+      border-color: var(--ink);
+    }
+    .spot-card .img {
+      aspect-ratio: 4/3;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--paper-3);
+      border-bottom: 1px solid var(--rule);
+      filter: sepia(0.05) saturate(0.95);
+      position: relative;
+    }
+    .spot-card .img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(28,22,18,0.15));
+    }
+    .spot-card .save-btn {
+      position: absolute; top: 10px; right: 10px;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(243,234,215,0.92);
+      border: 1px solid var(--rule);
+      cursor: pointer; z-index: 5;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: var(--rust);
+      transition: 0.15s;
+    }
+    .spot-card .save-btn:hover { background: var(--paper); transform: scale(1.1); }
+    .spot-card .save-btn.saved { background: var(--rust); color: var(--paper); border-color: var(--rust); }
+
+    .spot-card .body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; }
+    .spot-card .meta-top {
+      display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;
+    }
+    .spot-card .cat {
+      font-family: var(--mono); font-size: 9px;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rust);
+    }
+    .spot-card .tier {
+      font-family: var(--mono); font-size: 11px; color: var(--gold);
+      font-weight: 500;
+    }
+    .spot-card .rating {
+      margin-left: auto;
+      font-family: var(--mono); font-size: 11px; color: var(--ink-2);
+    }
+    .spot-card h3 {
+      font-family: var(--serif); font-size: 19px; font-weight: 500;
+      line-height: 1.2; margin-bottom: 5px; letter-spacing: -0.01em;
+    }
+    .spot-card .addr {
+      font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.4;
+    }
+    .spot-card .desc {
+      font-size: 13px; color: var(--ink-2); line-height: 1.5; flex: 1;
+    }
+    .spot-card .desc strong { color: var(--rust); font-weight: 600; }
+    .spot-card .footer {
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px dashed var(--rule);
+      display: flex; flex-wrap: wrap; gap: 8px;
+      font-family: var(--mono); font-size: 10px; color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .spot-card .footer .pill {
+      padding: 2px 8px; background: var(--paper-2);
+      border: 1px solid var(--rule); border-radius: 100px;
+    }
+    .spot-card .footer .pill.warn {
+      background: rgba(168,65,42,0.08); border-color: rgba(168,65,42,0.3); color: var(--rust);
+    }
+    .spot-card .footer .pill.ok {
+      background: rgba(61,77,51,0.08); border-color: rgba(61,77,51,0.3); color: var(--forest);
+    }
+
+    /* compare drawer */
+    .compare-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--ink); color: var(--paper);
+      padding: 14px 28px;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+      z-index: 100;
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.2);
+    }
+    .compare-bar.open { transform: translateY(0); }
+    .compare-bar-inner {
+      max-width: var(--measure); margin: 0 auto;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+    .compare-bar .label {
+      font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold-soft);
+    }
+    .compare-bar .saved-list { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
+    .compare-bar .saved-pill {
+      padding: 4px 12px; background: rgba(243,234,215,0.1);
+      border: 1px solid rgba(243,234,215,0.2); border-radius: 100px;
+      font-size: 12px; cursor: pointer;
+    }
+    .compare-bar .saved-pill:hover { background: rgba(168,65,42,0.3); }
+    .compare-bar .saved-pill::after { content: ' ×'; opacity: 0.5; }
+    .compare-bar a {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold-soft);
+      padding: 8px 16px; border: 1px solid var(--gold-soft); border-radius: 100px;
+      text-decoration: none;
+    }
+    .compare-bar a:hover { background: var(--rust); color: var(--paper); border-color: var(--rust); }
+
+    .empty {
+      padding: 60px 20px; text-align: center; color: var(--muted);
+      font-family: var(--serif); font-size: 24px; font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a class="topnav-mark" href="./index.html">F &amp; N <em class="italic">Atlas</em></a>
+      <div class="topnav-links">
+        <a href="./today.html">Tonight</a>
+        <a href="./itineraries.html">Itineraries</a>
+        <a href="./explore.html" class="active">Explore</a>
+        <a href="./map.html">Map</a>
+        <a href="./guide.html">Guide</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container container--wide">
+
+    <header style="padding: 50px 0 20px; border-bottom: 1px solid var(--rule);">
+      <div class="eyebrow">Volume I · The Atlas</div>
+      <h1 style="font-size: clamp(50px, 7vw, 84px); margin-top: 8px;">
+        Every place,<br/><em class="italic">filterable.</em>
+      </h1>
+      <p class="lede" style="margin-top: 20px;">
+        One-hundred-and-fifty-plus spots, grouped by neighbourhood. Filter by category, price, weather, dog-tolerance, walking distance from home. Tap any to save it. Build a night from the saved.
+      </p>
+    </header>
+
+    <div class="explore-shell">
+
+      <!-- ==================== FILTER RAIL ==================== -->
+      <aside class="filter-rail">
+
+        <div class="filter-group">
+          <h4>Search</h4>
+          <input type="search" id="searchInput" class="filter-search" placeholder="Restaurant, dish, neighbourhood…" />
+        </div>
+
+        <div class="filter-group">
+          <h4>Category</h4>
+          <div class="chips" data-filter="cat">
+            <button class="chip" data-val="restaurant">Restaurants</button>
+            <button class="chip" data-val="bar">Bars</button>
+            <button class="chip" data-val="sweet">Sweet</button>
+            <button class="chip" data-val="brunch">Brunch</button>
+            <button class="chip" data-val="activity">Activities</button>
+            <button class="chip" data-val="gem">Hidden Gems</button>
+            <button class="chip" data-val="shopping">Shopping</button>
+            <button class="chip" data-val="daytrip">Day Trips</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Neighbourhood</h4>
+          <div class="chips" data-filter="hood">
+            <button class="chip" data-val="Old North">Old North</button>
+            <button class="chip" data-val="Richmond Row">Richmond Row</button>
+            <button class="chip" data-val="Downtown">Downtown</button>
+            <button class="chip" data-val="Old East">Old East</button>
+            <button class="chip" data-val="Wortley">Wortley</button>
+            <button class="chip" data-val="Old South">Old South</button>
+            <button class="chip" data-val="Wharncliffe">Wharncliffe</button>
+            <button class="chip" data-val="Masonville">Masonville</button>
+            <button class="chip" data-val="Day Trip">Day Trip</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Price</h4>
+          <div class="chips" data-filter="tier">
+            <button class="chip" data-val="free">Free</button>
+            <button class="chip" data-val="$">$</button>
+            <button class="chip" data-val="$$">$$</button>
+            <button class="chip" data-val="$$$">$$$</button>
+            <button class="chip" data-val="$$$$">$$$$</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Filter</h4>
+          <div class="toggle" data-flag="indoor">
+            <span>Rain-proof (indoor)</span>
+            <span class="swatch"></span>
+          </div>
+          <div class="toggle" data-flag="dog">
+            <span>Dog welcome</span>
+            <span class="swatch"></span>
+          </div>
+          <div class="toggle" data-flag="walkable">
+            <span>Walkable from home</span>
+            <span class="swatch"></span>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h4>Sort</h4>
+          <div class="chips sort-row" data-filter="sort">
+            <button class="chip on" data-val="hood">By neighbourhood</button>
+            <button class="chip" data-val="distance">Drive time</button>
+            <button class="chip" data-val="rating">Rating</button>
+            <button class="chip" data-val="tier">Price</button>
+            <button class="chip" data-val="az">A–Z</button>
+          </div>
+        </div>
+
+        <button class="clear-btn" id="clearBtn">Clear all filters</button>
+      </aside>
+
+      <!-- ==================== RESULTS ==================== -->
+      <section>
+        <div class="results-head">
+          <div class="count"><em id="resultCount">—</em> spots</div>
+          <div class="meta" id="filterSummary">All neighbourhoods · all categories</div>
+        </div>
+
+        <div id="results">
+          <div class="empty">Loading the atlas…</div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- saved-list bar -->
+  <div class="compare-bar" id="compareBar">
+    <div class="compare-bar-inner">
+      <span class="label">Saved (<span id="savedCount">0</span>)</span>
+      <div class="saved-list" id="savedList"></div>
+      <a href="#" id="buildBtn">Build tonight from these →</a>
+    </div>
+  </div>
+
+  <script>
+    // ==================== STATE ====================
+    const STATE = {
+      data: null,
+      filters: { cat: new Set(), hood: new Set(), tier: new Set() },
+      flags:   { indoor: false, dog: false, walkable: false },
+      sort: 'hood',
+      search: '',
+      saved: new Set(JSON.parse(localStorage.getItem('fn_saved') || '[]')),
+    };
+
+    // Read query string for ?cat=
+    const params = new URLSearchParams(location.search);
+    if (params.get('cat')) STATE.filters.cat.add(params.get('cat'));
+
+    // ==================== DATA HELPERS ====================
+    // Auto-classify hood from address if not present
+    const HOOD_RULES = [
+      [/Wortley|162 |175 |190 |134 W/, 'Wortley'],
+      [/Wharncliffe|240 W|169 W|276 W|449 W/, 'Wharncliffe'],
+      [/Grand Ave|36 Grand|Ridout|421 R|481 R/, 'Old South'],
+      [/Old East|Hamilton Rd|Elias|Aeolian|795 Dundas|807 Dundas|630 Dundas|1030 Elias|100 Kellogg|Kellogg/, 'Old East'],
+      [/Talbot|353 T|580 T|420 T|350 R|Carling|Dundas St|130 King|215 Dundas|211 Dundas|Holy Diver|Lavish|Cobra|Hard Rock/, 'Downtown'],
+      [/Richmond St|Richmond Row|Marble|La Cucina|Lucy|Garlic|David|Black Trumpet|Tasting|Daldongnae|K Grill|Church Key|Forest City|Grand Theatre|Marable|Reverie|573|581|432|481|483|476|671 R|258|471 R/, 'Richmond Row'],
+      [/Grosvenor|Waterloo|Old North|Bungalow|Cronyn|Western|Banting|Adelaide|442|40 A|604 O|777 A|Float Therapy|Maitland|Crock A Doodle|Wonderland Rd N/, 'Old North'],
+      [/Springbank|285 W|Pinery|Gibbons|285 Wonderland/, 'West'],
+      [/Masonville|2175|Pastry Culture/, 'Masonville'],
+      [/Stratford|Bayfield|Port Stanley|St\.? Jacobs|St\.? Marys|Niagara|Elora|Quai du Vin|Grand Bend|St\.? Thomas|Sparta|Talbotville/, 'Day Trip'],
+      [/Boler|689 Griffith/, 'Byron'],
+    ];
+    function inferHood(loc) {
+      if (loc.hood) return loc.hood;
+      const blob = `${loc.name} ${loc.address}`;
+      for (const [re, h] of HOOD_RULES) if (re.test(blob)) return h;
+      return 'Other';
+    }
+    function isWalkable(loc) {
+      if (loc.walkable !== undefined) return !!loc.walkable;
+      const drive = (loc.drive || '');
+      return /^[12345] min/.test(drive) || inferHood(loc) === 'Old North' || inferHood(loc) === 'Richmond Row';
+    }
+    function isIndoor(loc) {
+      if (loc.indoor !== undefined) return !!loc.indoor;
+      return ['restaurant','bar','sweet','brunch','gem','shopping'].includes(loc.cat) ||
+             /Cinema|Hall|Museum|Gallery|Library|Bookstore|Records|Pottery|Studio|Inn|Spa|Bowl|Theatre|Speakeasy|Indoor/i.test(loc.name);
+    }
+    function isDog(loc) {
+      if (loc.dog) return true;
+      return /Park|Trail|Wood|Garden|Patio|Brewery|Storm Stayed|Bayfield|Port Stanley|Springbank|Gibbons|Eldon|Forks|Beach/i.test(loc.name);
+    }
+    function tierIndex(t) { return ['free','$','$$','$$$','$$$$'].indexOf(t); }
+    function driveMin(loc) {
+      const m = (loc.drive || '').match(/(\d+)/);
+      return m ? parseInt(m[1]) : 999;
+    }
+
+    // ==================== RENDER ====================
+    function render() {
+      const list = STATE.data.locations;
+      // Apply filters
+      let f = list.filter(loc => {
+        const hood = inferHood(loc);
+        if (STATE.filters.cat.size  && !STATE.filters.cat.has(loc.cat)) return false;
+        if (STATE.filters.hood.size && !STATE.filters.hood.has(hood))   return false;
+        if (STATE.filters.tier.size && !STATE.filters.tier.has(loc.tier))return false;
+        if (STATE.flags.indoor   && !isIndoor(loc))   return false;
+        if (STATE.flags.dog      && !isDog(loc))      return false;
+        if (STATE.flags.walkable && !isWalkable(loc)) return false;
+        if (STATE.search) {
+          const q = STATE.search.toLowerCase();
+          const blob = `${loc.name} ${loc.address} ${loc.note} ${hood} ${loc.cat} ${loc.order||''}`.toLowerCase();
+          if (!blob.includes(q)) return false;
+        }
+        return true;
+      });
+
+      // Update count
+      document.getElementById('resultCount').textContent = f.length;
+      const summary = [];
+      if (STATE.filters.cat.size)  summary.push([...STATE.filters.cat].join(', '));
+      if (STATE.filters.hood.size) summary.push([...STATE.filters.hood].join(', '));
+      if (STATE.filters.tier.size) summary.push([...STATE.filters.tier].join(', '));
+      if (STATE.flags.indoor) summary.push('indoor');
+      if (STATE.flags.dog) summary.push('dog ok');
+      if (STATE.flags.walkable) summary.push('walkable');
+      document.getElementById('filterSummary').textContent = summary.length ? summary.join(' · ') : 'All neighbourhoods · all categories';
+
+      const out = document.getElementById('results');
+      if (!f.length) {
+        out.innerHTML = '<div class="empty">No spots match. <br/>Loosen the filters.</div>';
+        return;
+      }
+
+      // Sort
+      if (STATE.sort === 'hood') {
+        const HOOD_ORDER = ['Old North','Richmond Row','Downtown','Old East','Wortley','Old South','Wharncliffe','Masonville','Byron','West','Day Trip','Other'];
+        f.sort((a,b) => {
+          const ha = HOOD_ORDER.indexOf(inferHood(a)), hb = HOOD_ORDER.indexOf(inferHood(b));
+          return ha - hb || a.name.localeCompare(b.name);
+        });
+      } else if (STATE.sort === 'distance') {
+        f.sort((a,b) => driveMin(a) - driveMin(b));
+      } else if (STATE.sort === 'rating') {
+        f.sort((a,b) => (b.rating||0) - (a.rating||0));
+      } else if (STATE.sort === 'tier') {
+        f.sort((a,b) => tierIndex(b.tier) - tierIndex(a.tier));
+      } else if (STATE.sort === 'az') {
+        f.sort((a,b) => a.name.localeCompare(b.name));
+      }
+
+      // Group by hood when sorting by hood
+      if (STATE.sort === 'hood') {
+        const groups = {};
+        f.forEach(loc => {
+          const h = inferHood(loc);
+          (groups[h] = groups[h] || []).push(loc);
+        });
+        out.innerHTML = '';
+        let n = 0;
+        for (const h in groups) {
+          n++;
+          const numStr = String(n).padStart(2, '0');
+          const spread = document.createElement('div');
+          spread.className = 'hood-spread';
+          spread.innerHTML = `
+            <div class="hood-head">
+              <span class="num">No. ${numStr}</span>
+              <h2>${h}</h2>
+              <span class="hood-meta">${groups[h].length} spots · sorted</span>
+            </div>
+            <div class="spot-grid">${groups[h].map(spotCard).join('')}</div>`;
+          out.appendChild(spread);
+        }
+      } else {
+        out.innerHTML = `<div class="spot-grid">${f.map(spotCard).join('')}</div>`;
+      }
+      attachSaveBtns();
+    }
+
+    // ==================== CARD HTML ====================
+    const FALLBACK_PHOTOS = {
+      restaurant: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Restaurant_table.jpg/800px-Restaurant_table.jpg',
+      bar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cocktail_glass_with_strawberry.jpg/800px-Cocktail_glass_with_strawberry.jpg',
+      sweet: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Caf%C3%A9_au_lait%2C_a_pastry%2C_chocolate_and_a_book.jpg/800px-Caf%C3%A9_au_lait%2C_a_pastry%2C_chocolate_and_a_book.jpg',
+      brunch: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Brunch_at_Cafe_Soleil.jpg/800px-Brunch_at_Cafe_Soleil.jpg',
+      activity: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/London%2C_Ontario%2C_at_dusk.jpg/800px-London%2C_Ontario%2C_at_dusk.jpg',
+      gem: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Old_books_in_a_library.jpg/800px-Old_books_in_a_library.jpg',
+      shopping: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Vinyl_records_in_a_record_store.jpg/800px-Vinyl_records_in_a_record_store.jpg',
+      daytrip: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Stratford_Avon_river_swans.jpg/800px-Stratford_Avon_river_swans.jpg',
+    };
+    function spotCard(loc) {
+      const photo = loc.photo || FALLBACK_PHOTOS[loc.cat] || FALLBACK_PHOTOS.activity;
+      const id = encodeURIComponent(loc.name);
+      const saved = STATE.saved.has(loc.name);
+      const ratingHtml = loc.rating ? `★ ${loc.rating}${loc.reviews ? ` <span style="opacity:.6">(${loc.reviews})</span>`:''}` : '';
+      const placeUrl = loc.place_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address)}`;
+      const pills = [];
+      if (loc.drive) pills.push(`<span class="pill">🚗 ${loc.drive}</span>`);
+      if (isWalkable(loc)) pills.push(`<span class="pill ok">🚶 walkable</span>`);
+      if (isDog(loc)) pills.push(`<span class="pill ok">🐶 ok</span>`);
+      if (isIndoor(loc)) pills.push(`<span class="pill">indoor</span>`);
+      if (loc.closed) pills.push(`<span class="pill warn">closed</span>`);
+      return `
+        <a class="spot-card" href="./spot.html?id=${id}" data-name="${encodeURIComponent(loc.name)}">
+          <div class="img" style="background-image:url('${photo}');"></div>
+          <button class="save-btn ${saved ? 'saved' : ''}" data-save="${id}" aria-label="Save">${saved ? '♥' : '♡'}</button>
+          <div class="body">
+            <div class="meta-top">
+              <span class="cat">${loc.cat}</span>
+              <span class="tier">${loc.tier || ''}</span>
+              ${ratingHtml ? `<span class="rating">${ratingHtml}</span>` : ''}
+            </div>
+            <h3>${loc.name}</h3>
+            <div class="addr">${loc.address}</div>
+            <div class="desc">${loc.note || ''}</div>
+            <div class="footer">${pills.join('')}</div>
+          </div>
+        </a>`;
+    }
+
+    // ==================== EVENTS ====================
+    document.querySelectorAll('[data-filter]').forEach(grp => {
+      grp.addEventListener('click', e => {
+        const btn = e.target.closest('.chip');
+        if (!btn) return;
+        const filter = grp.dataset.filter;
+        const val = btn.dataset.val;
+        if (filter === 'sort') {
+          STATE.sort = val;
+          grp.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+          btn.classList.add('on');
+        } else {
+          if (STATE.filters[filter].has(val)) STATE.filters[filter].delete(val);
+          else STATE.filters[filter].add(val);
+          btn.classList.toggle('on');
+        }
+        render();
+      });
+    });
+    document.querySelectorAll('.toggle').forEach(t => {
+      t.addEventListener('click', () => {
+        const flag = t.dataset.flag;
+        STATE.flags[flag] = !STATE.flags[flag];
+        t.classList.toggle('on');
+        render();
+      });
+    });
+    document.getElementById('searchInput').addEventListener('input', e => {
+      STATE.search = e.target.value;
+      render();
+    });
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      STATE.filters = { cat: new Set(), hood: new Set(), tier: new Set() };
+      STATE.flags = { indoor: false, dog: false, walkable: false };
+      STATE.search = '';
+      document.querySelectorAll('.chip.on').forEach(c => c.classList.remove('on'));
+      document.querySelectorAll('[data-filter="sort"] .chip[data-val="hood"]').forEach(c => c.classList.add('on'));
+      STATE.sort = 'hood';
+      document.querySelectorAll('.toggle.on').forEach(t => t.classList.remove('on'));
+      document.getElementById('searchInput').value = '';
+      render();
+    });
+
+    function attachSaveBtns() {
+      document.querySelectorAll('[data-save]').forEach(b => {
+        b.onclick = (e) => {
+          e.preventDefault();
+          const id = decodeURIComponent(b.dataset.save);
+          if (STATE.saved.has(id)) STATE.saved.delete(id);
+          else STATE.saved.add(id);
+          localStorage.setItem('fn_saved', JSON.stringify([...STATE.saved]));
+          b.classList.toggle('saved');
+          b.textContent = STATE.saved.has(id) ? '♥' : '♡';
+          updateSaved();
+        };
+      });
+    }
+    function updateSaved() {
+      document.getElementById('savedCount').textContent = STATE.saved.size;
+      document.getElementById('savedList').innerHTML = [...STATE.saved].map(s =>
+        `<span class="saved-pill" data-unsave="${encodeURIComponent(s)}">${s}</span>`).join('');
+      document.getElementById('compareBar').classList.toggle('open', STATE.saved.size > 0);
+      document.querySelectorAll('[data-unsave]').forEach(p => {
+        p.onclick = () => {
+          const id = decodeURIComponent(p.dataset.unsave);
+          STATE.saved.delete(id);
+          localStorage.setItem('fn_saved', JSON.stringify([...STATE.saved]));
+          updateSaved(); render();
+        };
+      });
+    }
+    document.getElementById('buildBtn').addEventListener('click', e => {
+      e.preventDefault();
+      const list = encodeURIComponent([...STATE.saved].join('|'));
+      location.href = `./tonight-builder.html?spots=${list}`;
+    });
+
+    // ==================== INIT ====================
+    fetch('./data/locations_v2.json').catch(() => null).then(r => r ? r.json() : null).then(v2 => {
+      if (v2) return v2;
+      return fetch('./data/locations.json').then(r => r.json());
+    }).then(d => {
+      STATE.data = d;
+      // Apply pre-selected category from URL
+      if (params.get('cat')) {
+        const c = params.get('cat');
+        document.querySelector(`[data-filter="cat"] .chip[data-val="${c}"]`)?.classList.add('on');
+      }
+      render();
+      updateSaved();
+    });
+  </script>
+</body>
+</html>

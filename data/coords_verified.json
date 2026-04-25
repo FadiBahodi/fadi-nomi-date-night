@@ -1,0 +1,546 @@
+[
+  {
+    "name": "home",
+    "address": "526 Grosvenor St, London, ON N6A 1Y4",
+    "lat": 43.00335,
+    "lon": -81.24234,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Reverie",
+    "address": "208 Piccadilly St, London, ON",
+    "lat": 42.99442,
+    "lon": -81.2532,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Idlewyld Inn & Spa",
+    "address": "36 Grand Ave, London, ON",
+    "lat": 42.97205,
+    "lon": -81.24567,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Garlic's of London",
+    "address": "481 Richmond St, London, ON",
+    "lat": 42.98612,
+    "lon": -81.2508,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "David's Bistro",
+    "address": "432 Richmond St, London, ON",
+    "lat": 42.98442,
+    "lon": -81.24989,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Marienbad",
+    "address": "122 Carling St, London, ON",
+    "lat": 42.98409,
+    "lon": -81.2517,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Cintro on Wellington",
+    "address": "731 Wellington St, London, ON",
+    "lat": 42.99553,
+    "lon": -81.25085,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Sagi of Wortley",
+    "address": "175 Wortley Rd, London, ON",
+    "lat": 42.97174,
+    "lon": -81.25296,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Black Trumpet",
+    "address": "523 Richmond St, London, ON",
+    "lat": 42.98763,
+    "lon": -81.25086,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Yaya's Kitchen",
+    "address": "630 Dundas St, London, ON",
+    "lat": 42.98924,
+    "lon": -81.23069,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "The Tasting Room",
+    "address": "483 Richmond St, London, ON",
+    "lat": 42.98619,
+    "lon": -81.25081,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Wortley Roadhouse",
+    "address": "190 Wortley Rd, London, ON",
+    "lat": 42.97136,
+    "lon": -81.25213,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Plant Matter Kitchen",
+    "address": "162 Wortley Rd, London, ON",
+    "lat": 42.97242,
+    "lon": -81.25276,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "La Cucina",
+    "address": "731 Richmond St, London, ON",
+    "lat": 42.995,
+    "lon": -81.25313,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Lucy's Pizza & Cocktails",
+    "address": "581 Richmond St, London, ON",
+    "lat": 42.99028,
+    "lon": -81.25092,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Los Lobos",
+    "address": "580 Talbot St, London, ON",
+    "lat": 42.98846,
+    "lon": -81.25429,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Waldo's on King",
+    "address": "130 King St, London, ON",
+    "lat": 42.98233,
+    "lon": -81.25051,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "TG's Addis Ababa",
+    "address": "465 Dundas St, London, ON",
+    "lat": 42.98709,
+    "lon": -81.23722,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Daldongnae K-BBQ",
+    "address": "737 Richmond St, London, ON",
+    "lat": 42.99515,
+    "lon": -81.25321,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Anatolia Turkish",
+    "address": "807 Dundas St, London, ON",
+    "lat": 42.99078,
+    "lon": -81.22441,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Shiki Japanese",
+    "address": "715 Wellington Rd, London, ON",
+    "lat": 42.9477,
+    "lon": -81.22836,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "The Early Bird",
+    "address": "355 Talbot St, London, ON",
+    "lat": 42.98146,
+    "lon": -81.25113,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "The River Room",
+    "address": "421 Ridout St N, London, ON",
+    "lat": 42.98301,
+    "lon": -81.25441,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Craft Farmacy",
+    "address": "449 Wharncliffe Rd S, London, ON",
+    "lat": 42.96068,
+    "lon": -81.26132,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "The Bungalow",
+    "address": "910 Waterloo St, London, ON",
+    "lat": 43.00291,
+    "lon": -81.25093,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Staff Only Speakeasy",
+    "address": "350 Ridout St S, London, ON",
+    "lat": 42.96329,
+    "lon": -81.24398,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "1913 Speakeasy",
+    "address": "100 Kellogg Lane, London, ON",
+    "lat": 42.99244,
+    "lon": -81.21336,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Grace Bodega",
+    "address": "211 Dundas St, London, ON",
+    "lat": 42.98765,
+    "lon": -81.23578,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "The Church Key",
+    "address": "476 Richmond St, London, ON",
+    "lat": 42.98607,
+    "lon": -81.25042,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Holy Diver",
+    "address": "353 Talbot St, London, ON",
+    "lat": 42.98141,
+    "lon": -81.2511,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Cantata Lounge",
+    "address": "325 Dundas St, London, ON",
+    "lat": 42.98556,
+    "lon": -81.24261,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Storm Stayed Brewing",
+    "address": "169 Wharncliffe Rd S, London, ON",
+    "lat": 42.97235,
+    "lon": -81.26215,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Anderson Craft Ales",
+    "address": "1030 Elias St, London, ON",
+    "lat": 42.99828,
+    "lon": -81.21752,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Forked River Brewing",
+    "address": "45 Pacific Ct, London, ON",
+    "lat": 43.01009,
+    "lon": -81.17526,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Mustangs Dessert",
+    "address": "276 Wharncliffe Rd N, London, ON",
+    "lat": 42.9929,
+    "lon": -81.26583,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Lokma Pastry",
+    "address": "487 Hamilton Rd, London, ON",
+    "lat": 42.98036,
+    "lon": -81.21767,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Black Walnut Bakery",
+    "address": "134 Wortley Rd, London, ON",
+    "lat": 42.97358,
+    "lon": -81.25409,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Pastry Culture",
+    "address": "2175 Richmond St, London, ON",
+    "lat": 43.04055,
+    "lon": -81.29008,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Marble Slab Creamery",
+    "address": "573A Richmond St, London, ON",
+    "lat": 43.00805,
+    "lon": -81.26027,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Tea Lounge",
+    "address": "268 Piccadilly St, London, ON",
+    "lat": 42.99506,
+    "lon": -81.25076,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Western Fair Market",
+    "address": "900 King St, London, ON",
+    "lat": 42.9912,
+    "lon": -81.22107,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Covent Garden Market",
+    "address": "130 King St, London, ON",
+    "lat": 42.98233,
+    "lon": -81.25051,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Eldon House",
+    "address": "481 Ridout St N, London, ON",
+    "lat": 42.98483,
+    "lon": -81.25545,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Museum London",
+    "address": "421 Ridout St N, London, ON",
+    "lat": 42.98301,
+    "lon": -81.25441,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Banting House",
+    "address": "442 Adelaide St N, London, ON",
+    "lat": 42.99004,
+    "lon": -81.23175,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Hyland Cinema",
+    "address": "240 Wharncliffe Rd S, London, ON",
+    "lat": 42.96961,
+    "lon": -81.26158,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Aeolian Hall",
+    "address": "795 Dundas St, London, ON",
+    "lat": 42.99068,
+    "lon": -81.22488,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "London Music Hall",
+    "address": "185 Queens Ave, London, ON",
+    "lat": 42.98507,
+    "lon": -81.24949,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Grand Theatre",
+    "address": "471 Richmond St, London, ON",
+    "lat": 42.98582,
+    "lon": -81.25077,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Crock A Doodle Pottery",
+    "address": "671 Wonderland Rd N, London, ON",
+    "lat": 42.98249,
+    "lon": -81.29185,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "BATL Axe Throwing",
+    "address": "40 Adelaide St N, London, ON",
+    "lat": 42.97774,
+    "lon": -81.22659,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Escapology",
+    "address": "604 Oxford St E, London, ON",
+    "lat": 43.00023,
+    "lon": -81.2375,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Palasad SocialBowl",
+    "address": "777 Adelaide St N, London, ON",
+    "lat": 43.00077,
+    "lon": -81.23766,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Idlewyld Inn Spa",
+    "address": "36 Grand Ave, London, ON",
+    "lat": 42.97205,
+    "lon": -81.24567,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Float Therapy London",
+    "address": "642 Maitland St, London, ON",
+    "lat": 42.99414,
+    "lon": -81.24032,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Boler Mountain",
+    "address": "689 Griffith St, London, ON",
+    "lat": 42.93943,
+    "lon": -81.3404,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "The Factory @ 100 Kellogg",
+    "address": "100 Kellogg Lane, London, ON",
+    "lat": 42.99244,
+    "lon": -81.21336,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Hume Cronyn Observatory",
+    "address": "1151 Richmond St (Western U), London, ON",
+    "lat": 43.00937,
+    "lon": -81.26183,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Springbank Park",
+    "address": "285 Wonderland Rd S, London, ON",
+    "lat": 42.96651,
+    "lon": -81.29388,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Gibbons Park",
+    "address": "16 Grosvenor St, London, ON",
+    "lat": 43.00247,
+    "lon": -81.24512,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Stratford",
+    "address": "55 Queen St, Stratford, ON",
+    "lat": 43.37433,
+    "lon": -80.96854,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Bayfield (Pioneer Park)",
+    "address": "Howard St, Bayfield, ON",
+    "lat": 43.56245,
+    "lon": -81.70263,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Port Stanley",
+    "address": "216 Joseph St, Port Stanley, ON",
+    "lat": 42.66585,
+    "lon": -81.21163,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "St. Jacobs Market",
+    "address": "878 Weber St N, Woolwich, ON",
+    "lat": 43.51158,
+    "lon": -80.55457,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Elora Mill",
+    "address": "77 Mill St W, Elora, ON",
+    "lat": 43.68089,
+    "lon": -80.43178,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Niagara-on-the-Lake",
+    "address": "10 Queen's Parade, NOTL, ON",
+    "lat": 43.25561,
+    "lon": -79.07233,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Quai du Vin Winery",
+    "address": "45811 Fruit Ridge Line, St. Thomas, ON",
+    "lat": 42.71736,
+    "lon": -81.08121,
+    "source": "nominatim",
+    "verified_date": "2026-04-25"
+  },
+  {
+    "name": "Jumbo the Elephant",
+    "address": "Talbot St & Wellington St, St. Thomas, ON",
+    "lat": null,
+    "lon": null,
+    "source": "unverified",
+    "verified_date": "2026-04-25"
+  }
+]
