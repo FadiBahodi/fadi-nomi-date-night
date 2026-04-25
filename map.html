@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Map — Fadi &amp; Nomi Date Night</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --bg: #14090c; --surface: #1d1216; --text: #f7e7d8;
+      --muted: rgba(247,231,216,0.55);
+      --accent2: #f5c187; --rose: #e07a8a; --rose2: #f4a8b4;
+      --green: #92b87a; --plum: #c69adc; --amber: #f5c187;
+      --border: rgba(255,228,210,0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: var(--bg); color: var(--text); height: 100vh; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .nav { padding: 14px 22px; display: flex; gap: 14px; align-items: center;
+      border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; }
+    .nav a:hover { color: var(--accent2); }
+    .nav .home { color: var(--rose2); margin-right: auto; }
+    .filters {
+      padding: 12px 22px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+      background: rgba(20,9,12,0.95); border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .filter {
+      padding: 6px 14px; border-radius: 100px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--muted); font-size: 12px; font-weight: 600;
+      cursor: pointer; letter-spacing: 0.04em; transition: 0.15s;
+    }
+    .filter.active { background: var(--rose); color: #fff; border-color: var(--rose); }
+    .filter:hover:not(.active) { color: var(--text); border-color: var(--rose); }
+    #map { flex: 1; }
+    .leaflet-popup-content-wrapper {
+      background: var(--surface); color: var(--text); border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .leaflet-popup-tip { background: var(--surface); }
+    .leaflet-popup-content { margin: 14px 16px; font-size: 13px; line-height: 1.5; }
+    .leaflet-popup-content h4 { font-size: 15px; font-weight: 800; color: var(--rose2); margin-bottom: 4px; }
+    .leaflet-popup-content .pop-cat {
+      display: inline-block; padding: 2px 8px; border-radius: 100px;
+      font-size: 10px; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .leaflet-popup-content .pop-addr { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+    .leaflet-popup-content .pop-note { font-size: 12px; color: var(--text); margin-top: 6px; }
+    .leaflet-popup-content .pop-drive { color: var(--accent2); font-weight: 700; font-size: 11px; }
+    .leaflet-popup-content a { color: var(--accent2); display: inline-block; margin-top: 8px; font-weight: 700; font-size: 12px; }
+    .legend {
+      position: absolute; bottom: 20px; right: 20px; z-index: 1000;
+      background: rgba(20,9,12,0.92); backdrop-filter: blur(8px);
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px 14px; font-size: 12px;
+    }
+    .legend .row { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+    .legend .dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+    @media (max-width: 640px) {
+      .filters { padding: 8px 12px; gap: 6px; }
+      .filter { padding: 5px 10px; font-size: 11px; }
+      .legend { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <a class="home" href="./index.html">← Atlas</a>
+    <a href="./today.html">Tonight</a>
+    <a href="./itineraries.html">Itineraries</a>
+    <a href="./guide.html">Guide</a>
+    <a href="./map.html" style="color:var(--accent2);">Map</a>
+  </div>
+
+  <div class="filters">
+    <button class="filter active" data-cat="all">All</button>
+    <button class="filter" data-cat="restaurant">Restaurants</button>
+    <button class="filter" data-cat="bar">Bars</button>
+    <button class="filter" data-cat="sweet">Dessert</button>
+    <button class="filter" data-cat="brunch">Brunch</button>
+    <button class="filter" data-cat="activity">Activities</button>
+    <button class="filter" data-cat="daytrip">Day Trips</button>
+  </div>
+
+  <div id="map"></div>
+
+  <div class="legend">
+    <div class="row"><span class="dot" style="background:#f4a8b4;"></span>Home</div>
+    <div class="row"><span class="dot" style="background:#e07a8a;"></span>Restaurant</div>
+    <div class="row"><span class="dot" style="background:#f5c187;"></span>Bar / nightcap</div>
+    <div class="row"><span class="dot" style="background:#c69adc;"></span>Dessert / brunch</div>
+    <div class="row"><span class="dot" style="background:#92b87a;"></span>Activity</div>
+    <div class="row"><span class="dot" style="background:#d4a373;"></span>Day Trip</div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const COLORS = {
+      restaurant: '#e07a8a', bar: '#f5c187', sweet: '#c69adc', brunch: '#c69adc',
+      activity: '#92b87a', daytrip: '#d4a373', home: '#f4a8b4'
+    };
+
+    const map = L.map('map', { zoomControl: true }).setView([42.99, -81.25], 13);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      maxZoom: 19
+    }).addTo(map);
+
+    let allMarkers = [];
+
+    function makeIcon(cat, isHome=false) {
+      const color = COLORS[cat] || '#f5c187';
+      const size = isHome ? 22 : 14;
+      return L.divIcon({
+        className: 'pin',
+        html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${color};border:${isHome?3:2}px solid #14090c;box-shadow:0 0 0 ${isHome?3:1.5}px ${color}66;"></div>`,
+        iconSize: [size, size], iconAnchor: [size/2, size/2]
+      });
+    }
+
+    fetch('./data/locations.json').then(r => r.json()).then(data => {
+      // home pin
+      const h = data.home;
+      L.marker([h.lat, h.lon], { icon: makeIcon('home', true) })
+        .addTo(map)
+        .bindPopup(`<h4>🏠 Home</h4><div class="pop-addr">${h.address}</div>`);
+
+      data.locations.forEach(loc => {
+        const m = L.marker([loc.lat, loc.lon], { icon: makeIcon(loc.cat) }).addTo(map);
+        const cat = loc.cat;
+        const catDisplay = {restaurant:'Restaurant',bar:'Bar',sweet:'Dessert',brunch:'Brunch',activity:'Activity',daytrip:'Day Trip'}[cat];
+        const popup = `
+          <h4>${loc.name}</h4>
+          <span class="pop-cat" style="background:${COLORS[cat]}33;color:${COLORS[cat]};">${catDisplay} · ${loc.tier||''}</span>
+          <div class="pop-addr">${loc.address}</div>
+          ${loc.note ? `<div class="pop-note">${loc.note}</div>` : ''}
+          ${loc.drive ? `<div class="pop-drive">🚗 ${loc.drive} from home</div>` : ''}
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address)}" target="_blank" rel="noopener">Open in Google Maps →</a>`;
+        m.bindPopup(popup);
+        m._cat = cat;
+        allMarkers.push(m);
+      });
+    });
+
+    document.querySelectorAll('.filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        allMarkers.forEach(m => {
+          if (cat === 'all' || m._cat === cat || (cat === 'sweet' && m._cat === 'brunch')) {
+            if (!map.hasLayer(m)) map.addLayer(m);
+          } else {
+            if (map.hasLayer(m)) map.removeLayer(m);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Field Guide — Fadi &amp; Nomi Date Night</title>
+  <style>
+    :root {
+      --bg: #14090c; --surface: #1d1216; --surface2: #281a1f;
+      --border: rgba(255,228,210,0.08); --border2: rgba(255,228,210,0.16);
+      --text: #f7e7d8; --muted: rgba(247,231,216,0.55);
+      --accent: #d4a373; --accent2: #f5c187;
+      --rose: #e07a8a; --rose2: #f4a8b4; --burgundy: #7a2438;
+      --green: #92b87a; --plum: #c69adc; --amber: #f5c187;
+      --radius: 14px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: radial-gradient(ellipse at top, #2a1219 0%, var(--bg) 60%) fixed;
+      color: var(--text); line-height: 1.6;
+    }
+    .nav { padding: 18px 22px; display: flex; gap: 14px; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(20,9,12,0.92); backdrop-filter: blur(10px); z-index: 50; }
+    .nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; }
+    .nav a:hover { color: var(--accent2); }
+    .nav .home { color: var(--rose2); margin-right: auto; }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 36px 22px 80px; }
+    h1 { font-size: clamp(34px, 5vw, 50px); font-weight: 900; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 14px;
+      background: linear-gradient(135deg, #fff 30%, var(--rose2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .lede { color: var(--muted); font-size: 17px; max-width: 720px; margin-bottom: 36px; }
+
+    .quick {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 22px; margin-bottom: 40px;
+    }
+    .quick h3 { font-size: 12px; font-weight: 800; letter-spacing: 0.18em; color: var(--accent2); text-transform: uppercase; margin-bottom: 12px; }
+    .quick a { display: inline-block; padding: 6px 12px; margin: 4px 4px 4px 0;
+      border-radius: 100px; background: rgba(244,168,180,0.1); color: var(--rose2);
+      font-size: 12px; font-weight: 700; text-decoration: none; border: 1px solid rgba(244,168,180,0.2);
+    }
+    .quick a:hover { background: var(--rose); color: #fff; }
+
+    section { margin-bottom: 64px; scroll-margin-top: 80px; }
+    .section-title { font-size: 12px; font-weight: 800; letter-spacing: 0.18em; color: var(--accent2); text-transform: uppercase; margin-bottom: 6px; }
+    h2 { font-size: 30px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 18px; }
+    .section-lede { color: var(--muted); font-size: 15px; max-width: 720px; margin-bottom: 22px; }
+
+    .group { margin-bottom: 28px; }
+    .group h3 {
+      font-size: 14px; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--rose2); margin-bottom: 12px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+
+    .entries { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; }
+    .entry {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px; transition: 0.15s;
+    }
+    .entry:hover { border-color: var(--rose); transform: translateY(-1px); }
+    .entry .e-head {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 4px;
+    }
+    .entry .e-name { font-size: 15px; font-weight: 800; line-height: 1.25; }
+    .entry .e-tier { font-size: 11px; font-weight: 800; color: var(--accent2); flex-shrink: 0; padding-top: 2px; }
+    .entry .e-addr {
+      font-size: 12px; color: var(--rose2); font-weight: 600; margin-bottom: 6px;
+    }
+    .entry .e-addr a { color: inherit; text-decoration: underline; text-decoration-color: rgba(244,168,180,0.3); }
+    .entry .e-note { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .entry .e-meta {
+      margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border);
+      display: flex; gap: 10px; font-size: 11px; color: var(--muted); flex-wrap: wrap;
+    }
+
+    .closures {
+      background: rgba(232,117,90,0.06); border: 1px solid rgba(232,117,90,0.2);
+      border-left: 3px solid #e8755a; border-radius: var(--radius);
+      padding: 18px 22px; margin: 40px 0;
+    }
+    .closures h3 { color: #e8755a; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+    .closures ul { list-style: none; }
+    .closures li { padding: 4px 0; font-size: 14px; color: var(--muted); }
+    .closures li strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <a class="home" href="./index.html">← Atlas</a>
+    <a href="./today.html">Tonight</a>
+    <a href="./itineraries.html">Itineraries</a>
+    <a href="./guide.html" style="color:var(--accent2);">Guide</a>
+    <a href="./map.html">Map</a>
+  </div>
+
+  <div class="container">
+    <h1>Field Guide</h1>
+    <p class="lede">Mix-and-match reference. The full atlas of restaurants, bars, activities, day-trips, and hidden gems — verified addresses, drive times from 526 Grosvenor, and the editor's note for each.</p>
+
+    <div class="quick">
+      <h3>Jump to</h3>
+      <a href="#restaurants">Restaurants</a>
+      <a href="#late">After Dinner</a>
+      <a href="#sweet">Dessert / Brunch</a>
+      <a href="#activities">Activities</a>
+      <a href="#hidden">Hidden Gems</a>
+      <a href="#daytrips">Day Trips</a>
+      <a href="#flex">Flex / Backup</a>
+    </div>
+
+    <!-- ===== RESTAURANTS ===== -->
+    <section id="restaurants">
+      <div class="section-title">28 Spots</div>
+      <h2>Restaurants — Date-Worthy</h2>
+      <p class="section-lede">Verified open in 2026. The big-flex spots, the neighbourhood standbys, and the ones that have aged into institutions.</p>
+
+      <div class="group">
+        <h3>Splurge / Anniversary</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Reverie</div><div class="e-tier">$$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=208+Piccadilly+St+London+ON" target="_blank" rel="noopener">208 Piccadilly St</a></div><div class="e-note">London's only true tasting menu. Ex-Noma chef. Books 1-2 weeks ahead. (519) 504-5235</div><div class="e-meta"><span>5-7 min</span><span>Reservation</span><span>Modernist Canadian</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Idlewyld Inn</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=36+Grand+Ave+London+ON" target="_blank" rel="noopener">36 Grand Ave</a></div><div class="e-note">Most romantic room in London. 1878 Victorian mansion + spa overnight option. (519) 432-5554</div><div class="e-meta"><span>10 min</span><span>Reservation</span><span>Canadian</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Garlic's of London</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=481+Richmond+St+London+ON" target="_blank" rel="noopener">481 Richmond St</a></div><div class="e-note">Since 1992. Chef Chad Steward's monthly market menu is the gold standard. Walkable. (519) 432-4092</div><div class="e-meta"><span>5 min</span><span>Reservation</span><span>Modern Ontario</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">David's Bistro</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=432+Richmond+St+London+ON" target="_blank" rel="noopener">432 Richmond St</a></div><div class="e-note">Classic French bistro since 1998. Quiet, grown-up, well-priced wine list. (519) 667-0535</div><div class="e-meta"><span>5 min</span><span>Reservation</span><span>French</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Marienbad</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=122+Carling+St+London+ON" target="_blank" rel="noopener">122 Carling St</a></div><div class="e-note">Time-capsule European since 1974 in 1854 building. Schnitzel, goulash, Pilsner Urquell. (519) 679-9940</div><div class="e-meta"><span>6 min</span><span>Reservation</span><span>Czech/Hungarian</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Cintro on Wellington</div><div class="e-tier">$$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=731+Wellington+Rd+London+ON" target="_blank" rel="noopener">731 Wellington St</a></div><div class="e-note">OpenTable Top 100 Canada. Polished, dim, modern. Wagyu &amp; seafood are the flex.</div><div class="e-meta"><span>8 min</span><span>Reservation</span><span>Asian fusion</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Yaya's Kitchen</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=630+Dundas+St+London+ON" target="_blank" rel="noopener">630 Dundas St</a></div><div class="e-note">West African / Sahelian tasting menu, Fri/Sat only. Books on Tock. Most distinctive cuisine in London.</div><div class="e-meta"><span>8 min</span><span>Tock</span><span>West African</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Black Trumpet</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=523+Richmond+St+London+ON" target="_blank" rel="noopener">523 Richmond St</a></div><div class="e-note">Fireplace inside, garden patio in summer. Wild mushroom &amp; truffle sacchetti is the move.</div><div class="e-meta"><span>5 min</span><span>OpenTable</span><span>Fusion</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Sagi of Wortley</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=175+Wortley+Rd+London+ON" target="_blank" rel="noopener">175 Wortley Rd</a></div><div class="e-note">Most design-forward room in Wortley. Banh xeo, holy basil mussels, wonton brie. (519) 204-8226</div><div class="e-meta"><span>10 min</span><span>Reservation</span><span>Asian fusion</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Grace Restaurant</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=215+Dundas+St+London+ON" target="_blank" rel="noopener">215 Dundas St</a></div><div class="e-note">Chef Angie Murphy's room in heritage Duffield Block. Sister wine bar Grace Bodega next door at 211.</div><div class="e-meta"><span>5 min</span><span>OpenTable</span><span>Canadian</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Waldo's on King</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=130+King+St+London+ON" target="_blank" rel="noopener">130 King St</a></div><div class="e-note">Currently #1 on Tripadvisor London. Tiny private patio at Covent Garden Market. (519) 850-8666</div><div class="e-meta"><span>6 min</span><span>Reservation</span><span>Bistro</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Chop Steakhouse</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=977+Wellington+Rd+S+London+ON" target="_blank" rel="noopener">977 Wellington Rd S</a></div><div class="e-note">Reliable steakhouse formula. Anniversary safe-pick if Idlewyld is booked.</div><div class="e-meta"><span>15 min</span><span>OpenTable</span><span>Steakhouse</span></div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Casual but Charming</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Wortley Roadhouse</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=190+Wortley+Rd+London+ON" target="_blank" rel="noopener">190 Wortley Rd</a></div><div class="e-note">Live music Fri/Sat. Real fireplace. The BBLT is the move. (519) 438-5141</div><div class="e-meta"><span>10 min</span><span>Walk-in</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Plant Matter Kitchen</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=162+Wortley+Rd+London+ON" target="_blank" rel="noopener">162 Wortley Rd</a></div><div class="e-note">London's only serious plant-based room. Even non-vegans love it.</div><div class="e-meta"><span>10 min</span><span>OpenTable</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">La Cucina</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=731+Richmond+St+London+ON" target="_blank" rel="noopener">731 Richmond St</a></div><div class="e-note">Italian, open until 1am. Tuesday-night-easy date in walking distance of Grosvenor.</div><div class="e-meta"><span>3 min</span><span>OpenTable</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Lucy's Pizza &amp; Cocktails</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=581+Richmond+St+London+ON" target="_blank" rel="noopener">581 Richmond St</a></div><div class="e-note">Trendy. Oysters + Neapolitan. Turns into a DJ lounge after 10pm.</div><div class="e-meta"><span>5 min</span><span>OpenTable</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Los Lobos</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=580+Talbot+St+London+ON" target="_blank" rel="noopener">580 Talbot St</a></div><div class="e-note">Modern Mexican. Best mezcal program in London. Pork-belly tacos.</div><div class="e-meta"><span>6 min</span><span>OpenTable</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Pasto's Grill</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=6675+Burtwistle+Lane+London+ON" target="_blank" rel="noopener">6675 Burtwistle Lane (Stoneridge Inn)</a></div><div class="e-note">Hidden-gem chic Italian inside a country inn. Worth the 20-min drive.</div><div class="e-meta"><span>20 min</span><span>OpenTable</span></div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>International / Distinctive</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">TG's Addis Ababa</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=465+Dundas+St+London+ON" target="_blank" rel="noopener">465 Dundas St</a></div><div class="e-note">Ethiopian. Eat-with-your-hands intimacy. Vegetarian combo + tibs + honey wine.</div><div class="e-meta"><span>7 min</span><span>Walk-in</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Daldongnae K-BBQ</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=737+Richmond+St+London+ON" target="_blank" rel="noopener">737 Richmond St</a></div><div class="e-note">Closest serious K-BBQ to Old North. Walkable. (519) 439-7373</div><div class="e-meta"><span>3 min</span><span>Walk-in</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Anatolia Turkish</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=807+Dundas+St+London+ON" target="_blank" rel="noopener">807 Dundas St</a></div><div class="e-note">Wood-grilled lamb, pide, Turkish wine. Date-night sleeper hit.</div><div class="e-meta"><span>7 min</span><span>Walk-in</span></div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Shiki Japanese</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=715+Wellington+Rd+London+ON" target="_blank" rel="noopener">715 Wellington Rd</a></div><div class="e-note">Family-run since 1987. Omakase + shabu-shabu in winter.</div><div class="e-meta"><span>13 min</span><span>Reservation</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== AFTER DINNER ===== -->
+    <section id="late">
+      <div class="section-title">After Dinner</div>
+      <h2>Bars, Cocktails &amp; Late-Night</h2>
+      <p class="section-lede">Where the night settles into a corner booth.</p>
+
+      <div class="group">
+        <h3>Speakeasies &amp; Cocktail Bars</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Staff Only</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=350+Ridout+St+S+London+ON" target="_blank" rel="noopener">350 Ridout St S</a></div><div class="e-note">16-seat speakeasy hidden behind a salon. Reservation only. The most-wanted seats in London.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">1913 Speakeasy</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=100+Kellogg+Lane+London+ON" target="_blank" rel="noopener">100 Kellogg Lane</a></div><div class="e-note">Hard Rock Hotel speakeasy. Vinyl DJ, cereal-infused cocktails, open until 1am.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">The Bungalow</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=910+Waterloo+St+London+ON" target="_blank" rel="noopener">910 Waterloo St</a></div><div class="e-note">3-min walk from Grosvenor. 25-foot cherry-wood-and-stone bar. Closes 10pm.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Cantata Lounge (Delta Armouries)</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=325+Dundas+St+London+ON" target="_blank" rel="noopener">325 Dundas St</a></div><div class="e-note">Hotel bar atop a 1905 armoury atrium. Specialty: martinis &amp; Manhattans.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Grace Bodega</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=211+Dundas+St+London+ON" target="_blank" rel="noopener">211 Dundas St</a></div><div class="e-note">London's only true natural-wine bar. Tiny. Charcuterie + orange wine.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">The Tasting Room</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=483+Richmond+St+London+ON" target="_blank" rel="noopener">483 Richmond St</a></div><div class="e-note">Two-decade Richmond Row institution. Wine flights, next to Grand Theatre.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">The Church Key</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=476+Richmond+St+London+ON" target="_blank" rel="noopener">476 Richmond St</a></div><div class="e-note">Heritage gastropub, deepest beer list on Richmond Row. Books out for theatre nights.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Holy Diver</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=353+Talbot+St+London+ON" target="_blank" rel="noopener">353 Talbot St</a></div><div class="e-note">Rock-and-roll wine bar. Open till 2am Fri/Sat. Smashed burger of the week.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Milos' Craft Beer Emporium</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=420+Talbot+St+London+ON" target="_blank" rel="noopener">420 Talbot St</a></div><div class="e-note">23 taps + cask ales + cocktails. Owner-operated, farm-to-table food.</div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Live Music &amp; Venues</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Aeolian Hall</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=795+Dundas+St+London+ON" target="_blank" rel="noopener">795 Dundas St</a></div><div class="e-note">1882 hall, ~400 seats, best small-room acoustics in SW Ontario.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">London Music Hall / Rum Runners</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=185+Queens+Ave+London+ON" target="_blank" rel="noopener">185 Queens Ave</a></div><div class="e-note">Larger room, standing GA, louder than Aeolian.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Grand Theatre</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=471+Richmond+St+London+ON" target="_blank" rel="noopener">471 Richmond St</a></div><div class="e-note">Live theatre. Productions run nightly through season.</div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Late Eats</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Barakat Downtown</div><div class="e-tier">$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=551+Richmond+St+London+ON" target="_blank" rel="noopener">551 Richmond St</a></div><div class="e-note">Counter-service shawarma legend. Open until 2am.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">King Richie's Pizzeria</div><div class="e-tier">$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=1133+Richmond+St+London+ON" target="_blank" rel="noopener">1133 Richmond St</a></div><div class="e-note">Closest late-night hot food to Grosvenor. Open until 4am.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SWEET ===== -->
+    <section id="sweet">
+      <div class="section-title">Dessert &amp; Brunch</div>
+      <h2>Sweet, Patisserie &amp; the Morning After</h2>
+
+      <div class="group">
+        <h3>Dessert / Late Sweet</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Mustangs Dessert</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=276+Wharncliffe+Rd+N+London+ON" target="_blank" rel="noopener">276 Wharncliffe Rd N</a></div><div class="e-note">Late-night dessert lounge. Open until 1am. Loaded milkshakes, caramel waffles.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Lokma Pastry</div><div class="e-tier">$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=487+Hamilton+Rd+London+ON" target="_blank" rel="noopener">487 Hamilton Rd</a></div><div class="e-note">Cruffles + loaded milkshakes. Open until 1:40am.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Black Walnut Bakery (Wortley)</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=134+Wortley+Rd+London+ON" target="_blank" rel="noopener">134 Wortley Rd</a></div><div class="e-note">Closes 6pm. Pastries are best in the city. Pre-game stop.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Pastry Culture</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=2175+Richmond+St+London+ON" target="_blank" rel="noopener">2175 Richmond St N</a></div><div class="e-note">Best classical French pastry in London. Paris-Brest, kouign-amann, opera cake.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Marble Slab Creamery</div><div class="e-tier">$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=573A+Richmond+St+London+ON" target="_blank" rel="noopener">573A Richmond St</a></div><div class="e-note">Build-your-own walk-up cone, open until 11:30pm.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">The Tea Lounge</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=268+Piccadilly+St+London+ON" target="_blank" rel="noopener">268 Piccadilly St</a></div><div class="e-note">Afternoon tea service. Closes 8:30pm Sat.</div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Brunch (Sunday Morning-After)</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">The Early Bird</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=355+Talbot+St+London+ON" target="_blank" rel="noopener">355 Talbot St</a></div><div class="e-note">Cult brunch. Drowning Bird benny + Caesar. Walk-in only — 30-45 min Sat/Sun wait.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">The River Room</div><div class="e-tier">$$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=421+Ridout+St+N+London+ON" target="_blank" rel="noopener">421 Ridout St N</a></div><div class="e-note">Inside Museum London. Floor-to-ceiling river-view windows.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Craft Farmacy</div><div class="e-tier">$$</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=449+Wharncliffe+Rd+S+London+ON" target="_blank" rel="noopener">449 Wharncliffe Rd S</a></div><div class="e-note">Sunday brunch with oysters + a craft pint.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ACTIVITIES ===== -->
+    <section id="activities">
+      <div class="section-title">35+ Ideas</div>
+      <h2>Activities &amp; Experiences</h2>
+
+      <div class="group">
+        <h3>Culture &amp; Heritage</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Eldon House</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=481+Ridout+St+N+London+ON" target="_blank" rel="noopener">481 Ridout St N</a></div><div class="e-note">London's oldest house (1834). Donation. Thu-Sun 12-5pm. Garden picnic legal.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Museum London</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=421+Ridout+St+N+London+ON" target="_blank" rel="noopener">421 Ridout St N</a></div><div class="e-note">Free, on Forks of the Thames. Paul Peel's "After the Bath" is the quiet draw.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Banting House</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=442+Adelaide+St+N+London+ON" target="_blank" rel="noopener">442 Adelaide St N</a></div><div class="e-note">The room where insulin was conceived. Flame of Hope outside has burned since 1989.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Forest City Gallery</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=258+Richmond+St+London+ON" target="_blank" rel="noopener">258 Richmond St</a></div><div class="e-note">Artist-run since 1973. Opening nights are free with cheap red wine.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Michael Gibson Gallery</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=157+Carling+St+London+ON" target="_blank" rel="noopener">157 Carling St</a></div><div class="e-note">Commercial gallery, contemporary Canadian. Quiet, cerebral.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Hume Cronyn Observatory</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=Cronyn+Observatory+London+ON" target="_blank" rel="noopener">Western U campus, 1151 Richmond St</a></div><div class="e-note">Free public nights. A grad student aims a 100-year-old refractor at Saturn for you.</div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Hands-On / Crafty</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Crock A Doodle</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=671+Wonderland+Rd+N+London+ON" target="_blank" rel="noopener">671 Wonderland Rd N</a></div><div class="e-note">Pottery painting. 10am-9pm. Pick a piece for each other; fired in a week.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Maslo Candle Co.</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=Maslo+Candle+London+ON" target="_blank" rel="noopener">London ON (verify location)</a></div><div class="e-note">Pour-your-own candle workshop, ~$60/pp. Smell becomes the date for 40 burn-hours.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Pasta Class at Garlic's</div></div><div class="e-addr">📍 481 Richmond St</div><div class="e-note">Hand-rolled tagliatelle with the chef, then chef's-table dinner. Book ahead.</div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Active / Playful</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">BATL Axe Throwing</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=40+Adelaide+St+N+London+ON" target="_blank" rel="noopener">40 Adelaide St N</a></div><div class="e-note">Coached lanes + licensed bar. Sat 12pm-11pm.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Boler Treetop Adventure</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=689+Griffith+St+London+ON" target="_blank" rel="noopener">689 Griffith St</a></div><div class="e-note">3 levels of high-ropes courses + ziplines. Sat/Sun 10am-4pm. ~$50-65/pp.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Discovery Archery</div></div><div class="e-addr">📍 256 Pall Mall St</div><div class="e-note">Couples lane, ~$25-35/pp. Tactile, competitive, almost no one books.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Escapology</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=604+Oxford+St+E+London+ON" target="_blank" rel="noopener">604 Oxford St E</a></div><div class="e-note">60-min escape rooms, ~$32/pp. 6+ themes. Booking required.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Palasad SocialBowl</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=777+Adelaide+St+N+London+ON" target="_blank" rel="noopener">777 Adelaide St N</a></div><div class="e-note">Bowling + billiards + escape rooms + arcade + scratch kitchen + cocktails.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">The Factory @ 100 Kellogg</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=100+Kellogg+Lane+London+ON" target="_blank" rel="noopener">100 Kellogg Lane</a></div><div class="e-note">Trampolines + ropes + escapes + axe + brewery in old Kellogg's factory.</div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Spa &amp; Wellness</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Idlewyld Inn Spa — Couples Massage</div></div><div class="e-addr">📍 36 Grand Ave</div><div class="e-note">$240 / 60-min in 1878 Victorian mansion. (519) 433-2891</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Float Therapy London</div></div><div class="e-addr">📍 642 Maitland St</div><div class="e-note">Sensory-deprivation tank. ~$75-95/pp. 60-min float + decompress.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Balance + Tranquility</div></div><div class="e-addr">📍 verify · 519-913-0313</div><div class="e-note">Float tank + Himalayan salt cave + infrared sauna under one roof.</div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>Markets &amp; Shopping</h3>
+        <div class="entries">
+          <div class="entry"><div class="e-head"><div class="e-name">Western Fair Market</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=900+King+St+London+ON" target="_blank" rel="noopener">900 King St</a></div><div class="e-note">Sat 8am-3pm. Best Saturday-morning activity in the city.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Covent Garden Market</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=130+King+St+London+ON" target="_blank" rel="noopener">130 King St</a></div><div class="e-note">Year-round indoor market. Sat 9am-7pm.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Attic Books</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=240+Dundas+St+London+ON" target="_blank" rel="noopener">240 Dundas St</a></div><div class="e-note">Three storeys of used books in 1880s building with iron spiral staircase.</div></div>
+          <div class="entry"><div class="e-head"><div class="e-name">Speed City Records</div></div><div class="e-addr">📍 <a href="https://maps.google.com/?q=736+Richmond+St+London+ON" target="_blank" rel="noopener">736 Richmond St</a></div><div class="e-note">Vinyl shop. Each pick a record for the other under $25.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HIDDEN ===== -->
+    <section id="hidden">
+      <div class="section-title">12 Underused Ideas</div>
+      <h2>Hidden Gems</h2>
+      <p class="section-lede">The novelty plays. Things tourists miss.</p>
+
+      <div class="entries">
+        <div class="entry"><div class="e-name">Hume Cronyn Observatory public night</div><div class="e-note">Western U campus. Saturn through a 100-year-old refractor. FREE.</div></div>
+        <div class="entry"><div class="e-name">Eldon House BYOB picnic</div><div class="e-note">Rose gardens overlooking the Thames forks. Allegedly haunted.</div></div>
+        <div class="entry"><div class="e-name">Aeolian Hall intimate concert</div><div class="e-note">140-year-old former town hall, best small-room acoustics in SW Ontario.</div></div>
+        <div class="entry"><div class="e-name">Float tank couples session</div><div class="e-note">90 minutes in zero-gravity salt water in total darkness, then debrief over tea.</div></div>
+        <div class="entry"><div class="e-name">Helicopter tour from YXU</div><div class="e-note">London at 1500 ft at sunset, ~$200-400/couple. Verify operator.</div></div>
+        <div class="entry"><div class="e-name">Maslo Candle pour-your-own</div><div class="e-note">Blend a scent. The candle becomes the smell of the date for 40 burn-hours.</div></div>
+        <div class="entry"><div class="e-name">Pasta-making with chef's table dinner</div><div class="e-note">Better than any reservation because you made it.</div></div>
+        <div class="entry"><div class="e-name">Hot pot at Happy Lamb</div><div class="e-note">2 hrs of forced eye contact across boiling broth. Underrated romance.</div></div>
+        <div class="entry"><div class="e-name">Banting House evening visit</div><div class="e-note">The room where insulin was conceived. Quiet, profound.</div></div>
+        <div class="entry"><div class="e-name">Discovery Archery couples lane</div><div class="e-note">Tactile, competitive, almost no one books.</div></div>
+        <div class="entry"><div class="e-name">Kim Chao dim sum (Sunday)</div><div class="e-note">1166 Commissioners Rd E. Cart-style dim sum almost no one outside the Chinese community knows.</div></div>
+        <div class="entry"><div class="e-name">Covered bridge rural drive</div><div class="e-note">Sodom Rd / Mansion Rd loop. Thermos, blanket, fall colours.</div></div>
+      </div>
+    </section>
+
+    <!-- ===== DAY TRIPS ===== -->
+    <section id="daytrips">
+      <div class="section-title">Within 2 Hours</div>
+      <h2>Day Trips</h2>
+      <p class="section-lede">Ranked for Saturday April 25, 2026, factoring season and what's actually open.</p>
+
+      <div class="entries">
+        <div class="entry"><div class="e-head"><div class="e-name">1. Stratford</div><div class="e-tier">55-65 min</div></div><div class="e-note">Festival opens April 21 — opening weekend energy. Avon swans, Revival House (70 Brunswick St), Mercer Hall, Bradshaws. Capital-D Date.</div></div>
+        <div class="entry"><div class="e-head"><div class="e-name">2. Niagara-on-the-Lake</div><div class="e-tier">2hr-2hr15</div></div><div class="e-note">Shaw Festival running. Funny Girl just opened. Wineries pre-tourist quiet. Cherry blossoms emerging. Best as overnight getaway.</div></div>
+        <div class="entry"><div class="e-head"><div class="e-name">3. Bayfield</div><div class="e-tier">60-70 min</div></div><div class="e-note">Lake Huron sunset signature. Pioneer Park clifftop, Little Inn (1832), Black Dog Pub. Year-round village.</div></div>
+        <div class="entry"><div class="e-head"><div class="e-name">4. Elora + St. Jacobs</div><div class="e-tier">75-90 min</div></div><div class="e-note">Sat market 7am-3:30pm at St. Jacobs (878 Weber St N). Then Elora Gorge + Mill Hotel dinner. Spring runoff = peak gorge drama.</div></div>
+        <div class="entry"><div class="e-head"><div class="e-name">5. Port Stanley</div><div class="e-tier">40-45 min</div></div><div class="e-note">Closest beach town. Empty April beach, Kettle Creek Inn (216 Joseph St), antique row, lighthouse pier.</div></div>
+        <div class="entry"><div class="e-head"><div class="e-name">St. Marys</div><div class="e-tier">30-40 min</div></div><div class="e-note">Limestone "Stonetown." Trestle bridge walk, Broken Rail Brewery. Westover Inn restaurant reopens May 7.</div></div>
+        <div class="entry"><div class="e-head"><div class="e-name">Grand Bend / Pinery</div><div class="e-tier">65-75 min</div></div><div class="e-note">Pinery dunes empty in April. Town shuttered. Aux Sables Inn restaurant if you want to eat.</div></div>
+        <div class="entry"><div class="e-head"><div class="e-name">Quai du Vin Winery (Sparta)</div><div class="e-tier">25-35 min</div></div><div class="e-note">45811 Fruit Ridge Line, St. Thomas. Family-run since 1972. Vineyard + Sparta Tea Room.</div></div>
+        <div class="entry"><div class="e-head"><div class="e-name">St. Thomas / Talbotville</div><div class="e-tier">20-25 min</div></div><div class="e-note">Jumbo statue, Railway City Brewing, Ember Bistro inside CASO 1873 train station. Cheap quirky evening.</div></div>
+      </div>
+    </section>
+
+    <!-- ===== FLEX ===== -->
+    <section id="flex">
+      <div class="section-title">When in doubt</div>
+      <h2>Flex &amp; Backup</h2>
+
+      <div class="entries">
+        <div class="entry"><div class="e-name">Just-want-to-watch-a-movie night</div><div class="e-note">Hyland indie + Mustangs Dessert + home. Itinerary #9.</div></div>
+        <div class="entry"><div class="e-name">Tired-from-the-week night</div><div class="e-note">Lazy Saturday Energy. Itinerary #11.</div></div>
+        <div class="entry"><div class="e-name">It's pouring rain</div><div class="e-note">Idlewyld couples massage → pottery → Aeolian. Today's Plan B.</div></div>
+        <div class="entry"><div class="e-name">Puppy needs to come</div><div class="e-note">Wortley loop + Storm Stayed + takeout. Today's Plan C.</div></div>
+        <div class="entry"><div class="e-name">Last-minute, no reservations</div><div class="e-note">Richmond Row stroll. Itinerary #2. Walk-in everywhere.</div></div>
+        <div class="entry"><div class="e-name">Need-a-fresh-perspective night</div><div class="e-note">Float &amp; Feast. Itinerary #10. You'll talk about it for a month.</div></div>
+        <div class="entry"><div class="e-name">"We should do something different"</div><div class="e-note">Boler Treetop. Itinerary #7. Adrenaline-bonded.</div></div>
+        <div class="entry"><div class="e-name">It's already 8pm and we have nothing planned</div><div class="e-note">Walk to Bungalow → late dinner at La Cucina (open till 1am) → Marble Slab cone home.</div></div>
+      </div>
+    </section>
+
+    <!-- ===== CLOSURES ===== -->
+    <div class="closures">
+      <h3>Verified Closures · Don't Bother</h3>
+      <ul>
+        <li><strong>Honest Lawyer</strong> (228 Dundas) — permanently closed</li>
+        <li><strong>Norma Jean's</strong> (1332 Huron) — closed since 2020</li>
+        <li><strong>Aroma Mediterranean</strong> — closed Dec 2024</li>
+        <li><strong>Mezza Restobar</strong> — closed Feb 2024</li>
+        <li><strong>"Marathi" wine bar</strong> — does not exist in London ON (often confused with Mississauga)</li>
+        <li><strong>London Wine Bar</strong> — permanently closed</li>
+        <li><strong>Mustang Drive-In</strong> — verify April opening directly; Starlite chain typically opens late April</li>
+        <li><strong>Fanshawe Pioneer Village</strong> — closed until May 16, 2026</li>
+        <li><strong>Schoolhouse Restaurant Grand Bend</strong> — appears permanently closed</li>
+        <li><strong>Westover Inn restaurant (St. Marys)</strong> — reopens May 7, 2026</li>
+        <li><strong>Port Stanley Festival Theatre</strong> — 2026 season opens May 27</li>
+        <li><strong>Heeman's PYO strawberries</strong> — late June through July only (greenhouse year-round)</li>
+        <li><strong>Fanshawe canoe rentals</strong> — not available until summer</li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+</html>

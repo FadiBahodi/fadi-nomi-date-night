@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fadi &amp; Nomi — Date Night Atlas, London Ontario</title>
+  <meta name="description" content="A working atlas of date nights in and around London, Ontario. Built for one couple, hopelessly over-engineered." />
+  <style>
+    :root {
+      --bg: #14090c;
+      --surface: #1d1216;
+      --surface2: #281a1f;
+      --border: rgba(255,228,210,0.08);
+      --border2: rgba(255,228,210,0.16);
+      --text: #f7e7d8;
+      --muted: rgba(247,231,216,0.55);
+      --accent: #d4a373;
+      --accent2: #f5c187;
+      --rose: #e07a8a;
+      --rose2: #f4a8b4;
+      --burgundy: #7a2438;
+      --green: #92b87a;
+      --amber: #f5c187;
+      --red: #e8755a;
+      --plum: #c69adc;
+      --radius: 16px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: radial-gradient(ellipse at top, #2a1219 0%, var(--bg) 60%) fixed;
+      color: var(--text); line-height: 1.6; min-height: 100vh;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative; min-height: 78vh; display: flex; align-items: center;
+      justify-content: center; text-align: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(180deg, rgba(20,9,12,0.35) 0%, rgba(20,9,12,0.85) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/London%2C_Ontario%2C_at_dusk.jpg/1600px-London%2C_Ontario%2C_at_dusk.jpg');
+      background-size: cover; background-position: center 55%;
+      filter: saturate(1.1);
+    }
+    .hero-content { position: relative; z-index: 1; padding: 60px 24px; max-width: 760px; }
+    .hero .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 20px;
+      padding: 6px 14px; border: 1px solid rgba(245,193,135,0.3); border-radius: 100px;
+      background: rgba(245,193,135,0.05);
+    }
+    .hero h1 {
+      font-size: clamp(44px, 8vw, 88px); font-weight: 900;
+      letter-spacing: -0.04em; line-height: 1.0; color: #fff;
+      background: linear-gradient(135deg, #fff 30%, var(--rose2) 60%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero .amp { font-style: italic; font-weight: 400; opacity: 0.85; }
+    .hero .subtitle {
+      margin-top: 20px; font-size: 19px; color: rgba(255,255,255,0.78); max-width: 600px; margin-inline: auto;
+    }
+    .hero .stamp {
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 24px;
+      padding: 10px 22px; background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px; font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.08em;
+    }
+    .stamp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 10px var(--rose); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    .hero-actions {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px;
+      flex-direction: column; align-items: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 15px;
+      text-decoration: none; transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn-rose { background: linear-gradient(135deg, var(--rose), var(--burgundy)); color: #fff; box-shadow: 0 6px 24px rgba(224,122,138,0.35); }
+    .btn-rose:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(224,122,138,0.5); }
+    .btn-gold { background: var(--accent2); color: #2a1219; box-shadow: 0 4px 16px rgba(245,193,135,0.3); }
+    .btn-gold:hover { background: #ffd5a0; transform: translateY(-1px); }
+    .btn-ghost { background: rgba(255,255,255,0.08); color: #fff; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.18); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.14); }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 22px; }
+
+    /* ── Today banner ── */
+    .today-banner {
+      margin-top: 48px; margin-bottom: 24px;
+      background: linear-gradient(135deg, rgba(224,122,138,0.18), rgba(245,193,135,0.12));
+      border: 1px solid var(--border2);
+      border-left: 4px solid var(--rose);
+      border-radius: var(--radius);
+      padding: 22px 26px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+    .today-banner .tb-icon { font-size: 36px; }
+    .today-banner .tb-text { flex: 1; min-width: 240px; }
+    .today-banner h3 { font-size: 20px; font-weight: 800; color: var(--rose2); margin-bottom: 4px; }
+    .today-banner p { color: var(--muted); font-size: 14px; }
+    .today-banner .tb-cta {
+      padding: 12px 22px; background: var(--rose); color: #fff; border-radius: 10px;
+      text-decoration: none; font-weight: 700; font-size: 14px; transition: 0.2s;
+    }
+    .today-banner .tb-cta:hover { background: var(--burgundy); transform: translateY(-1px); }
+
+    /* ── Alerts ── */
+    .alerts { display: grid; gap: 12px; margin-bottom: 42px; }
+    .alert {
+      display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px;
+      border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border);
+    }
+    .alert-icon { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
+    .alert-rose { border-left: 3px solid var(--rose); }
+    .alert-amber { border-left: 3px solid var(--amber); }
+    .alert-green { border-left: 3px solid var(--green); }
+    .alert strong { color: var(--text); }
+    .alert p { color: var(--muted); font-size: 14px; margin-top: 3px; }
+    .alert a { color: var(--accent2); }
+
+    /* ── Section ── */
+    section { margin-bottom: 64px; }
+    .section-title {
+      font-size: 12px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--accent2); margin-bottom: 18px;
+    }
+    .section-lede {
+      font-size: 17px; color: var(--muted); max-width: 720px; margin-bottom: 22px;
+      line-height: 1.55;
+    }
+
+    /* ── Stats strip ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px; margin-bottom: 50px;
+    }
+    .stat {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px; text-align: center;
+    }
+    .stat-value {
+      font-size: 32px; font-weight: 800;
+      background: linear-gradient(135deg, var(--rose2), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; letter-spacing: 0.05em; }
+
+    /* ── Itinerary cards ── */
+    .itin-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); }
+    .itin-card {
+      position: relative; border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border); background: var(--surface);
+      transition: all 0.25s; text-decoration: none; color: var(--text); display: block;
+    }
+    .itin-card:hover { border-color: var(--rose); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
+    .itin-card .ic-img {
+      width: 100%; height: 180px; background-size: cover; background-position: center;
+      filter: brightness(0.55) saturate(1.1);
+      position: relative;
+    }
+    .itin-card .ic-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(20,9,12,0.85));
+    }
+    .itin-card .ic-num {
+      position: absolute; top: 14px; left: 14px; z-index: 2;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(20,9,12,0.7); backdrop-filter: blur(6px);
+      border: 1px solid rgba(245,193,135,0.4);
+      color: var(--accent2);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px;
+    }
+    .itin-card .ic-tag {
+      position: absolute; top: 14px; right: 14px; z-index: 2;
+      padding: 5px 11px; border-radius: 100px; font-size: 10px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      background: rgba(20,9,12,0.7); backdrop-filter: blur(6px);
+      border: 1px solid var(--border2);
+    }
+    .itin-card .ic-body { padding: 18px 20px 22px; }
+    .itin-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; line-height: 1.25; }
+    .itin-card .ic-sub { font-size: 13px; color: var(--accent2); font-weight: 600; margin-bottom: 10px; letter-spacing: 0.04em; }
+    .itin-card .ic-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+    .itin-card .ic-meta {
+      display: flex; gap: 14px; margin-top: 14px; padding-top: 14px;
+      border-top: 1px dashed var(--border); font-size: 12px; color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .itin-card .ic-meta span::before { margin-right: 5px; }
+
+    /* ── Card grid (deep dives) ── */
+    .card-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none; color: var(--text); display: block;
+    }
+    a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+    .badge {
+      display: inline-block; padding: 4px 11px; border-radius: 100px;
+      font-size: 11px; font-weight: 700; margin-top: 12px; letter-spacing: 0.04em;
+    }
+    .badge-rose { background: rgba(224,122,138,0.15); color: var(--rose2); }
+    .badge-gold { background: rgba(245,193,135,0.15); color: var(--accent2); }
+    .badge-green { background: rgba(146,184,122,0.15); color: var(--green); }
+    .badge-plum { background: rgba(198,154,220,0.15); color: var(--plum); }
+
+    /* ── Quote ── */
+    .quote {
+      margin: 60px 0; padding: 32px 28px;
+      background: linear-gradient(135deg, rgba(224,122,138,0.06), rgba(245,193,135,0.05));
+      border: 1px solid var(--border); border-left: 3px solid var(--rose);
+      border-radius: var(--radius);
+      font-style: italic; font-size: 17px; line-height: 1.6;
+      color: rgba(247,231,216,0.85);
+    }
+    .quote::before { content: '"'; font-size: 56px; color: var(--rose); line-height: 0.4; display: inline-block; vertical-align: top; margin-right: 8px; opacity: 0.6; }
+    .quote .qcite { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    footer {
+      text-align: center; padding: 50px 20px 60px; color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px;
+    }
+    footer a { color: var(--accent2); }
+    footer .heart { color: var(--rose); }
+
+    @media (max-width: 640px) {
+      .hero { min-height: 65vh; }
+      .hero h1 { font-size: 44px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="eyebrow">London, Ontario · 2026</div>
+      <h1>Fadi <span class="amp">&amp;</span> Nomi</h1>
+      <p class="subtitle">A hopelessly over-engineered atlas of date nights — built from 526 Grosvenor, scored by drive time, weather-adapted, dog-tolerant.</p>
+      <div class="stamp"><span class="stamp-dot"></span>SAT · APR 25 · 10°C · 40% SHOWERS</div>
+      <div class="hero-actions">
+        <a class="btn btn-rose" href="./today.html" style="padding:18px 36px;font-size:17px;">
+          Tonight's Plan &rarr;
+        </a>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:-4px;">Hour-by-hour for today, weather-adapted with Plan A &amp; Plan B</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+          <a class="btn btn-ghost" href="./itineraries.html" style="padding:11px 20px;font-size:13px;">11 Itineraries</a>
+          <a class="btn btn-ghost" href="./map.html" style="padding:11px 20px;font-size:13px;">Map</a>
+          <a class="btn btn-ghost" href="./guide.html" style="padding:11px 20px;font-size:13px;">Field Guide</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Today banner -->
+    <div class="today-banner">
+      <div class="tb-icon">🌧️</div>
+      <div class="tb-text">
+        <h3>Today: cool spring Saturday, breaks in the rain</h3>
+        <p>10°C high, 40% showers tapering off this morning, dropping to 1°C overnight. Wind NE 20 km/h easing this afternoon. Plan B (indoor pivot) is wired into every option below.</p>
+      </div>
+      <a class="tb-cta" href="./today.html">Build today &rarr;</a>
+    </div>
+
+    <!-- Alerts -->
+    <section class="alerts">
+      <div class="alert alert-amber">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          <strong>Reservations: book NOW for tonight</strong>
+          <p>Most date-tier London restaurants take Saturday reservations on OpenTable. <a href="https://www.opentable.ca/london-restaurants" target="_blank" rel="noopener">opentable.ca/london-restaurants</a>. Garlic's, David's, Idlewyld, Marienbad — call directly if today is the same day.</p>
+        </div>
+      </div>
+      <div class="alert alert-green">
+        <span class="alert-icon">🐶</span>
+        <div>
+          <strong>Puppy mode: flexible</strong>
+          <p>Each itinerary is flagged dog-allowed / dog-flex / no-puppy. Tonight's plan defaults to a puppy-at-home dinner with a daytime dog-included walk window — easy to flip.</p>
+        </div>
+      </div>
+      <div class="alert alert-rose">
+        <span class="alert-icon">📍</span>
+        <div>
+          <strong>Home base: 526 Grosvenor St, London ON N6A 1Y4</strong>
+          <p>Old North, two blocks from Richmond Row. Drive times below assume light Saturday traffic from this address.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><div class="stat-value">11</div><div class="stat-label">Itineraries</div></div>
+      <div class="stat"><div class="stat-value">90+</div><div class="stat-label">Stops Mapped</div></div>
+      <div class="stat"><div class="stat-value">28</div><div class="stat-label">Restaurants</div></div>
+      <div class="stat"><div class="stat-value">7</div><div class="stat-label">Day Trips</div></div>
+      <div class="stat"><div class="stat-value">12</div><div class="stat-label">Late-Night Spots</div></div>
+      <div class="stat"><div class="stat-value">∞</div><div class="stat-label">Love</div></div>
+    </div>
+
+    <!-- Itineraries grid -->
+    <section>
+      <div class="section-title">The Eleven Itineraries</div>
+      <p class="section-lede">Each one is a complete arc — pickup at home, drive times, exact addresses, costs, weather Plan B, dog flag, and an ending. Pick one, blend two, or use them as raw material.</p>
+      <div class="itin-grid" id="itinGrid"></div>
+    </section>
+
+    <!-- Quote -->
+    <div class="quote">
+      Easy doesn't mean unmemorable. The best dates are the ones where neither of you had to perform — you just got to keep being yourselves, somewhere a little nicer than usual.
+      <span class="qcite">— the over-engineering principle behind this site</span>
+    </div>
+
+    <!-- Deep dives -->
+    <section>
+      <div class="section-title">Deep-Dive Reference</div>
+      <p class="section-lede">When you want to mix-and-match instead of pick a pre-built night.</p>
+      <div class="card-grid">
+        <a class="card" href="./guide.html#restaurants">
+          <h3>Restaurants Atlas</h3>
+          <p>Every date-worthy table in London ON: vibe, price tier, what to order, reservation route, drive time from Grosvenor.</p>
+          <span class="badge badge-rose">28 spots</span>
+        </a>
+        <a class="card" href="./guide.html#activities">
+          <h3>Activities &amp; Experiences</h3>
+          <p>Indoor and out — pottery, axe throwing, paint nights, escape rooms, float tanks, Boler treetop, Aeolian Hall.</p>
+          <span class="badge badge-gold">35+ ideas</span>
+        </a>
+        <a class="card" href="./guide.html#late">
+          <h3>After Dinner</h3>
+          <p>Cocktail bars, dessert spots, hotel lobby drinks, late-night cafes, jazz, sunset drives.</p>
+          <span class="badge badge-plum">12 spots</span>
+        </a>
+        <a class="card" href="./guide.html#daytrips">
+          <h3>Day Trips Within 90 Min</h3>
+          <p>Stratford, Bayfield, Port Stanley, St. Jacobs, Elora, Niagara — what's actually open in late April.</p>
+          <span class="badge badge-green">7 destinations</span>
+        </a>
+        <a class="card" href="./guide.html#hidden">
+          <h3>Hidden Gems</h3>
+          <p>Things you wouldn't have thought of: Hume Cronyn observatory, Banting Square, Speed City vinyl, Eldon House gardens.</p>
+          <span class="badge badge-rose">12 ideas</span>
+        </a>
+        <a class="card" href="./guide.html#flex">
+          <h3>Flex &amp; Backup</h3>
+          <p>Lazy options, post-tired-day options, unexpected-rain options, "just want to watch a movie" options.</p>
+          <span class="badge badge-gold">all-purpose</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section>
+      <div class="section-title">Map</div>
+      <a class="card" href="./map.html" style="background: linear-gradient(135deg, rgba(224,122,138,0.08), rgba(245,193,135,0.05));">
+        <h3>Interactive Map — All Stops</h3>
+        <p>Every restaurant, activity, late-night spot, and day-trip location with category filters and Google Maps links. Drive times calculated from Grosvenor.</p>
+        <span class="badge badge-rose">90+ pins</span>
+      </a>
+    </section>
+
+  </div>
+
+  <footer>
+    Built by Claude with love for Fadi &amp; Nomi <span class="heart">♥</span><br/>
+    Data assembled from Tourism London, Reddit /r/londonontario, OpenTable, blogTO, Tripadvisor, Yelp, and a small pile of local blogs.<br/>
+    <small>Verify hours and reservations day-of. Things close. Owners change. Eat early. Have fun. Bring back the puppy on time.</small>
+  </footer>
+
+  <script>
+    // Itinerary data — populated inline; map.html reads same shape.
+    const ITINERARIES = [
+      { n:1, title:"The Old Money Anniversary",   sub:"Idlewyld + Marienbad + Grand Theatre",
+        desc:"Boutique hotel cocktails, white-tablecloth Hungarian classics, and live theatre — every cliché executed perfectly.",
+        tag:"SPLURGE",  tagColor:"#e07a8a", img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80",
+        meta:["⏱ 5–6 hrs","💰 $$$$","🐶 home","🌧 indoor"] },
+      { n:2, title:"Richmond Row Stroll Night",   sub:"Walk-and-graze, no driving",
+        desc:"Two blocks from your front door. Aperitif → small plate → main → dessert → nightcap, all on foot.",
+        tag:"WALKABLE", tagColor:"#92b87a", img:"https://images.unsplash.com/photo-1485962398705-ef6a13c41e8f?w=1200&q=80",
+        meta:["⏱ 4 hrs","💰 $$$","🐶 yes","🌧 covered"] },
+      { n:3, title:"Springbank Sunset + Wortley",  sub:"Park walk → Wortley Roadhouse → gelato",
+        desc:"A long looping walk along the Thames, then a fireplace dinner in the village, capped by Black Walnut espresso.",
+        tag:"CLASSIC",  tagColor:"#f5c187", img:"https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1200&q=80",
+        meta:["⏱ 5 hrs","💰 $$","🐶 yes (walk)","🌧 light rain ok"] },
+      { n:4, title:"Bayfield Sunset Pilgrimage",   sub:"1-hr drive to Lake Huron's best sunset",
+        desc:"Antique shops, harbour walk, Black Dog Pub fireplace, and the Lake Huron sunset that Ontarians lie about not being jealous of.",
+        tag:"DAY TRIP", tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=1200&q=80",
+        meta:["⏱ all day","💰 $$$","🐶 yes","☀ sunset day"] },
+      { n:5, title:"Stratford Theatre + Riverside",sub:"45-min drive, season just opening",
+        desc:"Catch a Stratford Festival preview, swans on the Avon, dinner at Mercer Hall or Bradshaws antiques after.",
+        tag:"DAY TRIP", tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1503095396549-807759245b35?w=1200&q=80",
+        meta:["⏱ all day","💰 $$$$","🐶 home","🌧 indoor"] },
+      { n:6, title:"The Crafty Couple",            sub:"Pottery class + wine + Italian",
+        desc:"Two-handed clay disasters at Crock A Doodle, a glass of orange wine at Marathi, and pasta you didn't have to make.",
+        tag:"HANDS-ON", tagColor:"#f5c187", img:"https://images.unsplash.com/photo-1565193298434-86d2bbe49e4f?w=1200&q=80",
+        meta:["⏱ 5 hrs","💰 $$","🐶 home","🌧 indoor"] },
+      { n:7, title:"Mountain Coaster + Boler",      sub:"Treetop adventure + scenic dinner",
+        desc:"Boler Mountain summer ops: zip-lining, treetop courses, mountain coaster, sunset deck dinner overlooking the valley.",
+        tag:"PLAYFUL",  tagColor:"#92b87a", img:"https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200&q=80",
+        meta:["⏱ 6 hrs","💰 $$$","🐶 partial","☀ dry day"] },
+      { n:8, title:"Port Stanley Beach Day",        sub:"Lake Erie pier + fish & chips + ice cream",
+        desc:"40 min south. Beach walk, Mackie's orangeade, Bobbie's Pub patio, pier sunset, antique shops on Bridge St.",
+        tag:"DAY TRIP", tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+        meta:["⏱ all day","💰 $$","🐶 yes","☀ dry day"] },
+      { n:9, title:"Rainy-Day Cozy Mode",           sub:"Hyland Cinema + Black Walnut + couch",
+        desc:"Indie film at the only single-screen art house left in town, dessert and amaro after, then home for the puppy and Netflix.",
+        tag:"FLEX",     tagColor:"#d4a373", img:"https://images.unsplash.com/photo-1489599735906-e2bc35ed8c5d?w=1200&q=80",
+        meta:["⏱ 4 hrs","💰 $$","🐶 home","🌧 perfect"] },
+      { n:10, title:"Float &amp; Feast",             sub:"Sensory deprivation + Korean BBQ",
+        desc:"90 minutes floating away the week at a sensory-deprivation tank, then meat-on-fire at Sariwon or Joya.",
+        tag:"NOVELTY",  tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=80",
+        meta:["⏱ 5 hrs","💰 $$$","🐶 home","🌧 indoor"] },
+      { n:11, title:"Lazy Saturday Energy",          sub:"Brunch → market → couch → patio",
+        desc:"You did hike yesterday. And the day before. Today is for Plant Matter brunch, Western Fair Market loops, and an hour of doing nothing.",
+        tag:"LOW-EFFORT",tagColor:"#d4a373",img:"https://images.unsplash.com/photo-1496318447583-f524534e9ce1?w=1200&q=80",
+        meta:["⏱ flexible","💰 $$","🐶 yes","🌧 ok"] },
+    ];
+
+    const grid = document.getElementById('itinGrid');
+    ITINERARIES.forEach(it => {
+      const a = document.createElement('a');
+      a.href = `./itineraries.html#i${it.n}`;
+      a.className = 'itin-card';
+      a.innerHTML = `
+        <div class="ic-num">${it.n}</div>
+        <div class="ic-tag" style="color:${it.tagColor};border-color:${it.tagColor}55;">${it.tag}</div>
+        <div class="ic-img" style="background-image:url('${it.img}');"></div>
+        <div class="ic-body">
+          <div class="ic-sub">${it.sub}</div>
+          <h3>${it.title}</h3>
+          <p class="ic-desc">${it.desc}</p>
+          <div class="ic-meta">${it.meta.map(m=>`<span>${m}</span>`).join('')}</div>
+        </div>`;
+      grid.appendChild(a);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tonight — Sat Apr 25 · Fadi &amp; Nomi</title>
+  <style>
+    :root {
+      --bg: #14090c;
+      --surface: #1d1216;
+      --surface2: #281a1f;
+      --border: rgba(255,228,210,0.08);
+      --border2: rgba(255,228,210,0.16);
+      --text: #f7e7d8;
+      --muted: rgba(247,231,216,0.55);
+      --accent: #d4a373;
+      --accent2: #f5c187;
+      --rose: #e07a8a;
+      --rose2: #f4a8b4;
+      --burgundy: #7a2438;
+      --green: #92b87a;
+      --amber: #f5c187;
+      --plum: #c69adc;
+      --radius: 14px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: radial-gradient(ellipse at top, #2a1219 0%, var(--bg) 60%) fixed;
+      color: var(--text); line-height: 1.6; min-height: 100vh;
+    }
+    .nav { padding: 18px 22px; display: flex; gap: 14px; align-items: center; border-bottom: 1px solid var(--border); }
+    .nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+    .nav a:hover { color: var(--accent2); }
+    .nav .home { color: var(--rose2); margin-right: auto; }
+
+    .container { max-width: 980px; margin: 0 auto; padding: 32px 22px 80px; }
+
+    .hdr { margin-bottom: 28px; }
+    .hdr .eyebrow {
+      display: inline-block; padding: 5px 12px; border: 1px solid rgba(245,193,135,0.3);
+      border-radius: 100px; font-size: 11px; font-weight: 800; letter-spacing: 0.18em;
+      color: var(--accent2); text-transform: uppercase; margin-bottom: 16px;
+      background: rgba(245,193,135,0.05);
+    }
+    .hdr h1 {
+      font-size: clamp(32px, 5vw, 48px); font-weight: 900; letter-spacing: -0.02em;
+      line-height: 1.05; margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff 30%, var(--rose2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hdr p { color: var(--muted); font-size: 16px; max-width: 700px; }
+
+    .weather-strip {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px; margin: 24px 0 36px;
+    }
+    .ws-cell {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px; text-align: center;
+    }
+    .ws-cell .v { font-size: 20px; font-weight: 800; color: var(--accent2); }
+    .ws-cell .l { font-size: 11px; color: var(--muted); margin-top: 2px; letter-spacing: 0.05em; }
+
+    .plan {
+      background: linear-gradient(135deg, rgba(224,122,138,0.05), rgba(245,193,135,0.03));
+      border: 1px solid var(--border2); border-radius: var(--radius);
+      padding: 26px; margin-bottom: 26px;
+    }
+    .plan h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; color: var(--rose2); }
+    .plan .plan-tag { display: inline-block; padding: 3px 10px; border-radius: 100px;
+      font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+      background: rgba(224,122,138,0.18); color: var(--rose2); margin-bottom: 8px; }
+    .plan-tag.b { background: rgba(146,184,122,0.18); color: var(--green); }
+    .plan-tag.c { background: rgba(198,154,220,0.18); color: var(--plum); }
+    .plan p.plan-lede { color: var(--muted); margin-bottom: 22px; font-size: 15px; }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 18px; }
+    .step {
+      display: grid; grid-template-columns: 84px 1fr; gap: 18px;
+      padding: 16px 0; border-bottom: 1px dashed var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step .tm {
+      font-weight: 800; color: var(--accent2); font-size: 14px;
+      text-align: right; padding-top: 2px;
+    }
+    .step .tm .dur { display: block; font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+    .step .body h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .step .body .where { font-size: 13px; color: var(--rose2); margin-bottom: 6px; font-weight: 600; }
+    .step .body .where a { color: inherit; text-decoration: underline; text-decoration-color: rgba(244,168,180,0.4); }
+    .step .body .desc { color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .step .body .desc strong { color: var(--text); }
+    .step .body .meta {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;
+      font-size: 12px; color: var(--muted);
+    }
+    .step .body .meta span {
+      padding: 3px 9px; background: rgba(255,228,210,0.05);
+      border-radius: 100px; border: 1px solid var(--border);
+    }
+    .step .body .meta a { color: var(--accent2); text-decoration: none; }
+
+    .pivot {
+      margin: 28px 0; padding: 20px; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber);
+    }
+    .pivot h4 { color: var(--amber); font-size: 14px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .pivot p { font-size: 14px; color: var(--muted); }
+
+    .booklist {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; margin-bottom: 30px;
+    }
+    .booklist h3 { font-size: 14px; font-weight: 800; letter-spacing: 0.1em; color: var(--rose2);
+      text-transform: uppercase; margin-bottom: 12px; }
+    .booklist ul { list-style: none; }
+    .booklist li {
+      padding: 8px 0; border-bottom: 1px dashed var(--border); font-size: 14px;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .booklist li:last-child { border-bottom: none; }
+    .booklist .check { color: var(--rose); font-weight: 800; font-size: 16px; flex-shrink: 0; line-height: 1.4; }
+    .booklist a { color: var(--accent2); }
+
+    @media (max-width: 640px) {
+      .step { grid-template-columns: 60px 1fr; gap: 12px; }
+      .step .tm { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <a class="home" href="./index.html">← Date Night Atlas</a>
+    <a href="./itineraries.html">All Itineraries</a>
+    <a href="./guide.html">Guide</a>
+    <a href="./map.html">Map</a>
+  </div>
+
+  <div class="container">
+
+    <div class="hdr">
+      <div class="eyebrow">Saturday · April 25, 2026</div>
+      <h1>Tonight's plan, three ways</h1>
+      <p>Cool spring Saturday with breaks of rain. You've been hiking daily — today is for soft activities, warm rooms, and one really good meal. Plan A is the headliner. Plan B is the rain pivot. Plan C is the puppy-along version.</p>
+    </div>
+
+    <!-- Weather strip -->
+    <div class="weather-strip">
+      <div class="ws-cell"><div class="v">10°C</div><div class="l">HIGH</div></div>
+      <div class="ws-cell"><div class="v">1°C</div><div class="l">OVERNIGHT</div></div>
+      <div class="ws-cell"><div class="v">40%</div><div class="l">SHOWERS AM</div></div>
+      <div class="ws-cell"><div class="v">NE 20</div><div class="l">WIND km/h</div></div>
+      <div class="ws-cell"><div class="v">7:50 pm</div><div class="l">SUNSET</div></div>
+      <div class="ws-cell"><div class="v">8:24 pm</div><div class="l">CIVIL TWILIGHT</div></div>
+    </div>
+
+    <!-- Booking checklist -->
+    <div class="booklist">
+      <h3>Book / call NOW (before noon)</h3>
+      <ul>
+        <li><span class="check">▸</span><div><strong>Hyland Cinema</strong> — buy 7pm "Carrie &amp; Prom Night" double feature tickets online: <a href="https://www.hylandcinema.com" target="_blank" rel="noopener">hylandcinema.com</a> · 240 Wharncliffe Rd S</div></li>
+        <li><span class="check">▸</span><div><strong>Reverie / Marienbad / David's / Garlic's</strong> — 5:45pm dinner reservation. Reverie books 1-2 weeks out, so try Marienbad (519-679-9940), David's (519-667-0535) or Garlic's (519-432-4092) first, or <a href="https://www.opentable.ca/london-restaurants" target="_blank" rel="noopener">opentable.ca/london-restaurants</a></div></li>
+        <li><span class="check">▸</span><div><strong>Backup: BATL Axe Throwing</strong> if you want active over film: <a href="https://batlgrounds.com/axe-throwing-london/" target="_blank" rel="noopener">batlgrounds.com</a> · 40 Adelaide St N</div></li>
+        <li><span class="check">▸</span><div><strong>Idlewyld Spa</strong> couples massage backup: 519-433-2891 · 36 Grand Ave (Plan B)</div></li>
+        <li><span class="check">▸</span><div><strong>Crock A Doodle</strong> pottery painting (Plan B/C): walk-in OK Sat, but call to confirm seats: 519-657-2776 · 671 Wonderland Rd N</div></li>
+      </ul>
+    </div>
+
+    <!-- PLAN A -->
+    <div class="plan" id="planA">
+      <span class="plan-tag">PLAN A · The Headliner</span>
+      <h2>Market morning, slow afternoon, vintage horror, late dinner</h2>
+      <p class="plan-lede">A perfect Saturday in London with one foot in nostalgia. You sleep in, hit the Western Fair Market for breakfast and people-watching, walk the gardens, take a couple of slow hours, then a campy double-feature horror night at the Hyland followed by late drinks and a small plate. Puppy at home most of the day, garden walk in the late afternoon brings him into the loop.</p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="tm">9:30 am<span class="dur">90 min</span></div>
+          <div class="body">
+            <h4>Western Fair Farmers' &amp; Artisans' Market</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=900+King+St+London+ON" target="_blank" rel="noopener">900 King St, London ON</a> · 8 min drive · open 8am–3pm Sat</div>
+            <div class="desc">Slow-roll breakfast: fresh tacos at <strong>The Locker Room</strong>, an espresso from <strong>Locomotive</strong> on Dundas first if you want, then hit the upper level for vintage clothing, the flower seller, fresh bread, and the cheese counter. Buy something for the picnic later.</div>
+            <div class="meta">
+              <span>💰 ~$30</span>
+              <span>🐶 puppy at home</span>
+              <span>🌧 indoor</span>
+              <span><a href="https://themarketwfd.com/" target="_blank" rel="noopener">themarketwfd.com</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">11:30 am<span class="dur">drive home</span></div>
+          <div class="body">
+            <h4>Drop the haul, pick up the puppy</h4>
+            <div class="where">📍 526 Grosvenor St · 8 min drive back</div>
+            <div class="desc">Refrigerate market finds. Pour a slow coffee. Decompress for 30 min before the next move — this is where the rain is heaviest, so it's planned.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">12:30 pm<span class="dur">90 min</span></div>
+          <div class="body">
+            <h4>Eldon House gardens + Forks of the Thames</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=481+Ridout+St+N+London+ON" target="_blank" rel="noopener">481 Ridout St N, London ON</a> · 7 min drive · 12pm–5pm</div>
+            <div class="desc">London's oldest house (1834) — toss in a donation, walk the rose gardens overlooking the river. <strong>Puppy welcome on the gardens (leashed)</strong>, not inside the house. Then walk down to the Forks at <strong>Ivey Park</strong>. If the rain is heavy, skip the Forks and step inside the house instead — it's small but warm and quietly weird.</div>
+            <div class="meta">
+              <span>💰 donation</span>
+              <span>🐶 yes (gardens, leash)</span>
+              <span>🌧 partial cover</span>
+              <span><a href="https://eldonhouse.ca/" target="_blank" rel="noopener">eldonhouse.ca</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">2:30 pm<span class="dur">90 min</span></div>
+          <div class="body">
+            <h4>Couch hour. Read. Nap. Watch tv.</h4>
+            <div class="where">📍 526 Grosvenor</div>
+            <div class="desc">This is the secret to the day. A real recharge between the museum-and-walk arc and the going-out arc. Not a cop-out — it's structural.</div>
+            <div class="meta"><span>🐶 yes (he's home anyway)</span></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">4:30 pm<span class="dur">60 min</span></div>
+          <div class="body">
+            <h4>Slow espresso + dessert recon at Black Walnut</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=724+Richmond+St+London+ON" target="_blank" rel="noopener">724 Richmond St, London ON</a> · 4 min drive (or 8 min walk)</div>
+            <div class="desc">A pre-game cortado and one excellent thing from the pastry case. This is the "we look like we have our lives together" stop.</div>
+            <div class="meta">
+              <span>💰 ~$20</span>
+              <span>🐶 patio if dry</span>
+              <span>🌧 indoors fine</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">5:45 pm<span class="dur">90 min</span></div>
+          <div class="body">
+            <h4>Early dinner — Marienbad or David's Bistro</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=122+Carling+St+London+ON" target="_blank" rel="noopener">Marienbad — 122 Carling St</a> · or <a href="https://www.google.com/maps/search/?api=1&query=432+Richmond+St+London+ON" target="_blank" rel="noopener">David's Bistro — 432 Richmond St</a> · 5–6 min drive</div>
+            <div class="desc">An early seating gives you space to actually talk. <strong>Marienbad</strong> for old-world Hungarian classics — schnitzel, goulash, Pilsner Urquell, dim brass lighting. <strong>David's</strong> for modern French bistro — duck confit, crispy halibut, the wine list is the love letter. Either way, two courses, real candles, no rush.</div>
+            <div class="meta">
+              <span>💰 $$$</span>
+              <span>🐶 puppy at home</span>
+              <span>🌧 indoor</span>
+              <span>📞 reservation recommended</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">7:00 pm<span class="dur">~3 hrs</span></div>
+          <div class="body">
+            <h4>Hyland Cinema — "Carrie &amp; Prom Night" Double Feature</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=240+Wharncliffe+Rd+S+London+ON" target="_blank" rel="noopener">240 Wharncliffe Rd S, London ON</a> · 8 min drive · 7:00pm + 9:15pm</div>
+            <div class="desc">London's last single-screen art house, packed with locals on a Saturday. Tonight: De Palma's <strong>Carrie</strong> (1976) followed by the Canadian-made <strong>Prom Night</strong> (1980). Stay for both or bail after one — no judgment. Concession popcorn is criminally good.</div>
+            <div class="meta">
+              <span>💰 ~$30/couple</span>
+              <span>🐶 home</span>
+              <span>🌧 perfect</span>
+              <span><a href="https://www.hylandcinema.com" target="_blank" rel="noopener">hylandcinema.com</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">10:30 pm<span class="dur">60 min</span></div>
+          <div class="body">
+            <h4>Nightcap — Bungalow or Grace Bodega</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=Bungalow+910+Waterloo+St+London+ON" target="_blank" rel="noopener">Bungalow — 910 Waterloo St</a> · or <a href="https://www.google.com/maps/search/?api=1&query=Grace+Bodega+211+Dundas+St+London+ON" target="_blank" rel="noopener">Grace Bodega — 211 Dundas St</a> · 4–6 min drive</div>
+            <div class="desc">One last drink, ideally in a corner booth. <strong>Bungalow</strong> for the warm Arts-and-Crafts cocktail bar three blocks from your house — ends at 10pm so close call. If they're closed, <strong>Grace Bodega</strong> for natural wine and a charcuterie board.</div>
+            <div class="meta">
+              <span>💰 ~$30</span>
+              <span>🐶 home</span>
+              <span>🌧 indoor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">11:45 pm<span class="dur">— end</span></div>
+          <div class="body">
+            <h4>Home. Puppy. Bed.</h4>
+            <div class="where">📍 526 Grosvenor</div>
+            <div class="desc">Quick puppy walk around the block. Then the day is officially yours.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pivot">
+        <h4>If shower window holds longer than expected</h4>
+        <p>Swap 12:30pm Eldon House for <strong>Museum London</strong> (421 Ridout St N, free, on the river, 10am–5pm). Same neighbourhood, fully indoor. The Paul Peel paintings and the rotating contemporary work are the play.</p>
+      </div>
+    </div>
+
+    <!-- PLAN B -->
+    <div class="plan" id="planB">
+      <span class="plan-tag b">PLAN B · The Indoor Pivot</span>
+      <h2>Spa morning, pottery afternoon, comedy at Aeolian</h2>
+      <p class="plan-lede">If the rain just refuses to break — or you wake up tired and want zero athletic effort — this is the version where the day is built entirely around warm rooms and live laughter.</p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="tm">10:00 am<span class="dur">2 hrs</span></div>
+          <div class="body">
+            <h4>Couples Relaxation Massage at Idlewyld Inn Spa</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=36+Grand+Ave+London+ON" target="_blank" rel="noopener">36 Grand Ave, London ON</a> · 8 min drive</div>
+            <div class="desc">An 1878 mansion that became a boutique spa. 60-min side-by-side relaxation massage, $240. Robe-and-tea after. The lobby alone is worth a date.</div>
+            <div class="meta">
+              <span>💰 $240</span>
+              <span>📞 519-433-2891</span>
+              <span><a href="https://www.idlewyldinn.com/spa/" target="_blank" rel="noopener">idlewyldinn.com/spa</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">12:30 pm<span class="dur">90 min</span></div>
+          <div class="body">
+            <h4>Lunch at Plant Matter Bistro</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=162+Wortley+Rd+London+ON" target="_blank" rel="noopener">162 Wortley Rd (Wortley Village)</a> · 9 min drive</div>
+            <div class="desc">Plant-forward, real-food, real-flavour. The pad thai is the move. Wortley after gives you a 20-min walking village to browse before pottery.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">2:30 pm<span class="dur">2 hrs</span></div>
+          <div class="body">
+            <h4>Crock A Doodle — pottery painting</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=671+Wonderland+Rd+N+London+ON" target="_blank" rel="noopener">671 Wonderland Rd N</a> · 11 min drive · 10am–9pm</div>
+            <div class="desc">Pick a piece for each other (no peeking until the reveal). Walk out with a fired-and-glazed keepsake in a week. The kitsch factor is the feature, not the bug.</div>
+            <div class="meta">
+              <span>💰 ~$30/piece + studio fee</span>
+              <span>🐶 home</span>
+              <span><a href="https://crockadoodle.com/london-north/" target="_blank" rel="noopener">crockadoodle.com</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">5:30 pm<span class="dur">90 min</span></div>
+          <div class="body">
+            <h4>Dinner — Anatolia Turkish or Black Trumpet</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=807+Dundas+St+London+ON" target="_blank" rel="noopener">Anatolia — 807 Dundas St (Old East)</a> · 7 min drive</div>
+            <div class="desc">Anatolia is the date-night sleeper hit — wood-grilled lamb, pide, Turkish wine. <strong>Black Trumpet</strong> at 523 Richmond St if you want a more formal small-plate feel.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">7:30 pm<span class="dur">2 hrs</span></div>
+          <div class="body">
+            <h4>Aeolian Hall — Alex Mackenzie comedy</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=795+Dundas+St+London+ON" target="_blank" rel="noopener">795 Dundas St, London ON</a> · 7 min drive · 7:30pm tonight</div>
+            <div class="desc">"Never Been Better Tour" — comedy in a 140-year-old former town hall with the best small-room acoustics in southwestern Ontario. Tickets via <a href="https://aeolianhall.ca/events/" target="_blank" rel="noopener">aeolianhall.ca</a>. Two minute walk from Anatolia after dinner.</div>
+            <div class="meta"><span>💰 ~$30-50/pp</span><span>🌧 indoor</span></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">10:00 pm<span class="dur">until done</span></div>
+          <div class="body">
+            <h4>Storm Stayed Brewing for one slow pint</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=169+Wharncliffe+Rd+S+London+ON" target="_blank" rel="noopener">169 Wharncliffe Rd S</a> · 7 min drive · open until 10pm</div>
+            <div class="desc">If they're closing, swing to <strong>Anderson Craft Ales</strong> at 1030 Elias St instead. Or skip it and go home — Plan B's whole virtue is permission to bail.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAN C -->
+    <div class="plan" id="planC">
+      <span class="plan-tag c">PLAN C · Puppy is the third wheel</span>
+      <h2>Wortley loop, Storm Stayed patio, takeout-and-cuddles night</h2>
+      <p class="plan-lede">The version where the puppy comes everywhere. Lower stakes. No reservations. No reason it isn't perfect.</p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="tm">11:00 am<span class="dur">2 hrs</span></div>
+          <div class="body">
+            <h4>Wortley Village walking loop</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=Wortley+Village+London+ON" target="_blank" rel="noopener">Wortley Rd between Bruce &amp; Bessemer</a> · 9 min drive</div>
+            <div class="desc">Park near Black Walnut, walk the village. Coffee at <strong>The Tea Lounge</strong>, browse <strong>Forest City Vintage</strong>, sit on the green at <strong>Brescia Lawn Park</strong> if dry.</div>
+            <div class="meta"><span>🐶 yes everywhere</span></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">1:30 pm<span class="dur">90 min</span></div>
+          <div class="body">
+            <h4>Wortley Roadhouse fireplace lunch</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=190+Wortley+Rd+London+ON" target="_blank" rel="noopener">190 Wortley Rd</a></div>
+            <div class="desc">Real fire, real food. Patio if dry, fireplace if wet. The roast beef sandwich is the order. Puppy on the patio if dry; otherwise drop home and come back.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">4:00 pm<span class="dur">90 min</span></div>
+          <div class="body">
+            <h4>Springbank Park duck loop + carousel</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=285+Wonderland+Rd+S+London+ON" target="_blank" rel="noopener">285 Wonderland Rd S</a> · 12 min drive</div>
+            <div class="desc">London's Central Park, 300 acres, paved paths fine in light rain. Storybook Gardens carousel ($5) if it's running today. The puppy loves it. So will you.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="tm">6:30 pm<span class="dur">until you decide</span></div>
+          <div class="body">
+            <h4>Takeout night — Joya Sushi + a real bottle of wine</h4>
+            <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=Joya+Sushi+London+ON" target="_blank" rel="noopener">Joya — 1070 Adelaide St N</a> · or any of the curated favourites</div>
+            <div class="desc">Order ahead, pick up, pour the wine, light the candles, watch a movie or play a game. The 5-month-old asleep on the couch between you is the whole point.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="color:var(--muted);font-size:13px;margin-top:30px;text-align:center;">
+      Drive times calculated from 526 Grosvenor St assuming light Saturday traffic. Verify all hours by phone before driving — small businesses change. Forecast: <a href="https://weather.gc.ca/en/location/index.html?coords=42.982,-81.249" target="_blank" rel="noopener" style="color:var(--accent2);">Environment Canada London</a>.
+    </p>
+
+  </div>
+</body>
+</html>

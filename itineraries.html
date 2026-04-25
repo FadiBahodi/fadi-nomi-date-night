@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>11 Itineraries — Fadi &amp; Nomi Date Night</title>
+  <style>
+    :root {
+      --bg: #14090c; --surface: #1d1216; --surface2: #281a1f;
+      --border: rgba(255,228,210,0.08); --border2: rgba(255,228,210,0.16);
+      --text: #f7e7d8; --muted: rgba(247,231,216,0.55);
+      --accent: #d4a373; --accent2: #f5c187;
+      --rose: #e07a8a; --rose2: #f4a8b4; --burgundy: #7a2438;
+      --green: #92b87a; --amber: #f5c187; --plum: #c69adc;
+      --radius: 14px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: radial-gradient(ellipse at top, #2a1219 0%, var(--bg) 60%) fixed;
+      color: var(--text); line-height: 1.6; min-height: 100vh;
+    }
+    .nav { padding: 18px 22px; display: flex; gap: 14px; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(20,9,12,0.92); backdrop-filter: blur(10px); z-index: 50; }
+    .nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+    .nav a:hover { color: var(--accent2); }
+    .nav .home { color: var(--rose2); margin-right: auto; }
+
+    .container { max-width: 980px; margin: 0 auto; padding: 36px 22px 80px; }
+
+    .hdr h1 {
+      font-size: clamp(36px, 5vw, 54px); font-weight: 900; letter-spacing: -0.02em;
+      line-height: 1.05; margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 30%, var(--rose2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hdr p { color: var(--muted); font-size: 17px; max-width: 720px; margin-bottom: 32px; }
+
+    .toc {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 22px; margin-bottom: 40px;
+    }
+    .toc h3 { font-size: 12px; font-weight: 800; letter-spacing: 0.18em; color: var(--accent2); text-transform: uppercase; margin-bottom: 14px; }
+    .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 6px 18px; }
+    .toc a { display: block; padding: 6px 0; color: var(--text); text-decoration: none; font-size: 14px; border-bottom: 1px dashed var(--border); }
+    .toc a:hover { color: var(--rose2); }
+    .toc a span { color: var(--accent2); font-weight: 800; margin-right: 10px; display: inline-block; min-width: 24px; }
+
+    .itin {
+      margin-bottom: 64px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .itin .lead {
+      display: flex; align-items: flex-start; gap: 18px; margin-bottom: 22px; flex-wrap: wrap;
+    }
+    .itin .num {
+      flex-shrink: 0; width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose), var(--burgundy));
+      color: #fff; font-weight: 900; font-size: 22px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 18px rgba(224,122,138,0.3);
+    }
+    .itin .titlewrap { flex: 1; min-width: 260px; }
+    .itin h2 {
+      font-size: 26px; font-weight: 800; letter-spacing: -0.01em;
+      margin-bottom: 4px; line-height: 1.15;
+    }
+    .itin .sub { font-size: 14px; color: var(--accent2); font-weight: 600; letter-spacing: 0.02em; }
+    .itin .tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+    .itin .tag {
+      padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.06em; border: 1px solid var(--border2);
+      background: rgba(255,228,210,0.04);
+    }
+    .tag.splurge { color: var(--rose2); border-color: rgba(244,168,180,0.4); }
+    .tag.flex { color: var(--accent2); border-color: rgba(245,193,135,0.4); }
+    .tag.day { color: var(--plum); border-color: rgba(198,154,220,0.4); }
+    .tag.walk { color: var(--green); border-color: rgba(146,184,122,0.4); }
+
+    .itin .lede { color: var(--muted); font-size: 16px; margin-bottom: 22px; line-height: 1.6; }
+
+    .timeline { display: flex; flex-direction: column; }
+    .step {
+      display: grid; grid-template-columns: 100px 1fr; gap: 20px;
+      padding: 14px 0; border-bottom: 1px dashed var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step .tm {
+      font-weight: 800; color: var(--accent2); font-size: 14px;
+      text-align: right; padding-top: 2px;
+    }
+    .step .tm .dur { display: block; font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+    .step h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .step .where { font-size: 13px; color: var(--rose2); margin-bottom: 6px; font-weight: 600; }
+    .step .where a { color: inherit; text-decoration: underline; text-decoration-color: rgba(244,168,180,0.4); }
+    .step .desc { color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .step .desc strong { color: var(--text); }
+    .step .meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
+      font-size: 12px; color: var(--muted);
+    }
+    .step .meta span {
+      padding: 2px 9px; background: rgba(255,228,210,0.05);
+      border-radius: 100px; border: 1px solid var(--border);
+    }
+
+    .summary {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px; margin: 16px 0 22px;
+    }
+    .sum-cell {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px; text-align: center;
+    }
+    .sum-cell .v { font-size: 16px; font-weight: 800; color: var(--accent2); }
+    .sum-cell .l { font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .pivot {
+      margin: 18px 0; padding: 16px 20px; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber);
+      font-size: 14px;
+    }
+    .pivot strong { color: var(--amber); font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+    .pivot p { color: var(--muted); }
+
+    @media (max-width: 640px) {
+      .step { grid-template-columns: 70px 1fr; gap: 12px; }
+      .step .tm { font-size: 12px; }
+      .itin .num { width: 48px; height: 48px; font-size: 18px; }
+      .itin h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <a class="home" href="./index.html">← Atlas</a>
+    <a href="./today.html">Tonight</a>
+    <a href="./itineraries.html" style="color:var(--accent2);">Itineraries</a>
+    <a href="./guide.html">Guide</a>
+    <a href="./map.html">Map</a>
+  </div>
+
+  <div class="container">
+    <div class="hdr">
+      <h1>Eleven complete date nights</h1>
+      <p>Every itinerary is a real plan: addresses, drive times from 526 Grosvenor, what to order, what to skip, where it pivots if it rains. Pick one whole. Or steal pieces and remix.</p>
+    </div>
+
+    <div class="toc">
+      <h3>The Eleven</h3>
+      <div class="toc-grid">
+        <a href="#i1"><span>01</span>The Old Money Anniversary</a>
+        <a href="#i2"><span>02</span>Richmond Row Stroll Night</a>
+        <a href="#i3"><span>03</span>Springbank Sunset + Wortley</a>
+        <a href="#i4"><span>04</span>Bayfield Sunset Pilgrimage</a>
+        <a href="#i5"><span>05</span>Stratford Theatre + Riverside</a>
+        <a href="#i6"><span>06</span>The Crafty Couple</a>
+        <a href="#i7"><span>07</span>Boler Treetop + Sunset Dinner</a>
+        <a href="#i8"><span>08</span>Port Stanley Beach Day</a>
+        <a href="#i9"><span>09</span>Rainy-Day Cozy Mode</a>
+        <a href="#i10"><span>10</span>Float &amp; Feast</a>
+        <a href="#i11"><span>11</span>Lazy Saturday Energy</a>
+      </div>
+    </div>
+
+    <!-- ============ 01 ============ -->
+    <div class="itin" id="i1">
+      <div class="lead">
+        <div class="num">1</div>
+        <div class="titlewrap">
+          <h2>The Old Money Anniversary</h2>
+          <div class="sub">Idlewyld cocktails · Reverie or Marienbad dinner · Grand Theatre or Aeolian</div>
+          <div class="tags">
+            <span class="tag splurge">SPLURGE</span><span class="tag">INDOOR</span><span class="tag">PUPPY HOME</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">The version where you pretend it's an anniversary even if it isn't. Boutique hotel cocktails in a Victorian parlour, a real tasting menu, and live theatre in a heritage hall — all within ten minutes of home.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">5–6 hrs</div><div class="l">duration</div></div>
+        <div class="sum-cell"><div class="v">$$$$</div><div class="l">~$400-600</div></div>
+        <div class="sum-cell"><div class="v">3</div><div class="l">reservations</div></div>
+        <div class="sum-cell"><div class="v">7-min</div><div class="l">max drive</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">5:30 pm<span class="dur">60 min</span></div><div>
+          <h4>Cocktails in the Idlewyld Inn parlour</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=36+Grand+Ave+London+ON" target="_blank" rel="noopener">36 Grand Ave</a> · 8 min drive</div>
+          <div class="desc">An 1878 Victorian mansion. Sit in the front parlour with the gas-lamp sconces. Order a Vieux Carré or whatever your bartender pushes. <strong>Reservation: 519-433-2891.</strong></div>
+        </div></div>
+        <div class="step"><div class="tm">7:00 pm<span class="dur">2.5 hrs</span></div><div>
+          <h4>Dinner — Reverie tasting menu (or Marienbad)</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=208+Piccadilly+St+London+ON" target="_blank" rel="noopener">Reverie — 208 Piccadilly St</a> · 6 min drive</div>
+          <div class="desc">London's only true tasting menu. Ex-Noma chef. 5 courses with biodynamic wine pairing. <strong>Books 1-2 weeks out — call 226-504-5235.</strong> Backup: <strong>Marienbad</strong> at 122 Carling for old-world Hungarian (519-679-9940), or <strong>Cintro on Wellington</strong> (731 Wellington Rd) which is OpenTable Top 100 Canada.</div>
+        </div></div>
+        <div class="step"><div class="tm">9:30 pm<span class="dur">90 min</span></div><div>
+          <h4>Show at Grand Theatre or Aeolian Hall</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=471+Richmond+St+London+ON" target="_blank" rel="noopener">Grand — 471 Richmond St</a> · or <a href="https://www.google.com/maps/search/?api=1&query=795+Dundas+St+London+ON" target="_blank" rel="noopener">Aeolian — 795 Dundas St</a></div>
+          <div class="desc">Whatever's playing tonight. Check <a href="https://www.grandtheatre.com" target="_blank" rel="noopener">grandtheatre.com</a> and <a href="https://aeolianhall.ca/events/" target="_blank" rel="noopener">aeolianhall.ca</a>. The Aeolian's acoustics are objectively unbeatable for a small concert; the Grand's main stage is the more dressed-up choice.</div>
+        </div></div>
+        <div class="step"><div class="tm">11:00 pm<span class="dur">until done</span></div><div>
+          <h4>Nightcap at Staff Only or 1913 Speakeasy</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=Staff+Only+350+Ridout+St+S+London+ON" target="_blank" rel="noopener">Staff Only — 350 Ridout St S</a> · or <a href="https://www.google.com/maps/search/?api=1&query=100+Kellogg+Lane+London+ON" target="_blank" rel="noopener">1913 — 100 Kellogg Lane</a></div>
+          <div class="desc">Staff Only is a 16-seat speakeasy hidden behind a salon — the most sought-after seats in town. 1913 is the Hard Rock Hotel's vinyl-DJ speakeasy, open until 1am. Pick whichever has space.</div>
+        </div></div>
+      </div>
+
+      <div class="pivot">
+        <strong>If Reverie is booked</strong>
+        <p>Marienbad → David's Bistro (432 Richmond) → Garlic's of London (481 Richmond), in that descending order of "old elegance." All three reliably take a Saturday reservation 1 day out.</p>
+      </div>
+    </div>
+
+    <!-- ============ 02 ============ -->
+    <div class="itin" id="i2">
+      <div class="lead">
+        <div class="num">2</div>
+        <div class="titlewrap">
+          <h2>Richmond Row Stroll Night</h2>
+          <div class="sub">Walk-and-graze · zero driving · two blocks from your door</div>
+          <div class="tags">
+            <span class="tag walk">WALKABLE</span><span class="tag">PUPPY OK</span><span class="tag">FLEX</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">The version where the car never moves. You live two blocks from one of Ontario's better dining strips — use it. Aperitif → small plate → main → dessert → nightcap, all on foot, with the puppy if you want him.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">4 hrs</div><div class="l">duration</div></div>
+        <div class="sum-cell"><div class="v">$$$</div><div class="l">~$180-280</div></div>
+        <div class="sum-cell"><div class="v">0</div><div class="l">drive time</div></div>
+        <div class="sum-cell"><div class="v">5</div><div class="l">stops</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">5:00 pm<span class="dur">45 min</span></div><div>
+          <h4>Aperitif at The Bungalow</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=910+Waterloo+St+London+ON" target="_blank" rel="noopener">910 Waterloo St</a> · 3 min walk</div>
+          <div class="desc">Arts-and-Crafts cocktail bar with a 25-foot cherry-wood-and-stone bar. Order a martini and a snack flatbread. Set the tone.</div>
+        </div></div>
+        <div class="step"><div class="tm">5:45 pm<span class="dur">10 min</span></div><div>
+          <h4>Walk south on Richmond</h4>
+          <div class="desc">Past Western's gates, past Black Walnut, past the Tasting Room. Slow.</div>
+        </div></div>
+        <div class="step"><div class="tm">6:00 pm<span class="dur">90 min</span></div><div>
+          <h4>Dinner — Garlic's, David's, or Black Trumpet</h4>
+          <div class="where">📍 Richmond Row · all walkable</div>
+          <div class="desc">Pick by mood: <strong>Garlic's</strong> (481 Richmond, monthly market menu), <strong>David's Bistro</strong> (432 Richmond, French classics), <strong>Black Trumpet</strong> (523 Richmond, fireplace + fusion). All three are reservation-only on Saturday.</div>
+        </div></div>
+        <div class="step"><div class="tm">7:45 pm<span class="dur">45 min</span></div><div>
+          <h4>Wine flight at The Tasting Room</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=483+Richmond+St+London+ON" target="_blank" rel="noopener">483 Richmond St</a> · next to Grand Theatre</div>
+          <div class="desc">Two glasses, one shared cheese plate. The room slows down at this hour — talk.</div>
+        </div></div>
+        <div class="step"><div class="tm">8:45 pm<span class="dur">30 min</span></div><div>
+          <h4>Walk-up cone at Marble Slab</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=573A+Richmond+St+London+ON" target="_blank" rel="noopener">573A Richmond St</a></div>
+          <div class="desc">Build-your-own with sweet cream, Skor, and raspberries. Eat it walking back up Richmond.</div>
+        </div></div>
+        <div class="step"><div class="tm">9:15 pm<span class="dur">until done</span></div><div>
+          <h4>Last drink at La Cucina or Lucy's</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=731+Richmond+St+London+ON" target="_blank" rel="noopener">La Cucina — 731 Richmond St</a> · or <a href="https://www.google.com/maps/search/?api=1&query=581+Richmond+St+London+ON" target="_blank" rel="noopener">Lucy's — 581 Richmond St</a></div>
+          <div class="desc">La Cucina is open until 1am with a glass of Barolo and a wood-fire pizza if hungry returns. Lucy's turns into a DJ lounge after 10. Whichever fits the night.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 03 ============ -->
+    <div class="itin" id="i3">
+      <div class="lead">
+        <div class="num">3</div>
+        <div class="titlewrap">
+          <h2>Springbank Sunset + Wortley</h2>
+          <div class="sub">Park walk → fireplace dinner → village stroll</div>
+          <div class="tags">
+            <span class="tag walk">DOG-FRIENDLY</span><span class="tag">CLASSIC</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">A long looping walk along the Thames, then a fireplace dinner in Wortley Village, capped by Black Walnut espresso. The puppy comes for the first half. This is the platonic-ideal Saturday in London.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">5 hrs</div><div class="l">duration</div></div>
+        <div class="sum-cell"><div class="v">$$</div><div class="l">~$120-180</div></div>
+        <div class="sum-cell"><div class="v">12 min</div><div class="l">max drive</div></div>
+        <div class="sum-cell"><div class="v">🐶</div><div class="l">first half</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">3:30 pm<span class="dur">90 min</span></div><div>
+          <h4>Springbank Park loop with the puppy</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=285+Wonderland+Rd+S+London+ON" target="_blank" rel="noopener">285 Wonderland Rd S</a> · 12 min drive</div>
+          <div class="desc">300 acres along the Thames. Park near the carousel, walk the paved loop east toward Storybook Gardens, feed the ducks (with seed, not bread). The dog earns his evening nap here.</div>
+        </div></div>
+        <div class="step"><div class="tm">5:00 pm<span class="dur">drop puppy</span></div><div>
+          <h4>Home, change, regroup</h4>
+          <div class="where">📍 526 Grosvenor</div>
+          <div class="desc">Quick shower. Different shoes. The puppy gets a chew toy and a quiet living room.</div>
+        </div></div>
+        <div class="step"><div class="tm">6:00 pm<span class="dur">90 min</span></div><div>
+          <h4>Dinner at Wortley Roadhouse or Sagi</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=190+Wortley+Rd+London+ON" target="_blank" rel="noopener">Roadhouse — 190 Wortley Rd</a> · or <a href="https://www.google.com/maps/search/?api=1&query=175+Wortley+Rd+London+ON" target="_blank" rel="noopener">Sagi — 175 Wortley Rd</a> · 10 min drive</div>
+          <div class="desc"><strong>Wortley Roadhouse</strong> for the live-music-fireplace energy. <strong>Sagi of Wortley</strong> for the design-forward Asian small plates. Different nights. Both are excellent.</div>
+        </div></div>
+        <div class="step"><div class="tm">7:45 pm<span class="dur">45 min</span></div><div>
+          <h4>Wortley Village walk + Black Walnut espresso</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=134+Wortley+Rd+London+ON" target="_blank" rel="noopener">Black Walnut — 134 Wortley Rd</a></div>
+          <div class="desc">Wortley closes 6pm — verify online before counting on it. Backup: <strong>The Tea Lounge</strong> (268 Piccadilly) for evening tea service. The village itself is the date — heritage homes, antique stores, slow streets.</div>
+        </div></div>
+        <div class="step"><div class="tm">8:30 pm<span class="dur">until done</span></div><div>
+          <h4>Storm Stayed Brewing for one slow pint</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=169+Wharncliffe+Rd+S+London+ON" target="_blank" rel="noopener">169 Wharncliffe Rd S</a> · 7 min drive · open until 10pm</div>
+          <div class="desc">Cozy taproom near Wortley. Sit at the corner table.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 04 ============ -->
+    <div class="itin" id="i4">
+      <div class="lead">
+        <div class="num">4</div>
+        <div class="titlewrap">
+          <h2>Bayfield Sunset Pilgrimage</h2>
+          <div class="sub">1-hr drive · Lake Huron's signature sunset · year-round village</div>
+          <div class="tags">
+            <span class="tag day">DAY TRIP</span><span class="tag">DOG OK</span><span class="tag splurge">SPLURGE</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">An hour northwest of London, Bayfield is a preserved 1830s village on Lake Huron's east shore. Pioneer Park's cliff overlook gets you the sunset Ontarians lie about not envying. Antique shops, fine dining at the 1832 Little Inn, fireplace pints at the Black Dog. April is empty — that's the feature.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">all day</div><div class="l">8-10 hrs</div></div>
+        <div class="sum-cell"><div class="v">$$$</div><div class="l">~$250-400</div></div>
+        <div class="sum-cell"><div class="v">60 min</div><div class="l">drive ea way</div></div>
+        <div class="sum-cell"><div class="v">8:18 pm</div><div class="l">sunset</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">12:00 pm<span class="dur">depart</span></div><div>
+          <h4>Drive Hwy 4 N → Hwy 21 N</h4>
+          <div class="desc">Coffee in the cup, podcast on, take Wonderland Rd N to Hwy 4. About 80 km, 60-70 min depending on traffic.</div>
+        </div></div>
+        <div class="step"><div class="tm">1:15 pm<span class="dur">60 min</span></div><div>
+          <h4>Lunch at the Black Dog Village Pub</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=5+Main+St+N+Bayfield+ON" target="_blank" rel="noopener">5 Main St N, Bayfield</a></div>
+          <div class="desc">The dog can come on the patio if it's dry. Order the lake perch sandwich and a Wellington Brewery pint.</div>
+        </div></div>
+        <div class="step"><div class="tm">2:30 pm<span class="dur">2 hrs</span></div><div>
+          <h4>Main Street walk + antique browsing</h4>
+          <div class="where">📍 Main St N, Bayfield · gas-lit 1840s village core</div>
+          <div class="desc">The Village Bookshop (24 Main St N), Shopbike, the gallery row. Buy something you don't need.</div>
+        </div></div>
+        <div class="step"><div class="tm">4:30 pm<span class="dur">90 min</span></div><div>
+          <h4>Harbour walk + Naftel's Creek if energy</h4>
+          <div class="where">📍 Bayfield River Flats Rd · or Naftel's Creek Conservation Area, 76922 Bluewater Hwy</div>
+          <div class="desc">Down the bluff to the marina, walk the pier. If the puppy's got more juice, do Naftel's Creek (small forest trail just south).</div>
+        </div></div>
+        <div class="step"><div class="tm">6:30 pm<span class="dur">90 min</span></div><div>
+          <h4>Dinner at the Little Inn of Bayfield (Willow Room)</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=Little+Inn+5+Main+St+N+Bayfield+ON" target="_blank" rel="noopener">5 Main St N (next to Black Dog)</a></div>
+          <div class="desc">Operating continuously since 1832. Reservation essential — call <strong>1-800-565-1832</strong>. The lake whitefish is the move; the wine list is the love letter.</div>
+        </div></div>
+        <div class="step"><div class="tm">8:00 pm<span class="dur">30 min</span></div><div>
+          <h4>Sunset at Pioneer Park</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=Pioneer+Park+Bayfield+ON" target="_blank" rel="noopener">end of Howard St, Bayfield</a></div>
+          <div class="desc">A clifftop park looking due west over Lake Huron. Sunset 8:18 pm. <strong>This is the whole reason for the day.</strong> Wear layers — it's cold up there in April.</div>
+        </div></div>
+        <div class="step"><div class="tm">8:45 pm<span class="dur">drive home</span></div><div>
+          <h4>Drive home, audiobook on</h4>
+          <div class="desc">Arrive 526 Grosvenor by 10pm. Puppy gets a quick walk. Bed.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 05 ============ -->
+    <div class="itin" id="i5">
+      <div class="lead">
+        <div class="num">5</div>
+        <div class="titlewrap">
+          <h2>Stratford Theatre + Riverside</h2>
+          <div class="sub">Festival opening weekend · Avon swans · Revival House dinner</div>
+          <div class="tags">
+            <span class="tag day">DAY TRIP</span><span class="tag splurge">SPLURGE</span><span class="tag">PUPPY HOME</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">Stratford Festival's 2026 season opened April 21. <em>The Tempest, Guys and Dolls, Death of a Salesman</em> are running. Hour drive northeast of London, riverside walk with the swans, dinner in a deconsecrated church, then home. Capital-D Date.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">all day</div><div class="l">8-10 hrs</div></div>
+        <div class="sum-cell"><div class="v">$$$$</div><div class="l">~$300-500</div></div>
+        <div class="sum-cell"><div class="v">55-65 min</div><div class="l">drive</div></div>
+        <div class="sum-cell"><div class="v">2026</div><div class="l">season opens</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">10:00 am<span class="dur">drive</span></div><div>
+          <h4>Drive Hwy 7 east</h4>
+          <div class="desc">~60 km, 55-65 min via Hwy 7. Festival weekends bring traffic — leave a buffer.</div>
+        </div></div>
+        <div class="step"><div class="tm">11:30 am<span class="dur">90 min</span></div><div>
+          <h4>Brunch at Madelyn's Diner</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=377+Huron+St+Stratford+ON" target="_blank" rel="noopener">377 Huron St, Stratford</a></div>
+          <div class="desc">A Stratford institution. Big diner breakfast or a real lunch. The peameal benny is reliable.</div>
+        </div></div>
+        <div class="step"><div class="tm">1:00 pm<span class="dur">60 min</span></div><div>
+          <h4>Avon River walk — swans + cherry blossoms</h4>
+          <div class="where">📍 Lakeside Drive between Huron St and York St</div>
+          <div class="desc">The Stratford swans were paraded back to the river in early April. Cherry blossoms are emerging. This is the pre-show ritual.</div>
+        </div></div>
+        <div class="step"><div class="tm">2:00 pm<span class="dur">3 hrs</span></div><div>
+          <h4>Stratford Festival matinee</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=55+Queen+St+Stratford+ON" target="_blank" rel="noopener">Festival Theatre — 55 Queen St</a> · or Tom Patterson, Avon, or Studio</div>
+          <div class="desc">Tickets via <a href="https://www.stratfordfestival.ca" target="_blank" rel="noopener">stratfordfestival.ca</a>. Matinees usually 2pm. Pick whatever's playing — if 2026's "This Rough Magic" theme is running you'll find <em>The Tempest</em>.</div>
+        </div></div>
+        <div class="step"><div class="tm">5:30 pm<span class="dur">60 min</span></div><div>
+          <h4>Browse Bradshaws + Watson's Chelsea Bazaar</h4>
+          <div class="where">📍 119 Ontario St (Bradshaws) · 84 Ontario St (Watson's)</div>
+          <div class="desc">Bradshaws since 1895 — the Le Creuset cathedral. Watson's is the eccentric general store. Buy a cookbook.</div>
+        </div></div>
+        <div class="step"><div class="tm">6:30 pm<span class="dur">2 hrs</span></div><div>
+          <h4>Dinner at Revival House</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=70+Brunswick+St+Stratford+ON" target="_blank" rel="noopener">70 Brunswick St</a></div>
+          <div class="desc">Fine dining inside a deconsecrated 1873 church. Reservation essential, especially festival weekends. The duck breast and the tasting menu are both safe orders. Backup: <strong>Mercer Hall</strong> (104 Ontario St) which is more contemporary-bistro.</div>
+        </div></div>
+        <div class="step"><div class="tm">8:45 pm<span class="dur">drive</span></div><div>
+          <h4>Drive home</h4>
+          <div class="desc">Arrive 526 Grosvenor by 10pm. Puppy gets the bedtime walk.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 06 ============ -->
+    <div class="itin" id="i6">
+      <div class="lead">
+        <div class="num">6</div>
+        <div class="titlewrap">
+          <h2>The Crafty Couple</h2>
+          <div class="sub">Pottery class · wine bar · Italian dinner · keepsake</div>
+          <div class="tags">
+            <span class="tag flex">HANDS-ON</span><span class="tag">INDOOR</span><span class="tag">RAIN-PROOF</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">Two-handed clay disasters and a piece of pottery you fired together. Then wine and pasta you didn't have to make. The keepsake is the whole point — six weeks from now there's a mug from this date in your kitchen.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">5 hrs</div><div class="l">duration</div></div>
+        <div class="sum-cell"><div class="v">$$</div><div class="l">~$160-220</div></div>
+        <div class="sum-cell"><div class="v">2</div><div class="l">bookings</div></div>
+        <div class="sum-cell"><div class="v">11 min</div><div class="l">max drive</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">2:30 pm<span class="dur">2 hrs</span></div><div>
+          <h4>Pottery painting at Crock A Doodle</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=671+Wonderland+Rd+N+London+ON" target="_blank" rel="noopener">671 Wonderland Rd N</a> · 11 min drive · open 10am-9pm</div>
+          <div class="desc">Pick a piece for each other (no peeking). Studio fee + cost of the piece. Walk out with it fired-and-glazed in a week. <strong>519-657-2776 to confirm seats.</strong></div>
+        </div></div>
+        <div class="step"><div class="tm">4:45 pm<span class="dur">break</span></div><div>
+          <h4>Drive home, change</h4>
+          <div class="desc">Wash off whatever pottery glaze didn't stay on the pot. Different shoes.</div>
+        </div></div>
+        <div class="step"><div class="tm">5:45 pm<span class="dur">45 min</span></div><div>
+          <h4>Pre-dinner wine at Grace Bodega</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=211+Dundas+St+London+ON" target="_blank" rel="noopener">211 Dundas St</a> · 5 min drive</div>
+          <div class="desc">London's only true natural-wine bar. Tiny room, charcuterie board, orange-wine flight. Get loose.</div>
+        </div></div>
+        <div class="step"><div class="tm">6:45 pm<span class="dur">90 min</span></div><div>
+          <h4>Dinner at La Cucina or Black Trumpet</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=731+Richmond+St+London+ON" target="_blank" rel="noopener">La Cucina — 731 Richmond St</a> · or <a href="https://www.google.com/maps/search/?api=1&query=523+Richmond+St+London+ON" target="_blank" rel="noopener">Black Trumpet — 523 Richmond St</a></div>
+          <div class="desc">La Cucina if you want unfussy Italian and pasta of the day. Black Trumpet if you want fireplace + small plates and a slightly higher gear.</div>
+        </div></div>
+        <div class="step"><div class="tm">8:30 pm<span class="dur">until done</span></div><div>
+          <h4>Dessert at Pastry Culture</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=2175+Richmond+St+London+ON" target="_blank" rel="noopener">2175 Richmond St N</a> · 10 min drive</div>
+          <div class="desc">Best classical French pastry in London. Take home a Paris-Brest and a kouign-amann. Eat them on the couch with tea.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 07 ============ -->
+    <div class="itin" id="i7">
+      <div class="lead">
+        <div class="num">7</div>
+        <div class="titlewrap">
+          <h2>Boler Treetop + Sunset Dinner</h2>
+          <div class="sub">High ropes &amp; ziplines · adrenaline-bonded · scenic deck dinner</div>
+          <div class="tags">
+            <span class="tag flex">PLAYFUL</span><span class="tag">DRY DAY</span><span class="tag">PUPPY HOME</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">Boler Mountain runs three levels of high-ropes courses through Carolinian forest plus ziplines, all 13 min from your house. Light rain is fine; storms cancel. You'll be hugging by harness #4. Then dinner overlooking the valley.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">6 hrs</div><div class="l">duration</div></div>
+        <div class="sum-cell"><div class="v">$$$</div><div class="l">~$220-300</div></div>
+        <div class="sum-cell"><div class="v">13 min</div><div class="l">drive</div></div>
+        <div class="sum-cell"><div class="v">10am-4pm</div><div class="l">Boler hours</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">11:00 am<span class="dur">2.5 hrs</span></div><div>
+          <h4>Treetop Adventure Park at Boler Mountain</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=689+Griffith+St+London+ON" target="_blank" rel="noopener">689 Griffith St</a> · 13 min drive</div>
+          <div class="desc">Three aerial courses + ziplines through actual canopy. ~$50-65/person. <strong>Book in advance: <a href="https://www.bolermountain.com" target="_blank" rel="noopener">bolermountain.com</a>.</strong> Ground-school first, then progressively harder routes.</div>
+        </div></div>
+        <div class="step"><div class="tm">2:00 pm<span class="dur">90 min</span></div><div>
+          <h4>Lunch at the Boler chalet or back to Wortley</h4>
+          <div class="desc">If you want to keep moving: Boler's chalet is fine. If you want a real bite: drive 10 min to Wortley and hit <strong>Plant Matter Kitchen</strong> (162 Wortley Rd) for a real lunch.</div>
+        </div></div>
+        <div class="step"><div class="tm">3:30 pm<span class="dur">break</span></div><div>
+          <h4>Home for hot showers and cuddle the puppy</h4>
+          <div class="desc">You earned it.</div>
+        </div></div>
+        <div class="step"><div class="tm">6:30 pm<span class="dur">2 hrs</span></div><div>
+          <h4>Dinner at Sagi of Wortley or Pasto's Grill</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=175+Wortley+Rd+London+ON" target="_blank" rel="noopener">Sagi — 175 Wortley Rd</a> · or <a href="https://www.google.com/maps/search/?api=1&query=6675+Burtwistle+Lane+London+ON" target="_blank" rel="noopener">Pasto's — 6675 Burtwistle Lane (Stoneridge Inn)</a></div>
+          <div class="desc">Sagi for the Asian fusion sharing-plate vibe. Pasto's for hidden-gem Italian inside a country inn 20 min south. Both are good after a high-effort afternoon.</div>
+        </div></div>
+        <div class="step"><div class="tm">9:00 pm<span class="dur">until done</span></div><div>
+          <h4>Storm Stayed pint or movie at home</h4>
+          <div class="desc">Honestly, after the ropes you'll want the couch. Pick up a four-pack from Storm Stayed (169 Wharncliffe Rd S) on the way home and call it.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 08 ============ -->
+    <div class="itin" id="i8">
+      <div class="lead">
+        <div class="num">8</div>
+        <div class="titlewrap">
+          <h2>Port Stanley Beach Day</h2>
+          <div class="sub">40-min drive · Lake Erie pier · fish &amp; chips · antique row</div>
+          <div class="tags">
+            <span class="tag day">DAY TRIP</span><span class="tag walk">DOG OK</span><span class="tag">SHOULDER SEASON</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">Port Stanley is the closest "different world" trip — 40 min south, Lake Erie beach village. April-empty beach has a moody romantic feel. Lower stakes than Bayfield, lower cost, and the drive is short enough to do as a half-day.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">5-7 hrs</div><div class="l">duration</div></div>
+        <div class="sum-cell"><div class="v">$$</div><div class="l">~$120-200</div></div>
+        <div class="sum-cell"><div class="v">40 min</div><div class="l">drive ea way</div></div>
+        <div class="sum-cell"><div class="v">🐶</div><div class="l">leash on beach</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">11:00 am<span class="dur">drive</span></div><div>
+          <h4>Drive Hwy 4 south</h4>
+          <div class="desc">~45 km / 40-45 min. Stop in St. Thomas at the <strong>Jumbo statue</strong> (Talbot &amp; Wellington) for a roadside selfie if you want.</div>
+        </div></div>
+        <div class="step"><div class="tm">12:00 pm<span class="dur">90 min</span></div><div>
+          <h4>Lunch at Kettle Creek Inn or GT's on the Beach</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=216+Joseph+St+Port+Stanley+ON" target="_blank" rel="noopener">Kettle Creek Inn — 216 Joseph St</a> · or <a href="https://www.google.com/maps/search/?api=1&query=350+Edith+Cavell+Blvd+Port+Stanley+ON" target="_blank" rel="noopener">GT's — 350 Edith Cavell Blvd</a></div>
+          <div class="desc">Kettle Creek is open year-round (1849 building, real fireplace). GT's is on the beach but verify April hours by phone — some lakefront spots stay shut until May.</div>
+        </div></div>
+        <div class="step"><div class="tm">1:30 pm<span class="dur">90 min</span></div><div>
+          <h4>Beach + breakwater walk</h4>
+          <div class="where">📍 Main Beach, end of Carlow Rd</div>
+          <div class="desc">Off-season parking is free. The main beach is windswept and empty in April. Walk to the breakwater pier and the lighthouse at the end of George St. Driftwood, dramatic skies.</div>
+        </div></div>
+        <div class="step"><div class="tm">3:00 pm<span class="dur">90 min</span></div><div>
+          <h4>Antique crawl on Bridge St + Main St</h4>
+          <div class="desc">Erie Rest Antiques, Pink House, multiple Bridge Street shops. Buy something with a story.</div>
+        </div></div>
+        <div class="step"><div class="tm">4:30 pm<span class="dur">30 min</span></div><div>
+          <h4>Mackie's orangeade + fries on the boardwalk</h4>
+          <div class="desc">Since 1911. The orangeade is the move. Sit on a bench facing the lake.</div>
+        </div></div>
+        <div class="step"><div class="tm">5:00 pm<span class="dur">drive</span></div><div>
+          <h4>Drive home via Sparta + Quai du Vin</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=45811+Fruit+Ridge+Line+St+Thomas+ON" target="_blank" rel="noopener">Quai du Vin — 45811 Fruit Ridge Line, St. Thomas</a></div>
+          <div class="desc">Detour through Sparta — a 1840s Quaker hamlet — and hit Quai du Vin for a tasting flight. Family-run since 1972. The Maréchal Foch is the quiet stunner. Tasting room typically open 10am-6pm.</div>
+        </div></div>
+        <div class="step"><div class="tm">7:00 pm<span class="dur">until done</span></div><div>
+          <h4>Home for dinner + the puppy</h4>
+          <div class="desc">Order Joya Sushi (1070 Adelaide St N) for delivery. Pour the bottle from Quai du Vin. Done.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 09 ============ -->
+    <div class="itin" id="i9">
+      <div class="lead">
+        <div class="num">9</div>
+        <div class="titlewrap">
+          <h2>Rainy-Day Cozy Mode</h2>
+          <div class="sub">Indie film · dessert · home by 10</div>
+          <div class="tags">
+            <span class="tag flex">FLEX</span><span class="tag">RAIN-PROOF</span><span class="tag">LOW-EFFORT</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">When the day got away from you, or the rain just won't break, or you're tired and want to feel cared-for not entertained. Hyland indie film, dessert, home for the puppy and the couch.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">4 hrs</div><div class="l">duration</div></div>
+        <div class="sum-cell"><div class="v">$$</div><div class="l">~$80-130</div></div>
+        <div class="sum-cell"><div class="v">8 min</div><div class="l">max drive</div></div>
+        <div class="sum-cell"><div class="v">3</div><div class="l">stops</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">5:30 pm<span class="dur">60 min</span></div><div>
+          <h4>Early dinner at Anatolia or TG's Addis Ababa</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=807+Dundas+St+London+ON" target="_blank" rel="noopener">Anatolia — 807 Dundas St</a> · or <a href="https://www.google.com/maps/search/?api=1&query=465+Dundas+St+London+ON" target="_blank" rel="noopener">TG's — 465 Dundas St</a></div>
+          <div class="desc">Anatolia for wood-grilled lamb and pide; TG's for vegetarian-combination Ethiopian eaten with injera. Both are date-by-shared-food.</div>
+        </div></div>
+        <div class="step"><div class="tm">7:00 pm<span class="dur">2 hrs</span></div><div>
+          <h4>Indie film at Hyland Cinema</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=240+Wharncliffe+Rd+S+London+ON" target="_blank" rel="noopener">240 Wharncliffe Rd S</a> · 8 min drive</div>
+          <div class="desc">Single-screen art house. Whatever is playing. Concession popcorn is genuinely good. <a href="https://www.hylandcinema.com" target="_blank" rel="noopener">hylandcinema.com</a></div>
+        </div></div>
+        <div class="step"><div class="tm">9:15 pm<span class="dur">45 min</span></div><div>
+          <h4>Dessert at Mustangs Dessert</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=276+Wharncliffe+Rd+N+London+ON" target="_blank" rel="noopener">276 Wharncliffe Rd N</a> · open until 1am</div>
+          <div class="desc">Late-night dessert lounge. Loaded milkshakes, caramel waffles, cheesecakes. Order one to share, one for the road.</div>
+        </div></div>
+        <div class="step"><div class="tm">10:00 pm<span class="dur">end</span></div><div>
+          <h4>Home, puppy, couch</h4>
+          <div class="desc">Whatever you didn't finish at Mustangs becomes the couch dessert.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 10 ============ -->
+    <div class="itin" id="i10">
+      <div class="lead">
+        <div class="num">10</div>
+        <div class="titlewrap">
+          <h2>Float &amp; Feast</h2>
+          <div class="sub">Sensory deprivation tank · Korean BBQ · 1913 Speakeasy</div>
+          <div class="tags">
+            <span class="tag flex">NOVELTY</span><span class="tag">INDOOR</span><span class="tag">PUPPY HOME</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">Ninety minutes floating in zero-gravity salt water in total darkness, then meat-on-fire at K-BBQ, then a cocktail in a vinyl-DJ speakeasy. Three sensory worlds in one night. You'll talk about it for a month.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">5-6 hrs</div><div class="l">duration</div></div>
+        <div class="sum-cell"><div class="v">$$$</div><div class="l">~$280-380</div></div>
+        <div class="sum-cell"><div class="v">2</div><div class="l">bookings</div></div>
+        <div class="sum-cell"><div class="v">10 min</div><div class="l">max drive</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">3:30 pm<span class="dur">90 min</span></div><div>
+          <h4>Couples float at Float Therapy London or Balance + Tranquility</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=642+Maitland+St+London+ON" target="_blank" rel="noopener">Float Therapy — 642 Maitland St</a> · or call <strong>Balance + Tranquility 519-913-0313</strong></div>
+          <div class="desc">Two private tanks side-by-side or solo with debrief tea after. ~$75-95/person. <strong>Book ahead — Saturdays go.</strong></div>
+        </div></div>
+        <div class="step"><div class="tm">5:30 pm<span class="dur">break</span></div><div>
+          <h4>Home, change, slow tea</h4>
+          <div class="desc">You'll be slightly altered. Don't rush. Drink water.</div>
+        </div></div>
+        <div class="step"><div class="tm">7:00 pm<span class="dur">2 hrs</span></div><div>
+          <h4>Dinner at Daldongnae Korean BBQ</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=737+Richmond+St+London+ON" target="_blank" rel="noopener">737 Richmond St</a> · 3 min drive</div>
+          <div class="desc">The wagyu set + galbi + soju cocktails. You cook it together — built-in activity. <strong>30-60 min wait Sat after 7pm</strong> — call ahead 519-439-7373 or arrive earlier.</div>
+        </div></div>
+        <div class="step"><div class="tm">9:30 pm<span class="dur">90 min</span></div><div>
+          <h4>1913 Speakeasy nightcap</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=100+Kellogg+Lane+London+ON" target="_blank" rel="noopener">100 Kellogg Lane</a> · 10 min drive · open until 1am</div>
+          <div class="desc">Hidden behind an illuminated "1913" door at the Hard Rock. Vinyl DJ, no TVs, table service. Cereal-infused cocktails as a nod to Kellogg's heritage. Reservation recommended via OpenTable.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ============ 11 ============ -->
+    <div class="itin" id="i11">
+      <div class="lead">
+        <div class="num">11</div>
+        <div class="titlewrap">
+          <h2>Lazy Saturday Energy</h2>
+          <div class="sub">Brunch · market · couch · easy patio · home</div>
+          <div class="tags">
+            <span class="tag flex">LOW-EFFORT</span><span class="tag walk">DOG OK</span><span class="tag">FLEX</span>
+          </div>
+        </div>
+      </div>
+      <p class="lede">You've been hiking every day. Today is for not earning anything. Brunch. Market. An hour of doing nothing. A patio. Bed by 11. Permission-granted day.</p>
+
+      <div class="summary">
+        <div class="sum-cell"><div class="v">flexible</div><div class="l">all day</div></div>
+        <div class="sum-cell"><div class="v">$$</div><div class="l">~$80-140</div></div>
+        <div class="sum-cell"><div class="v">low</div><div class="l">effort</div></div>
+        <div class="sum-cell"><div class="v">🐶</div><div class="l">most stops</div></div>
+      </div>
+
+      <div class="timeline">
+        <div class="step"><div class="tm">10:30 am<span class="dur">90 min</span></div><div>
+          <h4>Brunch at The Early Bird (or Plant Matter)</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=355+Talbot+St+London+ON" target="_blank" rel="noopener">Early Bird — 355 Talbot St</a> · walk-in only</div>
+          <div class="desc">Drowning Bird benny + a Caesar. Wait is 30-45 min on Saturdays — that's part of the charm. If wait is too long: drive to <strong>Plant Matter</strong> (162 Wortley Rd) instead.</div>
+        </div></div>
+        <div class="step"><div class="tm">12:30 pm<span class="dur">90 min</span></div><div>
+          <h4>Western Fair Market browse</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=900+King+St+London+ON" target="_blank" rel="noopener">900 King St</a> · 8am-3pm Saturdays</div>
+          <div class="desc">Browse the upper level for vintage clothing, vinyl, antiques. Buy a flower bouquet. Stop pretending you'll cook the produce.</div>
+        </div></div>
+        <div class="step"><div class="tm">2:00 pm<span class="dur">2 hrs</span></div><div>
+          <h4>Couch hour. The puppy. Reading. Maybe a nap.</h4>
+          <div class="desc">No phone. No agenda. Two hours.</div>
+        </div></div>
+        <div class="step"><div class="tm">4:30 pm<span class="dur">90 min</span></div><div>
+          <h4>Patio pint at Storm Stayed</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=169+Wharncliffe+Rd+S+London+ON" target="_blank" rel="noopener">169 Wharncliffe Rd S</a> · 7 min drive · 12-10pm</div>
+          <div class="desc">Cozy taproom near Wortley. Verify dog policy day-of. Backup: <strong>Anderson Craft Ales</strong> (1030 Elias St).</div>
+        </div></div>
+        <div class="step"><div class="tm">7:00 pm<span class="dur">90 min</span></div><div>
+          <h4>Easy dinner — Wortley Roadhouse or takeout</h4>
+          <div class="where">📍 <a href="https://www.google.com/maps/search/?api=1&query=190+Wortley+Rd+London+ON" target="_blank" rel="noopener">Roadhouse — 190 Wortley Rd</a> · or order in</div>
+          <div class="desc">Roadhouse is the unfussy stay-out option. If "stay out" feels like effort: pick up Joya Sushi or Anatolia, eat with the puppy, watch a movie.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <p style="color:var(--muted);font-size:13px;margin:50px 0 0;text-align:center;">
+      Drive times calculated from 526 Grosvenor St assuming light Saturday traffic. Hours change — verify before driving. Most reservations bookable via <a href="https://www.opentable.ca/london-restaurants" target="_blank" rel="noopener" style="color:var(--accent2);">opentable.ca/london-restaurants</a>.
+    </p>
+  </div>
+</body>
+</html>
