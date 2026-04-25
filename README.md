@@ -1,6 +1,6 @@
 # Fadi & Nomi — Date Night Atlas, London Ontario
 
-A working atlas of date nights in and around London, Ontario, built from 526 Grosvenor St.
+A working atlas of date nights in and around London, Ontario, built from Old North (home base).
 
 ## Pages
 

@@ -9,7 +9,7 @@
 ## Hard rules
 - EXACT Google Maps addresses, never coordinates ✅ done
 - Reservations explicit (book / walk-in) ✅ done
-- Drive times from 526 Grosvenor ✅ done
+- Drive times from home ✅ done
 - Verified-closures list ✅ done
 - Reddit/blogs as sources, not just official ✅ done
 
