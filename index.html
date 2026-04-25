@@ -256,7 +256,7 @@
         </a>
         <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:-4px;">Hour-by-hour for today, weather-adapted with Plan A &amp; Plan B</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
-          <a class="btn btn-ghost" href="./itineraries.html" style="padding:11px 20px;font-size:13px;">11 Itineraries</a>
+          <a class="btn btn-ghost" href="./itineraries.html" style="padding:11px 20px;font-size:13px;">15 Itineraries</a>
           <a class="btn btn-ghost" href="./map.html" style="padding:11px 20px;font-size:13px;">Map</a>
           <a class="btn btn-ghost" href="./guide.html" style="padding:11px 20px;font-size:13px;">Field Guide</a>
         </div>
@@ -303,8 +303,8 @@
 
     <!-- Stats -->
     <div class="stats">
-      <div class="stat"><div class="stat-value">11</div><div class="stat-label">Itineraries</div></div>
-      <div class="stat"><div class="stat-value">90+</div><div class="stat-label">Stops Mapped</div></div>
+      <div class="stat"><div class="stat-value">15</div><div class="stat-label">Itineraries</div></div>
+      <div class="stat"><div class="stat-value">100+</div><div class="stat-label">Stops Mapped</div></div>
       <div class="stat"><div class="stat-value">28</div><div class="stat-label">Restaurants</div></div>
       <div class="stat"><div class="stat-value">7</div><div class="stat-label">Day Trips</div></div>
       <div class="stat"><div class="stat-value">12</div><div class="stat-label">Late-Night Spots</div></div>
@@ -313,8 +313,8 @@
 
     <!-- Itineraries grid -->
     <section>
-      <div class="section-title">The Eleven Itineraries</div>
-      <p class="section-lede">Each one is a complete arc — pickup at home, drive times, exact addresses, costs, weather Plan B, dog flag, and an ending. Pick one, blend two, or use them as raw material.</p>
+      <div class="section-title">The Fifteen Itineraries</div>
+      <p class="section-lede">Each one is a complete arc — pickup at home, drive times, exact addresses, costs, weather Plan B, dog flag, and an ending. Pick one, blend two, or use them as raw material. The whole point is options, ukwim?</p>
       <div class="itin-grid" id="itinGrid"></div>
     </section>
 
@@ -427,6 +427,22 @@
         desc:"You did hike yesterday. And the day before. Today is for Plant Matter brunch, Western Fair Market loops, and an hour of doing nothing.",
         tag:"LOW-EFFORT",tagColor:"#d4a373",img:"https://images.unsplash.com/photo-1496318447583-f524534e9ce1?w=1200&q=80",
         meta:["⏱ flexible","💰 $$","🐶 yes","🌧 ok"] },
+      { n:12, title:"Bookstore Crawl + Bistro",       sub:"Attic Books spiral · Speed City vinyl · Black Trumpet",
+        desc:"Three storeys of used books, vinyl shopping with a $25 cap, fireplace bistro dinner, late dessert at the spot that's open till 1:40am.",
+        tag:"QUIET",    tagColor:"#d4a373", img:"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&q=80",
+        meta:["⏱ 5 hrs","💰 $$","🐶 flex","🌧 indoor"] },
+      { n:13, title:"The Art &amp; Wine Walk",          sub:"Forest City Gallery → Museum London → Grace dinner",
+        desc:"Three galleries, a charcuterie board with orange wine in a tiny bottle shop, and a chef-driven dinner — all six blocks square.",
+        tag:"CULTURED", tagColor:"#c69adc", img:"https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=1200&q=80",
+        meta:["⏱ 5 hrs","💰 $$$","🐶 home","🌧 indoor"] },
+      { n:14, title:"Old East Adventure",              sub:"Anatolia → Aeolian Hall → 1913 nightcap",
+        desc:"London's quietly excellent strip — wood-grilled lamb, the best small-room acoustics in SW Ontario, and a cereal-infused cocktail to close.",
+        tag:"NEIGHBOURHOOD",tagColor:"#92b87a",img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=80",
+        meta:["⏱ 5-6 hrs","💰 $$$","🐶 home","🌧 indoor"] },
+      { n:15, title:"Sunday Recovery Mode",            sub:"River Room brunch · Springbank loop · Pastry Culture",
+        desc:"River-view brunch, long Thames walk, twenty minutes inside a tropical conservatory pretending it's somewhere else, Paris-Brest takeaway.",
+        tag:"SUNDAY",   tagColor:"#f5c187", img:"https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=1200&q=80",
+        meta:["⏱ 5-6 hrs","💰 $$","🐶 most","🌧 ok"] },
     ];
 
     const grid = document.getElementById('itinGrid');
